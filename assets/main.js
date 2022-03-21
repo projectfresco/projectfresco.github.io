@@ -1,3 +1,5 @@
+const METADATA_JSON = "assets/metadata.json";
+
 var gSite = {
     generateList: function (aTarget, aAddonCategory) {
         var items = aAddonCategory.items;
@@ -75,7 +77,7 @@ var gSite = {
     },
 
     getAddons: async function () {
-        var response = await fetch("assets/addons.json");
+        var response = await fetch(METADATA_JSON);
         var responseJson = await response.json();
         return responseJson;
     },
