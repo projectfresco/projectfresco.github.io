@@ -118,6 +118,12 @@ var gSite = {
         }
 
         document.body.setAttribute("data-loaded", true);
+
+        let fragmentId = window.location.hash.substr(1);
+        if (fragmentId) {
+            let targetElement = document.getElementById(fragmentId);
+            targetElement.scrollIntoView(true);
+        }
     },
 };
 
