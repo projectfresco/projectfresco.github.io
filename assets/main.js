@@ -166,6 +166,12 @@ var gSite = {
         var releaseResponse = await fetch(`${addon.apiUrl}/releases/latest`);
         var releaseData = await releaseResponse.json();
 
+        if (releaseData.message) {
+            pageDetails.container.innerText = releaseData.message;
+            gSite.doneLoading();
+            return;
+        }
+
         pageDetails.author.innerText = `By ${releaseData.author.login}`;
         pageDetails.version.innerText = releaseData.tag_name;
         pageDetails.about.innerText = releaseData.body;
