@@ -9,14 +9,8 @@
         <script src="assets/main.js" type="text/javascript"></script>
         <script>
             window.addEventListener("load", async function () {
-                await gSite.generateAll();
+                await gSite.generateAddon();
                 gSite.doneLoading();
-
-                let fragmentId = window.location.hash.substr(1);
-                if (fragmentId) {
-                    let targetElement = document.getElementById(fragmentId);
-                    targetElement.scrollIntoView(true);
-                }
             });
         </script>
     </head>
@@ -56,8 +50,41 @@
                         </ul>
                     </nav>
                     <div class="box-inner">
-                        The following is a list of add-ons that are currently maintained by FranklinDM for several UXP/GRE applications, such as Ambassador, Basilisk, Pale Moon, and Interlink. This site is still mostly a work-in-progress.
-                        <div id="lists">
+                        <div id="addon-container">
+                            <div class="addon-primary">
+                                <div class="addon-general">
+                                    <div class="addon-icon-container">
+                                        <img id="addon-icon" width="64" height="64"/>
+                                    </div>
+                                    <div class="addon-summary">
+                                        <span id="addon-name" class="h1"></span>
+                                        <span id="addon-author"></span>
+                                        <span id="addon-desc"></span>
+                                        <a id="addon-download" class="button" href="#">
+                                            <img src="assets/images/download.png" class="button-icon" />
+                                            Install Now
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="addon-about-container">
+                                    <h3>Release Notes</h3>
+                                    <p id="addon-about"></p>
+                                </div>
+                            </div>
+                            <div class="addon-secondary">
+                                <div class="addon-secondary-section">
+                                    <h3>Release Information</h3>
+                                    <div>
+                                        Version: <span id="addon-version"></span>
+                                    </div>
+                                    <div>
+                                        Updated on: <span id="addon-update-date"></span>
+                                    </div>
+                                    <div>
+                                        Size: <span id="addon-size"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <footer>
                             This site is maintained by FranklinDM.

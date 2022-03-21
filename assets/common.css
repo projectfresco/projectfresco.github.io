@@ -36,11 +36,20 @@ hr {
   border: 1px solid var(--color-primary);
 }
 
-h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
-  color: var(--color-primary);
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6{
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 h1, .h1 {
+  color: var(--color-primary);
   font-size: 20.5pt;
   margin-bottom: 4px;
 }
@@ -87,7 +96,7 @@ footer {
 }
 
 .box-inner {
-  padding: 9px;
+  padding: 17px 9px 9px 9px;
 }
 
 /* ::::: Content: Page ::::: */
@@ -176,6 +185,7 @@ th {
   border: 1px solid #009900;
   border-radius: 9px;
   background-color: #99FF99;
+  width: 120px;
   height: 21px;
   padding: 14px;
 }
@@ -192,7 +202,11 @@ th {
   text-decoration: none;
 }
 
-/* ::::: List Items ::::: */
+/* ::::: Lists ::::: */
+
+.list {
+  margin-top: 1em;
+}
 
 .list-item {
   display: flex;
@@ -239,6 +253,7 @@ th {
 
 .list-item > .button {
   flex: 120px 0 0;
+  width: auto;
 }
 
 @media screen and (max-width: 425px) {
@@ -252,6 +267,62 @@ th {
   .list-item > .list-item-body .list-item-title,
   .list-item > .list-item-body .list-item-desc {
     margin-right: 0;
+  }
+}
+
+/* ::::: Page: Individual Add-on ::::: */
+
+#addon-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#addon-container p {
+  white-space: pre-line;
+}
+
+.addon-general {
+  display: flex;
+  margin-right: 1em;
+}
+
+.addon-general > .addon-summary > span {
+  display: block;
+}
+
+.addon-general > .addon-icon-container {
+  margin-right: 1em;
+}
+
+.addon-general > .addon-summary > #addon-name {
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.addon-general > .addon-summary > #addon-desc {
+  color: #262626;
+}
+
+.addon-general > .addon-summary > #addon-download,
+.addon-general > .addon-summary > #addon-desc {
+  margin-top: 0.5em;
+}
+
+.addon-about-container {
+  margin-top: 1em;
+}
+
+.addon-secondary {
+  flex: 280px 0 0;
+}
+
+.addon-secondary > .addon-secondary-section:not(:first-child) {
+  margin-top: 1em;
+}
+
+@media screen and (max-width: 768px) {
+  #addon-container {
+    flex-direction: column;
   }
 }
 
