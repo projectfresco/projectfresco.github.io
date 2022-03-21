@@ -1,154 +1,163 @@
 {
-    "lastUpdated": 1647833282,
-    "addons": [
+    "lastUpdated": 1647876363,
+    "types": [
         {
             "id": "extensions",
             "name": "Extensions",
             "type": 2,
-            "defaultIcon": "assets/images/icon-extensions.png",
-            "items": [
-                {
-                    "id": "tgsidebar",
-                    "name": "The Good 'ol Sidebar",
-                    "description": "Sidebar control with award-winning user experience! ",
-                    "xpiUrl": "https://github.com/FranklinDM/TGS/releases/download/v1.1.0/tgs-1.1.0-pm-bk.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/TGS/master/src/skin/icon64.png",
-                    "hash": ""
-                },
-                {
-                    "id": "notestruck",
-                    "name": "NoteStruck",
-                    "description": "A quick and easy note-taking solution. A fork of QuickFox Notes by InBasic.",
-                    "xpiUrl": "https://github.com/FranklinDM/NoteStruck/releases/download/v1.0.5/notestruck-1.0.5-pm+bk.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/NoteStruck/master/src/icon64.png",
-                    "hash": ""
-                },
-                {
-                    "id": "splashed",
-                    "name": "Splashed",
-                    "description": "Adds a splash screen when the application is launched.",
-                    "xpiUrl": "https://github.com/FranklinDM/Splashed/releases/download/v1.4.2/splashed-1.4.2-pm+bk+sm+in+nr.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Splashed/master/src/skin/icon.png",
-                    "hash": ""
-                },
-                {
-                    "id": "ptxe",
-                    "name": "Periodic Table of XUL Elements",
-                    "description": "A collection of XUL demos in a small add-on.",
-                    "xpiUrl": "https://github.com/FranklinDM/PTXE/releases/download/v1.2.1/ptxe-1.2.1-pm+tb+bk+bo+sm.xpi.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/PTXE/master/src/icon.png",
-                    "hash": ""
-                },
-                {
-                    "id": "reloadskipcache",
-                    "name": "Reload and Skip Cache",
-                    "description": "Expands the visibility of \"Hard Refresh\" in many areas of the browser.",
-                    "xpiUrl": "https://github.com/FranklinDM/ReloadSkipCache/releases/download/v1.0.1/reloadskipcache-1.0.1-pm+bk+bo.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/ReloadSkipCache/master/src/icon64.png",
-                    "hash": ""
-                },
-                {
-                    "id": "swarth",
-                    "name": "Swarth",
-                    "description": "Modifies web pages to use a dark color scheme or based on the user's preferences.",
-                    "xpiUrl": "https://github.com/FranklinDM/Swarth/releases/download/v1.0.5/swarth-1.0.5-pm+bk+br.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Swarth/master/src/icon.png",
-                    "hash": ""
-                },
-                {
-                    "id": "toolboxplus",
-                    "name": "Toolbox Plus",
-                    "description": "Provides more customization options for toolbars.",
-                    "xpiUrl": "https://github.com/FranklinDM/ToolboxPlus/releases/download/v1.1.2/toolboxplus-1.1.2-pm+bk+in.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/ToolboxPlus/master/src/icon64.png",
-                    "hash": ""
-                }
-            ]
+            "defaultIcon": "assets/images/icon-extension.png"
         },
         {
             "id": "themes",
             "name": "Themes",
             "type": 4,
-            "defaultIcon": "assets/images/icon-theme.png",
-            "items": [
-                {
-                    "id": "material-moon",
-                    "name": "Material Moon",
-                    "description": "Material Chrome-like theme for Pale Moon. Based on Lootyhoof's PMChrome.",
-                    "xpiUrl": "https://github.com/FranklinDM/MaterialMoon/releases/download/v3.1.0/materialmoon-3.1.0-pm.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/MaterialMoon/master/src/icon.png",
-                    "hash": ""
-                },
-                {
-                    "id": "milestone10",
-                    "name": "Milestone 10",
-                    "description": "Features the look of early Mozilla builds (M4-M10).",
-                    "xpiUrl": "https://github.com/FranklinDM/Milestone10/releases/download/v1.2.0/milestone10-1.2.0-pm+am+in.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Milestone10/master/src/icon64.png",
-                    "hash": ""
-                },
-                {
-                    "id": "moonscape",
-                    "name": "Moonscape",
-                    "description": "A full featured retro theme that looks like Netscape 4.x.",
-                    "xpiUrl": "https://github.com/FranklinDM/Moonscape/releases/download/v7.2.0/moonscape-7.2.0-pm+am+in.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape/master/src/icon.png",
-                    "hash": ""
-                },
-                {
-                    "id": "moonscape-icon-pack",
-                    "name": "Moonscape Icon Pack",
-                    "description": "Modifies the window icons to match Netscape 4.x.",
-                    "xpiUrl": "https://github.com/FranklinDM/Moonscape-IconPack/releases/download/v1.1.0/moonscape_icon_pack-1.1.0-pm+am+in.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape-IconPack/master/src/icon.png",
-                    "hash": ""
-                },
-                {
-                    "id": "phosphor",
-                    "name": "Phosphor (Green)",
-                    "description": "Relive the monochrome screens of yesterday!",
-                    "xpiUrl": "https://github.com/FranklinDM/Phosphor/releases/download/v1.0.0a2/phosphor-1.0.0a2-pm+am+in.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Phosphor/master/src/icon64.png",
-                    "hash": ""
-                },
-                {
-                    "id": "stratum",
-                    "name": "Stratum",
-                    "description": "Features old-style squared tabs, toolbar buttons and icons with blue glow.",
-                    "xpiUrl": "https://github.com/FranklinDM/Stratum/releases/download/v1.7.0/stratum-1.7.0-pm.xpi",
-                    "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Stratum/master/src/icon.png",
-                    "hash": ""
-                }
-            ]
-        },
-        {
-            "id": "dictionaries",
-            "name": "Dictionaries",
-            "type": 64,
-            "defaultIcon": "assets/images/icon-dictionary.png",
-            "items": [
-                {
-                    "id": "dictionary-tl",
-                    "name": "Tagalog/Filipino Dictionary",
-                    "description": "A Filipino language spellchecker based on the current orthography.",
-                    "externalUrl": "https://github.com/FranklinDM/tagfil-dictionary"
-                }
-            ]
+            "defaultIcon": "assets/images/icon-theme.png"
         },
         {
             "id": "language-packs",
             "name": "Language Packs",
             "type": 8,
-            "defaultIcon": "assets/images/icon-locale.png",
-            "items": [
-                {
-                    "id": "languagepack-tl",
-                    "name": "Tagalog/Filipino (PH)",
-                    "description": "",
-                    "xpiUrl": "http://archive.palemoon.org/palemoon/langpacks/30.x/30.0.1/tl.xpi",
-                    "hash": ""
-                }
-            ]
+            "defaultIcon": "assets/images/icon-locale.png"
+        },
+        {
+            "id": "dictionaries",
+            "name": "Dictionaries",
+            "type": 64,
+            "defaultIcon": "assets/images/icon-dictionary.png"
+        }
+    ],
+    "addons": [
+        {
+            "id": "tgsidebar",
+            "type": 2,
+            "name": "The Good 'ol Sidebar",
+            "description": "Sidebar control with award-winning user experience! ",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/TGS",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/TGS/master/src/skin/icon64.png",
+            "hash": ""
+        },
+        {
+            "id": "notestruck",
+            "type": 2,
+            "name": "NoteStruck",
+            "description": "A quick and easy note-taking solution. A fork of QuickFox Notes by InBasic.",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/NoteStruck",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/NoteStruck/master/src/icon64.png",
+            "hash": ""
+        },
+        {
+            "id": "splashed",
+            "type": 2,
+            "name": "Splashed",
+            "description": "Adds a splash screen when the application is launched.",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/Splashed",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Splashed/master/src/skin/icon.png",
+            "hash": ""
+        },
+        {
+            "id": "ptxe",
+            "type": 2,
+            "name": "Periodic Table of XUL Elements",
+            "description": "A collection of XUL demos in a small add-on.",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/PTXE",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/PTXE/master/src/icon.png",
+            "hash": ""
+        },
+        {
+            "id": "reloadskipcache",
+            "type": 2,
+            "name": "Reload and Skip Cache",
+            "description": "Expands the visibility of \"Hard Refresh\" in many areas of the browser.",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/ReloadSkipCache",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/ReloadSkipCache/master/src/icon64.png",
+            "hash": ""
+        },
+        {
+            "id": "swarth",
+            "type": 2,
+            "name": "Swarth",
+            "description": "Modifies web pages to use a dark color scheme or based on the user's preferences.",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/Swarth",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Swarth/master/src/icon.png",
+            "hash": ""
+        },
+        {
+            "id": "toolboxplus",
+            "type": 2,
+            "name": "Toolbox Plus",
+            "description": "Provides more customization options for toolbars.",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/ToolboxPlus",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/ToolboxPlus/master/src/icon64.png",
+            "hash": ""
+        },
+        {
+            "id": "material-moon",
+            "type": 4,
+            "name": "Material Moon",
+            "description": "Material Chrome-like theme for Pale Moon. Based on Lootyhoof's PMChrome.",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/MaterialMoon",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/MaterialMoon/master/src/icon.png",
+            "hash": ""
+        },
+        {
+            "id": "milestone10",
+            "type": 4,
+            "name": "Milestone 10",
+            "description": "Features the look of early Mozilla builds (M4-M10).",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/Milestone10",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Milestone10/master/src/icon64.png",
+            "hash": ""
+        },
+        {
+            "id": "moonscape",
+            "type": 4,
+            "name": "Moonscape",
+            "description": "A full featured retro theme that looks like Netscape 4.x.",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/Moonscape",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape/master/src/icon.png",
+            "hash": ""
+        },
+        {
+            "id": "moonscape-icon-pack",
+            "type": 4,
+            "name": "Moonscape Icon Pack",
+            "description": "Modifies the window icons to match Netscape 4.x.",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/Moonscape-IconPack",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape-IconPack/master/src/icon.png",
+            "hash": ""
+        },
+        {
+            "id": "phosphor",
+            "type": 4,
+            "name": "Phosphor (Green)",
+            "description": "Relive the monochrome screens of yesterday!",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/Phosphor",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Phosphor/master/src/icon64.png",
+            "hash": ""
+        },
+        {
+            "id": "stratum",
+            "type": 4,
+            "name": "Stratum",
+            "description": "Features old-style squared tabs, toolbar buttons and icons with blue glow.",
+            "apiUrl": "https://api.github.com/repos/FranklinDM/Stratum",
+            "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Stratum/master/src/icon.png",
+            "hash": ""
+        },
+        {
+            "id": "dictionary-tl",
+            "type": 64,
+            "name": "Tagalog/Filipino Dictionary",
+            "description": "A Filipino language spellchecker based on the current orthography.",
+            "externalUrl": "https://github.com/FranklinDM/tagfil-dictionary"
+        },
+        {
+            "id": "languagepack-tl",
+            "type": 8,
+            "name": "Tagalog/Filipino (PH)",
+            "description": "",
+            "xpiUrl": "http://archive.palemoon.org/palemoon/langpacks/30.x/30.0.1/tl.xpi",
+            "hash": ""
         }
     ]
 }
