@@ -143,12 +143,35 @@ var gSite = {
         pageDetails.name.innerText = addon.name;
         pageDetails.description.innerText = addon.description;
 
+        var resourceLinks = {
+            xpi: document.getElementById("download-xpi"),
+            tarball: document.getElementById("download-tarball"),
+            zipball: document.getElementById("download-zipball"),
+            versionHistory: document.getElementById("link-version-history"),
+            supportSite: document.getElementById("link-support-site"),
+            supportEmail: document.getElementById("link-support-email"),
+            sourceRepository: document.getElementById("link-source-repo"),
+        };
+
+        if (addon.supportUrl) {
+            resourceLinks.supportSite.href = addon.supportUrl;
+        }
+        if (addon.supportEmail) {
+            resourceLinks.supportSite.href = addon.supportSite;
+        }
+        if (addon.repositoryUrl) {
+            resourceLinks.sourceRepository.href = addon.repositoryUrl;
+        }
+
         var releaseResponse = await fetch(`${addon.apiUrl}/releases/latest`);
         var releaseData = await releaseResponse.json();
 
         pageDetails.author.innerText = `By ${releaseData.author.login}`;
         pageDetails.version.innerText = releaseData.tag_name;
         pageDetails.about.innerText = releaseData.body;
+
+        resourceLinks.tarball.href = releaseData.tarball_url;
+        resourceLinks.zipball.href = releaseData.zipball_url;
 
         for (let i = 0; i < releaseData.assets.length; i++) {
             let asset = releaseData.assets[i];
@@ -171,6 +194,7 @@ var gSite = {
                 }
             });
             pageDetails.download.href = "#";
+            resourceLinks.xpi.href = asset.browser_download_url;
 
             let date = new Date(asset.updated_at);
             let dateOptions = { year: "numeric", month: "long", day: "numeric" };
@@ -180,7 +204,15 @@ var gSite = {
             pageDetails.size.innerText = `${Math.round(asset.size / 1024)} KB`;
 
             break;
-        }        
+        }
+
+        var resourceElements = Object.values(resourceLinks);
+        for (let i = 0; i < resourceElements.length; i++) {
+            let target = resourceElements[i];
+            if (target.href == "") {
+                target.hidden = true;
+            }
+        }
     },
 
     getMetadata: async function () {

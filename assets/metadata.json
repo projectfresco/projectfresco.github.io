@@ -34,6 +34,7 @@
             "description": "Sidebar control with award-winning user experience! ",
             "apiUrl": "https://api.github.com/repos/FranklinDM/TGS",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/TGS/master/src/skin/icon64.png",
+            "repositoryUrl": "https://github.com/FranklinDM/TGS",
             "hash": ""
         },
         {
@@ -43,6 +44,7 @@
             "description": "A quick and easy note-taking solution. A fork of QuickFox Notes by InBasic.",
             "apiUrl": "https://api.github.com/repos/FranklinDM/NoteStruck",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/NoteStruck/master/src/icon64.png",
+            "repositoryUrl": "https://github.com/FranklinDM/NoteStruck",
             "hash": ""
         },
         {
@@ -52,6 +54,7 @@
             "description": "Adds a splash screen when the application is launched.",
             "apiUrl": "https://api.github.com/repos/FranklinDM/Splashed",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Splashed/master/src/skin/icon.png",
+            "repositoryUrl": "https://github.com/FranklinDM/Splashed",
             "hash": ""
         },
         {
@@ -61,6 +64,7 @@
             "description": "A collection of XUL demos in a small add-on.",
             "apiUrl": "https://api.github.com/repos/FranklinDM/PTXE",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/PTXE/master/src/icon.png",
+            "repositoryUrl": "https://github.com/FranklinDM/PTXE",
             "hash": ""
         },
         {
@@ -70,6 +74,7 @@
             "description": "Expands the visibility of \"Hard Refresh\" in many areas of the browser.",
             "apiUrl": "https://api.github.com/repos/FranklinDM/ReloadSkipCache",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/ReloadSkipCache/master/src/icon64.png",
+            "repositoryUrl": "https://github.com/FranklinDM/ReloadSkipCache",
             "hash": ""
         },
         {
@@ -79,6 +84,7 @@
             "description": "Modifies web pages to use a dark color scheme or based on the user's preferences.",
             "apiUrl": "https://api.github.com/repos/FranklinDM/Swarth",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Swarth/master/src/icon.png",
+            "repositoryUrl": "https://github.com/FranklinDM/Swarth",
             "hash": ""
         },
         {
@@ -88,6 +94,7 @@
             "description": "Provides more customization options for toolbars.",
             "apiUrl": "https://api.github.com/repos/FranklinDM/ToolboxPlus",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/ToolboxPlus/master/src/icon64.png",
+            "repositoryUrl": "https://github.com/FranklinDM/ToolboxPlus",
             "hash": ""
         },
         {
@@ -97,6 +104,7 @@
             "description": "Material Chrome-like theme for Pale Moon. Based on Lootyhoof's PMChrome.",
             "apiUrl": "https://api.github.com/repos/FranklinDM/MaterialMoon",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/MaterialMoon/master/src/icon.png",
+            "repositoryUrl": "https://github.com/FranklinDM/MaterialMoon",
             "hash": ""
         },
         {
@@ -106,6 +114,7 @@
             "description": "Features the look of early Mozilla builds (M4-M10).",
             "apiUrl": "https://api.github.com/repos/FranklinDM/Milestone10",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Milestone10/master/src/icon64.png",
+            "repositoryUrl": "https://github.com/FranklinDM/Milestone10",
             "hash": ""
         },
         {
@@ -115,6 +124,7 @@
             "description": "A full featured retro theme that looks like Netscape 4.x.",
             "apiUrl": "https://api.github.com/repos/FranklinDM/Moonscape",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape/master/src/icon.png",
+            "repositoryUrl": "https://github.com/FranklinDM/Moonscape",
             "hash": ""
         },
         {
@@ -124,6 +134,7 @@
             "description": "Modifies the window icons to match Netscape 4.x.",
             "apiUrl": "https://api.github.com/repos/FranklinDM/Moonscape-IconPack",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape-IconPack/master/src/icon.png",
+            "repositoryUrl": "https://github.com/FranklinDM/Moonscape-IconPack",
             "hash": ""
         },
         {
@@ -133,6 +144,7 @@
             "description": "Relive the monochrome screens of yesterday!",
             "apiUrl": "https://api.github.com/repos/FranklinDM/Phosphor",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Phosphor/master/src/icon64.png",
+            "repositoryUrl": "https://github.com/FranklinDM/Phosphor",
             "hash": ""
         },
         {
@@ -142,6 +154,7 @@
             "description": "Features old-style squared tabs, toolbar buttons and icons with blue glow.",
             "apiUrl": "https://api.github.com/repos/FranklinDM/Stratum",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Stratum/master/src/icon.png",
+            "repositoryUrl": "https://github.com/FranklinDM/Stratum",
             "hash": ""
         },
         {
