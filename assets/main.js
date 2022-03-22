@@ -166,7 +166,7 @@ var gSite = {
             resourceLinks.supportSite.href = addon.supportUrl;
         }
         if (addon.supportEmail) {
-            resourceLinks.supportSite.href = addon.supportSite;
+            resourceLinks.supportEmail.href = addon.supportEmail;
         }
         if (addon.repositoryUrl) {
             resourceLinks.sourceRepository.href = addon.repositoryUrl;
