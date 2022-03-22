@@ -240,5 +240,12 @@ var gSite = {
 
     doneLoading: function () {
         document.body.setAttribute("data-loaded", true);
+        // Handle the fragment identifier, necessary if the anchor
+        // is dynamically generated
+        let fragmentId = window.location.hash.substr(1);
+        if (fragmentId) {
+            let targetElement = document.getElementById(fragmentId);
+            targetElement.scrollIntoView(true);
+        }
     },
 };

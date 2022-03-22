@@ -11,12 +11,6 @@
             window.addEventListener("load", async function () {
                 await gSite.generateAll();
                 gSite.doneLoading();
-
-                let fragmentId = window.location.hash.substr(1);
-                if (fragmentId) {
-                    let targetElement = document.getElementById(fragmentId);
-                    targetElement.scrollIntoView(true);
-                }
             });
         </script>
     </head>
