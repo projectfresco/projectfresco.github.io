@@ -1,5 +1,5 @@
 {
-    "lastUpdated": 1647938796,
+    "lastUpdated": 1647941045,
     "types": [
         {
             "slug": "extensions",
@@ -31,10 +31,11 @@
             "slug": "tgsidebar",
             "type": 2,
             "name": "The Good 'ol Sidebar",
-            "description": "Sidebar control with award-winning user experience! ",
+            "description": "Sidebar control with award-winning user experience!",
             "apiUrl": "https://api.github.com/repos/FranklinDM/TGS",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/TGS/master/src/skin/icon64.png",
             "repositoryUrl": "https://github.com/FranklinDM/TGS",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=16750",
             "hash": ""
         },
         {
@@ -45,6 +46,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/NoteStruck",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/NoteStruck/master/src/icon64.png",
             "repositoryUrl": "https://github.com/FranklinDM/NoteStruck",
+            "supportUrl": "https://github.com/FranklinDM/NoteStruck/issues",
             "hash": ""
         },
         {
@@ -55,6 +57,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/Splashed",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Splashed/master/src/skin/icon.png",
             "repositoryUrl": "https://github.com/FranklinDM/Splashed",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=16042",
             "hash": ""
         },
         {
@@ -65,6 +68,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/PTXE",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/PTXE/master/src/icon.png",
             "repositoryUrl": "https://github.com/FranklinDM/PTXE",
+            "supportUrl": "https://github.com/FranklinDM/PTXE/issues",
             "hash": ""
         },
         {
@@ -75,6 +79,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/ReloadSkipCache",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/ReloadSkipCache/master/src/icon64.png",
             "repositoryUrl": "https://github.com/FranklinDM/ReloadSkipCache",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=26629",
             "hash": ""
         },
         {
@@ -85,6 +90,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/Swarth",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Swarth/master/src/icon.png",
             "repositoryUrl": "https://github.com/FranklinDM/Swarth",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=27220",
             "hash": ""
         },
         {
@@ -95,6 +101,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/ToolboxPlus",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/ToolboxPlus/master/src/icon64.png",
             "repositoryUrl": "https://github.com/FranklinDM/ToolboxPlus",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=26620",
             "hash": ""
         },
         {
@@ -105,6 +112,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/MaterialMoon",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/MaterialMoon/master/src/icon.png",
             "repositoryUrl": "https://github.com/FranklinDM/MaterialMoon",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=14631",
             "hash": ""
         },
         {
@@ -115,6 +123,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/Milestone10",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Milestone10/master/src/icon64.png",
             "repositoryUrl": "https://github.com/FranklinDM/Milestone10",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=23201",
             "hash": ""
         },
         {
@@ -125,6 +134,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/Moonscape",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape/master/src/icon.png",
             "repositoryUrl": "https://github.com/FranklinDM/Moonscape",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=14492",
             "hash": ""
         },
         {
@@ -135,6 +145,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/Moonscape-IconPack",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape-IconPack/master/src/icon.png",
             "repositoryUrl": "https://github.com/FranklinDM/Moonscape-IconPack",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=14492",
             "hash": ""
         },
         {
@@ -145,6 +156,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/Phosphor",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Phosphor/master/src/icon64.png",
             "repositoryUrl": "https://github.com/FranklinDM/Phosphor",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=24971",
             "hash": ""
         },
         {
@@ -155,6 +167,7 @@
             "apiUrl": "https://api.github.com/repos/FranklinDM/Stratum",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Stratum/master/src/icon.png",
             "repositoryUrl": "https://github.com/FranklinDM/Stratum",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=14861",
             "hash": ""
         },
         {
