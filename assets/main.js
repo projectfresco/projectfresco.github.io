@@ -9,85 +9,106 @@ var gSite = {
         aTarget.appendChild(badgeElement);
         return badgeElement;
     },
-    
-    generateList: function (aTarget, aAddons, aDefaultIcon) {
-        for (let i = 0; i < aAddons.length; i++) {
-            let addon = aAddons[i];
 
-            let listItem = document.createElement("a");
-            listItem.className = "list-item";
-
-            let listItemBody = document.createElement("div");
-            listItemBody.className = "list-item-body";
-            listItem.append(listItemBody);
-
-            // Icon
-            let listItemIcon = document.createElement("img");
-            listItemIcon.className = "list-item-icon";
-            if (addon.iconUrl) {
-                listItemIcon.src = addon.iconUrl;
-            } else {
-                listItemIcon.src = aDefaultIcon;
-            }
-            listItemIcon.alt = `${addon.name} Icon`;
-            listItemBody.append(listItemIcon);
-
-            // Title and description
-            let listItemInner = document.createElement("div");
-            listItemBody.append(listItemInner);
-            
-            let listItemTitle = document.createElement("div");
-            listItemTitle.className = "list-item-title";
-            listItemTitle.innerText = addon.name;
-            listItemInner.append(listItemTitle);
-
-            let listItemDesc = document.createElement("div");
-            listItemDesc.className = "list-item-desc";
-            listItemDesc.innerText = addon.description;
-            listItemInner.append(listItemDesc);
-
-            // Download button
-            if (addon.xpiUrl) {
-                let button = document.createElement("a");
-                button.className = "button";
-                button.addEventListener("click", function (aEvent) {
-                    aEvent.preventDefault();
-                    var parameters = {
-                        [addon.name]: {
-                            URL: addon.xpiUrl,
-                            IconURL: addon.iconUrl,
-                            Hash: addon.hash,
-                        }
-                    };
-                    try {
-                        InstallTrigger.install(parameters);
-                    } catch (e) {
-                        // Rethrow and expose the DOMError
-                        console.error(e);
-                    }
-                });
-                button.href = "#";
-                listItem.append(button);
-
+    _appendButton: function (aTarget, aType) {
+        let button = document.createElement("a");
+        button.className = "button";
+        switch (aType) {
+            // 0: Install add-on
+            case 0:
                 let downloadIcon = document.createElement("img");
                 downloadIcon.src = "assets/images/download.png";
                 downloadIcon.className = "button-icon";
                 button.append(downloadIcon);
                 button.append("Install Now");
+                button.href = "#";
+                break;
+            default:
+                break;
+        }
+        aTarget.append(button);
+        return button;
+    },
+
+    _setInstallTrigger: function (aTarget, aAddonName, aInstallData) {
+        aTarget.addEventListener("click", function (aEvent) {
+            aEvent.preventDefault();
+            var parameters = {
+                [aAddonName]: aInstallData
+            };
+            try {
+                InstallTrigger.install(parameters);
+            } catch (e) {
+                // Rethrow and expose the DOMError
+                console.error(e);
+            }
+        });
+    },
+
+    _createListItem: function () {
+        let listItem = {
+            parentElement: document.createElement("a"),
+            body: document.createElement("div"),
+            icon: document.createElement("img"),
+            inner: document.createElement("div"),
+            title: document.createElement("div"),
+            desc: document.createElement("div"),
+        };
+
+        listItem.parentElement.className = "list-item";
+        listItem.body.className = "list-item-body";
+        listItem.icon.className = "list-item-icon";
+        listItem.title.className = "list-item-title";
+        listItem.desc.className = "list-item-desc";
+
+        listItem.parentElement.append(listItem.body);
+        listItem.body.append(listItem.icon);
+        listItem.body.append(listItem.inner);
+        listItem.inner.append(listItem.title);
+        listItem.inner.append(listItem.desc);
+
+        return listItem;
+    },
+
+    generateList: function (aTarget, aAddons, aDefaultIcon) {
+        for (let i = 0; i < aAddons.length; i++) {
+            let addon = aAddons[i];
+            let listItem = gSite._createListItem();
+
+            // Icon
+            if (addon.iconUrl) {
+                listItem.icon.src = addon.iconUrl;
+            } else {
+                listItem.icon.src = aDefaultIcon;
+            }
+            listItem.icon.alt = `${addon.name} Icon`;
+
+            // Title and description
+            listItem.title.innerText = addon.name;
+            listItem.desc.innerText = addon.description;
+
+            // Download button
+            if (addon.xpiUrl) {
+                let button = gSite._appendButton(listItem.parentElement, 0);
+                gSite._setInstallTrigger(button, addon.name, {
+                    URL: addon.xpiUrl,
+                    IconURL: addon.iconUrl,
+                    Hash: addon.hash
+                });
             }
             
             if (addon.externalUrl) {
-                listItem.href = addon.externalUrl;
-                listItem.target = "_blank";
-                gSite._appendBadge(listItemTitle, "External");
+                listItem.parentElement.href = addon.externalUrl;
+                listItem.parentElement.target = "_blank";
+                gSite._appendBadge(listItem.title, "External");
             }
 
             if (addon.apiUrl) {
-                listItem.href = `/addons/get?addon=${addon.slug}`;
+                listItem.parentElement.href = `/addons/get?addon=${addon.slug}`;
             }
 
             // Append list item to extensions list
-            aTarget.appendChild(listItem);
+            aTarget.appendChild(listItem.parentElement);
         }
     },
 
@@ -193,21 +214,12 @@ var gSite = {
             if (asset.content_type != CONTENT_TYPE_XPI) {
                 continue;
             }
-            pageDetails.download.addEventListener("click", function (aEvent) {
-                aEvent.preventDefault();
-                var parameters = {
-                    [addon.name]: {
-                        URL: asset.browser_download_url,
-                        IconURL: addon.iconUrl,
-                    }
-                };
-                try {
-                    InstallTrigger.install(parameters);
-                } catch (e) {
-                    // Rethrow and expose the DOMError
-                    console.error(e);
-                }
+
+            gSite._setInstallTrigger(pageDetails.download, addon.name, {
+                URL: asset.browser_download_url,
+                IconURL: addon.iconUrl,
             });
+
             pageDetails.download.href = "#";
             resourceLinks.xpi.href = asset.browser_download_url;
 
