@@ -110,7 +110,6 @@ footer {
 }
 
 #page-main {
-  transition-delay: 300ms;
   opacity: 0;
 }
 
