@@ -338,6 +338,10 @@ th {
   margin-top: 1em;
 }
 
+.addon-releases-container {
+  margin: 1em 0;
+}
+
 @media screen and (max-width: 768px) {
   #addon-container {
     flex-direction: column;
