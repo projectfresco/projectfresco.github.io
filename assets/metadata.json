@@ -1,26 +1,26 @@
 {
-    "lastUpdated": 1647876363,
+    "lastUpdated": 1647938796,
     "types": [
         {
-            "id": "extensions",
+            "slug": "extensions",
             "name": "Extensions",
             "type": 2,
             "defaultIcon": "assets/images/icon-extension.png"
         },
         {
-            "id": "themes",
+            "slug": "themes",
             "name": "Themes",
             "type": 4,
             "defaultIcon": "assets/images/icon-theme.png"
         },
         {
-            "id": "language-packs",
+            "slug": "language-packs",
             "name": "Language Packs",
             "type": 8,
             "defaultIcon": "assets/images/icon-locale.png"
         },
         {
-            "id": "dictionaries",
+            "slug": "dictionaries",
             "name": "Dictionaries",
             "type": 64,
             "defaultIcon": "assets/images/icon-dictionary.png"
@@ -28,7 +28,7 @@
     ],
     "addons": [
         {
-            "id": "tgsidebar",
+            "slug": "tgsidebar",
             "type": 2,
             "name": "The Good 'ol Sidebar",
             "description": "Sidebar control with award-winning user experience! ",
@@ -38,7 +38,7 @@
             "hash": ""
         },
         {
-            "id": "notestruck",
+            "slug": "notestruck",
             "type": 2,
             "name": "NoteStruck",
             "description": "A quick and easy note-taking solution. A fork of QuickFox Notes by InBasic.",
@@ -48,7 +48,7 @@
             "hash": ""
         },
         {
-            "id": "splashed",
+            "slug": "splashed",
             "type": 2,
             "name": "Splashed",
             "description": "Adds a splash screen when the application is launched.",
@@ -58,7 +58,7 @@
             "hash": ""
         },
         {
-            "id": "ptxe",
+            "slug": "ptxe",
             "type": 2,
             "name": "Periodic Table of XUL Elements",
             "description": "A collection of XUL demos in a small add-on.",
@@ -68,7 +68,7 @@
             "hash": ""
         },
         {
-            "id": "reloadskipcache",
+            "slug": "reloadskipcache",
             "type": 2,
             "name": "Reload and Skip Cache",
             "description": "Expands the visibility of \"Hard Refresh\" in many areas of the browser.",
@@ -78,7 +78,7 @@
             "hash": ""
         },
         {
-            "id": "swarth",
+            "slug": "swarth",
             "type": 2,
             "name": "Swarth",
             "description": "Modifies web pages to use a dark color scheme or based on the user's preferences.",
@@ -88,7 +88,7 @@
             "hash": ""
         },
         {
-            "id": "toolboxplus",
+            "slug": "toolboxplus",
             "type": 2,
             "name": "Toolbox Plus",
             "description": "Provides more customization options for toolbars.",
@@ -98,7 +98,7 @@
             "hash": ""
         },
         {
-            "id": "material-moon",
+            "slug": "material-moon",
             "type": 4,
             "name": "Material Moon",
             "description": "Material Chrome-like theme for Pale Moon. Based on Lootyhoof's PMChrome.",
@@ -108,7 +108,7 @@
             "hash": ""
         },
         {
-            "id": "milestone10",
+            "slug": "milestone10",
             "type": 4,
             "name": "Milestone 10",
             "description": "Features the look of early Mozilla builds (M4-M10).",
@@ -118,7 +118,7 @@
             "hash": ""
         },
         {
-            "id": "moonscape",
+            "slug": "moonscape",
             "type": 4,
             "name": "Moonscape",
             "description": "A full featured retro theme that looks like Netscape 4.x.",
@@ -128,7 +128,7 @@
             "hash": ""
         },
         {
-            "id": "moonscape-icon-pack",
+            "slug": "moonscape-icon-pack",
             "type": 4,
             "name": "Moonscape Icon Pack",
             "description": "Modifies the window icons to match Netscape 4.x.",
@@ -138,7 +138,7 @@
             "hash": ""
         },
         {
-            "id": "phosphor",
+            "slug": "phosphor",
             "type": 4,
             "name": "Phosphor (Green)",
             "description": "Relive the monochrome screens of yesterday!",
@@ -148,7 +148,7 @@
             "hash": ""
         },
         {
-            "id": "stratum",
+            "slug": "stratum",
             "type": 4,
             "name": "Stratum",
             "description": "Features old-style squared tabs, toolbar buttons and icons with blue glow.",
@@ -158,14 +158,14 @@
             "hash": ""
         },
         {
-            "id": "dictionary-tl",
+            "slug": "dictionary-tl",
             "type": 64,
             "name": "Tagalog/Filipino Dictionary",
             "description": "A Filipino language spellchecker based on the current orthography.",
             "externalUrl": "https://github.com/FranklinDM/tagfil-dictionary"
         },
         {
-            "id": "languagepack-tl",
+            "slug": "languagepack-tl",
             "type": 8,
             "name": "Tagalog/Filipino (PH)",
             "description": "",
