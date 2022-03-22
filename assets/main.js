@@ -245,7 +245,9 @@ var gSite = {
         let fragmentId = window.location.hash.substr(1);
         if (fragmentId) {
             let targetElement = document.getElementById(fragmentId);
-            targetElement.scrollIntoView(true);
+            if (targetElement) {
+                targetElement.scrollIntoView(true);
+            }
         }
     },
 };
