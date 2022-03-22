@@ -53,6 +53,11 @@ var gSite = {
             inner: document.createElement("div"),
             title: document.createElement("div"),
             desc: document.createElement("div"),
+            appendDesc: function (aText) {
+                let container = document.createElement("div");
+                container.innerText = aText;
+                this.desc.appendChild(container);
+            },
         };
 
         listItem.parentElement.className = "list-item";
@@ -208,6 +213,7 @@ var gSite = {
 
         resourceLinks.tarball.href = releaseData.tarball_url;
         resourceLinks.zipball.href = releaseData.zipball_url;
+        resourceLinks.versionHistory.href = `/addons/versions?addon=${addon.slug}`;
 
         for (let i = 0; i < releaseData.assets.length; i++) {
             let asset = releaseData.assets[i];
@@ -238,6 +244,108 @@ var gSite = {
             let target = resourceElements[i];
             if (target.href == "") {
                 target.hidden = true;
+            }
+        }
+    },
+
+    generateVersions: async function () {
+        var pageDetails = {
+            icon: document.getElementById("addon-icon"),
+            name: document.getElementById("addon-name"),
+            releaseCount: document.getElementById("addon-release-count"),
+            releaseList: document.getElementById("list-releases"),
+            container: document.getElementById("addon-container"),
+        };
+
+        var urlParameters = new URLSearchParams(window.location.search);
+        if (!urlParameters.has("addon")) {
+            pageDetails.container.innerText = "Missing add-on parameter.";
+            gSite.doneLoading();
+            return;
+        }
+
+        var addon = await gSite.findAddon(urlParameters.get("addon"));
+        if (!addon) {
+            pageDetails.container.innerText = "Invalid add-on.";
+            gSite.doneLoading();
+            return;
+        }
+
+        pageDetails.icon.src = addon.iconUrl;
+        pageDetails.name.innerText = addon.name;
+
+        var resourceLinks = {
+            addonDetails: document.getElementById("link-addon-details"),
+            supportSite: document.getElementById("link-support-site"),
+            supportEmail: document.getElementById("link-support-email"),
+            sourceRepository: document.getElementById("link-source-repo"),
+        };
+
+        resourceLinks.addonDetails.href = `/addons/get?addon=${addon.slug}`;
+        if (addon.supportUrl) {
+            resourceLinks.supportSite.href = addon.supportUrl;
+        }
+        if (addon.supportEmail) {
+            resourceLinks.supportEmail.href = addon.supportEmail;
+        }
+        if (addon.repositoryUrl) {
+            resourceLinks.sourceRepository.href = addon.repositoryUrl;
+        }
+        var resourceElements = Object.values(resourceLinks);
+        for (let i = 0; i < resourceElements.length; i++) {
+            let target = resourceElements[i];
+            if (target.href == "") {
+                target.hidden = true;
+            }
+        }
+
+        var releaseResponse = await fetch(`${addon.apiUrl}/releases`);
+        var releaseData = await releaseResponse.json();
+
+        if (releaseData.message) {
+            pageDetails.container.innerText = releaseData.message;
+            gSite.doneLoading();
+            return;
+        }
+
+        pageDetails.releaseCount.innerText = releaseData.length;
+
+        for (let i = 0; i < releaseData.length; i++) {
+            let currentRelease = releaseData[i];
+            let listItem = gSite._createListItem();
+            listItem.icon.remove();
+
+            // Title and description
+            listItem.title.innerText = currentRelease.tag_name;
+
+            // Append list item to releases list
+            pageDetails.releaseList.appendChild(listItem.parentElement);
+            
+            if (currentRelease.prerelease) {
+                gSite._appendBadge(listItem.title, "Pre-release", "prerelease");
+            }
+            
+            for (let j = 0; j < currentRelease.assets.length; j++) {
+                let asset = currentRelease.assets[j];
+                if (asset.content_type != CONTENT_TYPE_XPI) {
+                    continue;
+                }
+
+                // Download button
+                let button = gSite._appendButton(listItem.parentElement, 0);
+                gSite._setInstallTrigger(button, addon.name, {
+                    URL: asset.browser_download_url,
+                    IconURL: addon.iconUrl,
+                });
+
+                let date = new Date(asset.updated_at);
+                let dateOptions = { year: "numeric", month: "long", day: "numeric" };
+                let dateString = date.toLocaleDateString(undefined, dateOptions);
+
+                listItem.appendDesc(`Released: ${dateString}`);
+                listItem.appendDesc(`Size: ${Math.round(asset.size / 1024)} KB`);
+
+                break;
             }
         }
     },

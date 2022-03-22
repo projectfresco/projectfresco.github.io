@@ -266,6 +266,10 @@ th {
   vertical-align: 3px;
 }
 
+.list-item .badge.prerelease {
+  background-color: #75600b;
+}
+
 @media screen and (max-width: 425px) {
   .list-item {
     flex-direction: column;
@@ -320,6 +324,10 @@ th {
 
 .addon-about-container {
   margin-top: 1em;
+}
+
+.addon-primary {
+  flex: 1;
 }
 
 .addon-secondary {
