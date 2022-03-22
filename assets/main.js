@@ -2,6 +2,14 @@ const METADATA_JSON = "assets/metadata.json";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
 
 var gSite = {
+    _appendBadge: function (aTarget, aText, aClass = "") {
+        let badgeElement = document.createElement("span");
+        badgeElement.className = `badge ${aClass}`;
+        badgeElement.innerText = aText;
+        aTarget.appendChild(badgeElement);
+        return badgeElement;
+    },
+    
     generateList: function (aTarget, aAddons, aDefaultIcon) {
         for (let i = 0; i < aAddons.length; i++) {
             let addon = aAddons[i];
@@ -70,6 +78,8 @@ var gSite = {
             
             if (addon.externalUrl) {
                 listItem.href = addon.externalUrl;
+                listItem.target = "_blank";
+                gSite._appendBadge(listItemTitle, "External");
             }
 
             if (addon.apiUrl) {
