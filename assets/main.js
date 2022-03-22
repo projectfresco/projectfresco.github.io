@@ -73,7 +73,7 @@ var gSite = {
             }
 
             if (addon.apiUrl) {
-                listItem.href = `/addons/addon?id=${addon.id}`;
+                listItem.href = `/addons/get?addon=${addon.slug}`;
             }
 
             // Append list item to extensions list
@@ -94,12 +94,11 @@ var gSite = {
             let addonType = types[i];
 
             let list = document.createElement("div");
-            list.id = `list-${addonType.id}`;
             list.className = "list";
 
             let listTitle = document.createElement("h1");
             listTitle.innerText = addonType.name;
-            listTitle.id = addonType.id;
+            listTitle.id = addonType.slug;
             list.append(listTitle);
 
             let addons = aMetadata.addons.filter(function (item) {
@@ -126,13 +125,13 @@ var gSite = {
         };
 
         var urlParameters = new URLSearchParams(window.location.search);
-        if (!urlParameters.has("id")) {
-            pageDetails.container.innerText = "Missing add-on ID parameter.";
+        if (!urlParameters.has("addon")) {
+            pageDetails.container.innerText = "Missing add-on parameter.";
             gSite.doneLoading();
             return;
         }
 
-        var addon = await gSite.findAddon(urlParameters.get("id"));
+        var addon = await gSite.findAddon(urlParameters.get("addon"));
         if (!addon) {
             pageDetails.container.innerText = "Invalid add-on.";
             gSite.doneLoading();
@@ -227,10 +226,10 @@ var gSite = {
         return responseJson;
     },
 
-    findAddon: async function (aId) {
+    findAddon: async function (aSlug) {
         var metadata = await gSite.getMetadata();
         var addon = metadata.addons.find(function (item) {
-            return item.id == aId;
+            return item.slug == aSlug;
         });
         return addon;
     },
