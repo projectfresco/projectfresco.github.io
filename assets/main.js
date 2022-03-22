@@ -209,7 +209,7 @@ var gSite = {
 
         pageDetails.author.innerText = `By ${releaseData.author.login}`;
         pageDetails.version.innerText = releaseData.tag_name;
-        pageDetails.about.innerText = releaseData.body;
+        pageDetails.about.innerHTML = snarkdown(releaseData.body);
 
         resourceLinks.tarball.href = releaseData.tarball_url;
         resourceLinks.zipball.href = releaseData.zipball_url;
