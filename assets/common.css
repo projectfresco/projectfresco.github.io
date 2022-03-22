@@ -247,7 +247,6 @@ th {
 
 .list-item > .list-item-body .list-item-title,
 .list-item > .list-item-body .list-item-desc {
-  display: block;
   margin-right: 1em;
 }
 

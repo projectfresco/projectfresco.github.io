@@ -36,12 +36,12 @@ var gSite = {
             let listItemInner = document.createElement("div");
             listItemBody.append(listItemInner);
             
-            let listItemTitle = document.createElement("span");
+            let listItemTitle = document.createElement("div");
             listItemTitle.className = "list-item-title";
             listItemTitle.innerText = addon.name;
             listItemInner.append(listItemTitle);
 
-            let listItemDesc = document.createElement("span");
+            let listItemDesc = document.createElement("div");
             listItemDesc.className = "list-item-desc";
             listItemDesc.innerText = addon.description;
             listItemInner.append(listItemDesc);
