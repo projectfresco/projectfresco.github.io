@@ -5,22 +5,20 @@ import gat from "./config.js";
 import snarkdown from "./snarkdown.es.js";
 
 var gAPI = {
-    request: async function (aUrl, aHeaders = {}) {
+    request: async function (aUrl, aHeaders = new Headers()) {
         let cachedKey = btoa(aUrl);
         let cachedETagKey = `${cachedKey}_ETag`;
 
-        let etag = "";
         let data = localStorage.getItem(cachedKey);
-        if (data) {
+        let etag = localStorage.getItem(cachedETagKey);
+        if (data && etag) {
             data = JSON.parse(data);
-            etag = localStorage.getItem(cachedETagKey);
+            aHeaders.append("If-None-Match", etag);
         }
 
         let response = await fetch(aUrl, {
             method: "GET",
-            headers: Object.assign({
-                "If-None-Match": etag,
-            }, aHeaders),
+            headers: aHeaders,
         });
 
         if (response.status == 304) {
@@ -41,9 +39,9 @@ var gAPI = {
     requestFromGitHub: async function (aOptions, aEndpoint) {
         let apiUrl = "https://api.github.com/repos/";
         let url = `${apiUrl}${aOptions.owner}/${aOptions.repo}/${aEndpoint}`;
-        let headers = {
+        let headers = new Headers({
             "Authorization": gat(),
-        };
+        });
         return this.request(url, headers);
     },
 
