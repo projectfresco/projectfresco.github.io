@@ -6,7 +6,6 @@ const URL_GITHUB_API = "https://api.github.com/repos";
 const URL_GITHUB = "https://github.com";
 
 import gat from "./config.js";
-import snarkdown from "./snarkdown.es.js";
 
 var gAPI = {
     request: async function (aUrl, aHeaders = new Headers()) {
@@ -353,7 +352,7 @@ var gSite = {
                 let dateString = gSite._formatDate(release.datePublished);
                 listItem.appendDesc(`Released: ${dateString}`);
                 listItem.appendDesc(`Size: ${Math.round(release.xpiSize / 1024)} KB`);
-                listItem.appendDesc(snarkdown(release.changelog));
+                listItem.appendDesc(marked.parse(release.changelog));
             }
         } else {
             pageDetails.description.innerText = addon.description;
@@ -361,7 +360,7 @@ var gSite = {
             resourceLinks.versionHistory.href = `/addons/versions?addon=${addon.slug}`;
             pageDetails.author.innerText = `By ${releaseData.author.name}`;
             pageDetails.version.innerText = releaseData.name;
-            pageDetails.about.innerHTML = snarkdown(releaseData.changelog);
+            pageDetails.about.innerHTML = marked.parse(releaseData.changelog);
 
             resourceLinks.tarball.href = releaseData.tarballUrl;
             resourceLinks.zipball.href = releaseData.zipballUrl;
