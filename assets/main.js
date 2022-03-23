@@ -287,6 +287,8 @@ var gSite = {
 
             let addons = metadata.addons.filter(function (item) {
                 return item.type == addonType.type;
+            }).sort(function (a, b) {
+                return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
             });
 
             let list = gSite._createList(addons, addonType.defaultIcon);
