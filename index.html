@@ -9,7 +9,10 @@
         <script type="module">
             import gSite from "./assets/main.js";
             window.addEventListener("load", async function () {
-                await gSite.generateAll();
+                var urlParameters = new URLSearchParams(window.location.search);
+                let target = document.getElementById("lists");
+                let category = urlParameters.get("category");
+                await gSite.generateAll(target, category);
                 gSite.doneLoading();
             });
         </script>
@@ -50,7 +53,6 @@
                         </ul>
                     </nav>
                     <div class="box-inner">
-                        The following is a list of add-ons that are currently maintained by FranklinDM for several UXP/GRE applications, such as Ambassador, Basilisk, Pale Moon, and Interlink. This site is still mostly a work-in-progress.
                         <div id="lists">
                         </div>
                         <footer>

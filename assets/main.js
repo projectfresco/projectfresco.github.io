@@ -204,7 +204,10 @@ var gSite = {
         return listItem;
     },
 
-    generateList: function (aTarget, aAddons, aDefaultIcon) {
+    _createList: function (aAddons, aDefaultIcon) {
+        let list = document.createElement("div");
+        list.className = "list";
+
         for (let i = 0; i < aAddons.length; i++) {
             let addon = aAddons[i];
             let listItem = gSite._createListItem();
@@ -245,33 +248,38 @@ var gSite = {
             }
 
             // Append list item to extensions list
-            aTarget.appendChild(listItem.parentElement);
+            list.appendChild(listItem.parentElement);
         }
+        
+        return list;
     },
 
-    generateAll: async function (aTarget) {
-        if (!aTarget) {
-            aTarget = document.getElementById("lists");
-        }
+    generateAll: async function (aTarget, aTypeSlug, aHideInfo) {
         let metadata = await gAPI.getMetadata();
 
         var types = metadata.types;
         for (let i = 0; i < types.length; i++) {
             let addonType = types[i];
+            if (aTypeSlug && addonType.slug != aTypeSlug) {
+                continue;
+            }
 
-            let list = document.createElement("div");
-            list.className = "list";
-
-            let listTitle = document.createElement("h1");
-            listTitle.innerText = addonType.name;
-            listTitle.id = addonType.slug;
-            list.append(listTitle);
+            if (!aHideInfo) {
+                let listTitle = document.createElement("h1");
+                listTitle.innerText = addonType.name;
+                listTitle.id = addonType.slug;
+                aTarget.append(listTitle);
+                
+                let listDescription = document.createElement("p");
+                listDescription.innerText = addonType.description;
+                aTarget.append(listDescription);
+            }
 
             let addons = metadata.addons.filter(function (item) {
                 return item.type == addonType.type;
             });
-            gSite.generateList(list, addons, addonType.defaultIcon);
 
+            let list = gSite._createList(addons, addonType.defaultIcon);
             aTarget.append(list);
         }
     },
