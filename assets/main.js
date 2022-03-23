@@ -73,8 +73,8 @@ var gAPI = {
                     tarballUrl: ghRelease.tarball_url,
                     xpiUrl: "",
                     xpiHash: "",
-                    xpiSize: -1,
-                    xpiDownloadCount: -1,
+                    xpiSize: 0,
+                    xpiDownloadCount: 0,
                     author: {
                         slug: "",
                         name: ghRelease.author.login,
@@ -326,54 +326,65 @@ var gSite = {
         if (aIsVersionHistory) {
             resourceLinks.addonDetails.href = `/addons/get?addon=${addon.slug}`;
             pageDetails.releaseCount.innerText = releaseData.data.length;
-
             for (let i = 0; i < releaseData.data.length; i++) {
                 let release = releaseData.data[i];
                 let listItem = gSite._createListItem();
                 listItem.icon.remove();
-
-                // Title and description
                 listItem.title.innerText = release.name;
-
-                // Append list item to releases list
-                pageDetails.releaseList.appendChild(listItem.parentElement);
-                
                 if (release.prerelease) {
                     gSite._appendBadge(listItem.title, "Pre-release", "prerelease");
                 }
-                
-                // Download button
-                let button = gSite._appendButton(listItem.parentElement, 0);
-                gSite._setInstallTrigger(button, addon.name, {
+                if (release.xpiUrl) {
+                    let button = gSite._appendButton(listItem.parentElement, 0);
+                    gSite._setInstallTrigger(button, addon.name, {
+                        URL: release.xpiUrl,
+                        IconURL: addon.iconUrl,
+                    });
+                }
+                if (release.datePublished) {
+                    let dateString = gSite._formatDate(release.datePublished);
+                    listItem.appendDesc(`Released: ${dateString}`);
+                }
+                if (release.xpiSize) {
+                    listItem.appendDesc(`Size: ${Math.round(release.xpiSize / 1024)} KB`);
+                }
+                if (release.xpiDownloadCount) {
+                    listItem.appendDesc(`Downloads: ${release.xpiDownloadCount}`);
+                }
+                if (release.changelog) {
+                    listItem.appendDesc(marked.parse(release.changelog));
+                }
+                pageDetails.releaseList.appendChild(listItem.parentElement);
+            }
+        } else {
+            let release = releaseData.data[0];
+            resourceLinks.versionHistory.href = `/addons/versions?addon=${addon.slug}`;
+            pageDetails.author.innerText = `By ${release.author.name}`;
+            pageDetails.version.innerText = release.name;
+            pageDetails.description.innerText = addon.description;
+            if (release.datePublished) {
+                pageDetails.updateDate.innerText = gSite._formatDate(release.datePublished);
+            }
+            if (release.changelog) {
+                pageDetails.about.innerHTML = marked.parse(release.changelog);
+            }
+            if (release.tarballUrl) {
+                resourceLinks.tarball.href = release.tarballUrl;
+            }
+            if (release.zipballUrl) {
+                resourceLinks.zipball.href = release.zipballUrl;
+            }
+            if (release.xpiUrl) {
+                gSite._setInstallTrigger(pageDetails.download, addon.name, {
                     URL: release.xpiUrl,
                     IconURL: addon.iconUrl,
                 });
-
-                let dateString = gSite._formatDate(release.datePublished);
-                listItem.appendDesc(`Released: ${dateString}`);
-                listItem.appendDesc(`Size: ${Math.round(release.xpiSize / 1024)} KB`);
-                listItem.appendDesc(marked.parse(release.changelog));
+                pageDetails.download.href = "#";
+                resourceLinks.xpi.href = release.xpiUrl;
             }
-        } else {
-            pageDetails.description.innerText = addon.description;
-            releaseData = releaseData.data[0];
-            resourceLinks.versionHistory.href = `/addons/versions?addon=${addon.slug}`;
-            pageDetails.author.innerText = `By ${releaseData.author.name}`;
-            pageDetails.version.innerText = releaseData.name;
-            pageDetails.about.innerHTML = marked.parse(releaseData.changelog);
-
-            resourceLinks.tarball.href = releaseData.tarballUrl;
-            resourceLinks.zipball.href = releaseData.zipballUrl;
-
-            gSite._setInstallTrigger(pageDetails.download, addon.name, {
-                URL: releaseData.xpiUrl,
-                IconURL: addon.iconUrl,
-            });
-            pageDetails.download.href = "#";
-            resourceLinks.xpi.href = releaseData.xpiUrl;
-
-            pageDetails.updateDate.innerText = gSite._formatDate(releaseData.datePublished);
-            pageDetails.size.innerText = `${Math.round(releaseData.xpiSize / 1024)} KB`;
+            if (release.xpiSize) {
+                pageDetails.size.innerText = `${Math.round(release.xpiSize / 1024)} KB`;
+            }
         }
 
         var resourceElements = Object.values(resourceLinks);
