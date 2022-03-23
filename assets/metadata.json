@@ -1,5 +1,5 @@
 {
-    "lastUpdated": 1648053691,
+    "lastUpdated": 1648055528,
     "licenses": {
         "custom": "Custom License",
         "Apache-2.0": "Apache License 2.0",
@@ -18,27 +18,31 @@
     },
     "types": [
         {
+            "type": 2,
             "slug": "extensions",
             "name": "Extensions",
-            "type": 2,
+            "description": "Extensions are small add-ons that add new functionality to Pale Moon, from a simple toolbar button to a completely new feature. They allow you to customize the browser to fit your own needs and preferences, while letting us keep the core itself light and lean.",
             "defaultIcon": "assets/images/icon-extension.png"
         },
         {
+            "type": 4,
             "slug": "themes",
             "name": "Themes",
-            "type": 4,
+            "description": "Themes allow you to change the look and feel of the user interface and personalize it to your tastes. A theme can simply change the colors of the UI or it can change every aspect of its appearance.",
             "defaultIcon": "assets/images/icon-theme.png"
         },
         {
+            "type": 8,
             "slug": "language-packs",
             "name": "Language Packs",
-            "type": 8,
+            "description": "Language packs change the language of the entire application.",
             "defaultIcon": "assets/images/icon-locale.png"
         },
         {
+            "type": 64,
             "slug": "dictionaries",
             "name": "Dictionaries",
-            "type": 64,
+            "description": "Dictionaries add a new language option to your application, which checks your spelling when you fill out Web forms.",
             "defaultIcon": "assets/images/icon-dictionary.png"
         }
     ],
