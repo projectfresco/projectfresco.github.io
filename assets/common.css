@@ -290,10 +290,6 @@ th {
   justify-content: space-between;
 }
 
-#addon-container p {
-  white-space: pre-line;
-}
-
 .addon-general {
   display: flex;
   margin-right: 1em;
