@@ -4,6 +4,7 @@ const METADATA_JSON = "assets/metadata.json";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
 const URL_GITHUB_API = "https://api.github.com/repos";
 const URL_GITHUB = "https://github.com";
+const URL_LICENSE = "https://opensource.org/licenses";
 
 import gat from "./config.js";
 
@@ -103,6 +104,24 @@ var gAPI = {
     getRepositoryUrl: function (aOptions) {
         return `${URL_GITHUB}/${aOptions.owner}/${aOptions.repo}`;
     },
+
+    _metadata: null,
+    getMetadata: async function () {
+        if (this._metadata == null) {
+            let response = await this.request(METADATA_JSON);
+            this._metadata = response.json;
+        }
+        return this._metadata;
+    },
+
+    getAddon: async function (aSlug) {
+        let metadata = await this.getMetadata();
+        var addon = metadata.addons.find(function (item) {
+            return item.slug == aSlug;
+        });
+        return addon;
+    },
+
 };
 
 var gSite = {
@@ -230,16 +249,13 @@ var gSite = {
         }
     },
 
-    generateAll: async function (aTarget, aMetadata) {
+    generateAll: async function (aTarget) {
         if (!aTarget) {
             aTarget = document.getElementById("lists");
         }
-        if (!aMetadata) {
-            let response = await gAPI.request(METADATA_JSON);
-            aMetadata = response.json;
-        }
+        let metadata = await gAPI.getMetadata();
 
-        var types = aMetadata.types;
+        var types = metadata.types;
         for (let i = 0; i < types.length; i++) {
             let addonType = types[i];
 
@@ -251,7 +267,7 @@ var gSite = {
             listTitle.id = addonType.slug;
             list.append(listTitle);
 
-            let addons = aMetadata.addons.filter(function (item) {
+            let addons = metadata.addons.filter(function (item) {
                 return item.type == addonType.type;
             });
             gSite.generateList(list, addons, addonType.defaultIcon);
@@ -272,6 +288,7 @@ var gSite = {
                 this.summary.appendChild(container);
             },
 
+            license: document.getElementById("addon-license"),
             releaseList: document.getElementById("list-releases"),
             version: document.getElementById("addon-version"),
             updateDate: document.getElementById("addon-update-date"),
@@ -288,7 +305,7 @@ var gSite = {
             return;
         }
 
-        var addon = await gSite.findAddon(urlParameters.get("addon"));
+        var addon = await gAPI.getAddon(urlParameters.get("addon"));
         if (!addon) {
             pageDetails.container.innerText = "Invalid add-on.";
             gSite.doneLoading();
@@ -308,6 +325,24 @@ var gSite = {
             sourceRepository: document.getElementById("link-source-repo"),
         };
 
+        if (addon.license) {
+            let metadata = await gAPI.getMetadata();
+            let licenses = metadata.licenses;
+            pageDetails.license.innerText = licenses[addon.license];
+            switch (addon.license) {
+                case "custom":
+                    if (addon.licenseUrl) {
+                        pageDetails.license.href = addon.licenseUrl;
+                    }
+                    break;
+                case "PD":
+                    pageDetails.license.href = "#";
+                    break;
+                default:
+                    pageDetails.license.href = `${URL_LICENSE}/${addon.license}`;
+                    break;
+            }
+        }
         if (addon.supportUrl) {
             resourceLinks.supportSite.href = addon.supportUrl;
         }
@@ -411,15 +446,6 @@ var gSite = {
                 target.hidden = true;
             }
         }
-    },
-
-    findAddon: async function (aSlug) {
-        let response = await gAPI.request(METADATA_JSON);
-        let metadata = response.json
-        var addon = metadata.addons.find(function (item) {
-            return item.slug == aSlug;
-        });
-        return addon;
     },
 
     doneLoading: function () {
