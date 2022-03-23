@@ -300,25 +300,11 @@ th {
   margin-right: 1em;
 }
 
-.addon-general > .addon-summary > span {
-  display: block;
-}
-
 .addon-general > .addon-icon-container {
   margin-right: 1em;
 }
 
-.addon-general > .addon-summary > #addon-name {
-  margin-bottom: 0;
-  line-height: 1;
-}
-
-.addon-general > .addon-summary > #addon-desc {
-  color: #262626;
-}
-
-.addon-general > .addon-summary > #addon-download,
-.addon-general > .addon-summary > #addon-desc {
+.addon-general > .addon-summary-container > #addon-download {
   margin-top: 0.5em;
 }
 

@@ -263,15 +263,20 @@ var gSite = {
     generateAddon: async function (aIsVersionHistory) {
         var pageDetails = {
             icon: document.getElementById("addon-icon"),
-            name: document.getElementById("addon-name"),
-            author: document.getElementById("addon-author"),
-            description: document.getElementById("addon-desc"),
             download: document.getElementById("addon-download"),
-            releaseCount: document.getElementById("addon-release-count"),
+            summary: document.getElementById("addon-summary"),
+            appendSummary: function (aText, aClass = "") {
+                let container = document.createElement("div");
+                container.className = aClass;
+                container.innerHTML = aText;
+                this.summary.appendChild(container);
+            },
+
             releaseList: document.getElementById("list-releases"),
             version: document.getElementById("addon-version"),
             updateDate: document.getElementById("addon-update-date"),
             size: document.getElementById("addon-size"),
+
             about: document.getElementById("addon-about"),
             container: document.getElementById("addon-container"),
         };
@@ -291,7 +296,6 @@ var gSite = {
         }
 
         pageDetails.icon.src = addon.iconUrl;
-        pageDetails.name.innerText = addon.name;
 
         var resourceLinks = {
             xpi: document.getElementById("download-xpi"),
@@ -327,7 +331,8 @@ var gSite = {
 
         if (aIsVersionHistory) {
             resourceLinks.addonDetails.href = `/addons/get?addon=${addon.slug}`;
-            pageDetails.releaseCount.innerText = releaseData.data.length;
+            pageDetails.appendSummary(`${addon.name} Version History`, "h1");
+            pageDetails.appendSummary(`${releaseData.data.length} releases`);
             for (let i = 0; i < releaseData.data.length; i++) {
                 let release = releaseData.data[i];
                 let listItem = gSite._createListItem();
@@ -363,10 +368,14 @@ var gSite = {
             }
         } else {
             let release = releaseData.data[0];
-            resourceLinks.versionHistory.href = `/addons/versions?addon=${addon.slug}`;
-            pageDetails.author.innerText = `By ${release.author.name}`;
+            pageDetails.appendSummary(addon.name, "h1");
+            pageDetails.appendSummary(`By ${release.author.name}`);
+            if (releaseData.totalDownloadCount) {
+                pageDetails.appendSummary(`${releaseData.totalDownloadCount} downloads`);
+            }
+            pageDetails.appendSummary(addon.description);
             pageDetails.version.innerText = release.name;
-            pageDetails.description.innerText = addon.description;
+            resourceLinks.versionHistory.href = `/addons/versions?addon=${addon.slug}`;
             if (release.datePublished) {
                 pageDetails.updateDate.innerText = gSite._formatDate(release.datePublished);
             }
