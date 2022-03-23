@@ -1,5 +1,6 @@
 const APP_NAME = "Fresco";
 const APP_VERSION = "0.0.1";
+const APP_TITLE = "Add-ons - Fresco";
 const METADATA_JSON = "assets/metadata.json";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
 const URL_GITHUB_API = "https://api.github.com/repos";
@@ -125,6 +126,10 @@ var gAPI = {
 };
 
 var gSite = {
+    _updateTitle: function (aTitle) {
+        document.title = `${aTitle} - ${APP_TITLE}`;
+    },
+    
     _formatDate: function (aDateString) {
         let date = new Date(aDateString);
         let dateOptions = { year: "numeric", month: "long", day: "numeric" };
@@ -260,8 +265,13 @@ var gSite = {
         var types = metadata.types;
         for (let i = 0; i < types.length; i++) {
             let addonType = types[i];
-            if (aTypeSlug && addonType.slug != aTypeSlug) {
-                continue;
+            if (aTypeSlug) {
+                if (addonType.slug != aTypeSlug) {
+                    continue;
+                }
+                gSite._updateTitle(addonType.name);
+            } else {
+                gSite._updateTitle("All");
             }
 
             if (!aHideInfo) {
@@ -373,8 +383,10 @@ var gSite = {
         }
 
         if (aIsVersionHistory) {
+            let pageTitle = `${addon.name} Version History`;
+            gSite._updateTitle(pageTitle);
             resourceLinks.addonDetails.href = `/addons/get?addon=${addon.slug}`;
-            pageDetails.appendSummary(`${addon.name} Version History`, "h1");
+            pageDetails.appendSummary(pageTitle, "h1");
             pageDetails.appendSummary(`${releaseData.data.length} releases`);
             for (let i = 0; i < releaseData.data.length; i++) {
                 let release = releaseData.data[i];
@@ -410,6 +422,7 @@ var gSite = {
                 pageDetails.releaseList.appendChild(listItem.parentElement);
             }
         } else {
+            gSite._updateTitle(addon.name);
             let release = releaseData.data[0];
             pageDetails.appendSummary(addon.name, "h1");
             pageDetails.appendSummary(`By ${release.author.name}`);
