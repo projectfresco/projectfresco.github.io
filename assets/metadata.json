@@ -231,6 +231,484 @@
             "description": "",
             "xpiUrl": "http://archive.palemoon.org/palemoon/langpacks/30.x/30.0.1/tl.xpi",
             "hash": ""
+        },
+        {
+            "slug": "aeromoon",
+            "type": 4,
+            "name": "Aeromoon",
+            "description": "Experience all the benefits of Pale Moon with the colorful toolbar goodness of Firefox 3 Aero (Win Vista/7 theme)! Fork of \"Firefox 3 theme for Firefox 4+ Reloaded!\" by dallasthemaster and Jeremy Morton.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/aeromoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "GPL-3.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "aeromoon"
+            }
+        },
+        {
+            "slug": "australium",
+            "type": 4,
+            "name": "Australium",
+            "description": "Experience the curved tabs of Australis, now on Pale Moon!",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/australium/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "australium"
+            }
+        },
+        {
+            "slug": "camimoon",
+            "type": 4,
+            "name": "Camimoon",
+            "description": "The colourful icons of Camino, re-imagined for Pale Moon.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/camimoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "GPL-3.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "camimoon"
+            }
+        },
+        {
+            "slug": "compactmoon",
+            "type": 4,
+            "name": "Compact Moon",
+            "description": "A very clean and compact theme with classic buttons that minimizes vertical space consumed by menus & tool bars. Fork of \"Classic Compact\" by Ken Barbalace.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/compactmoon/master/src/theme/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "compactmoon"
+            }
+        },
+        {
+            "slug": "darkmoon",
+            "type": 4,
+            "name": "Dark Moon",
+            "description": "The ultimate dark experience.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/darkmoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "darkmoon"
+            }
+        },
+        {
+            "slug": "darkpitch",
+            "type": 4,
+            "name": "DarkPitch",
+            "description": "Minimalistic, dark-colored theme. Fork of \"PitchDark\" by Tim Banker.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/darkpitch/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "GPL-3.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "darkpitch"
+            }
+        },
+        {
+            "slug": "fox2themoon",
+            "type": 4,
+            "name": "Fox 2 The Moon",
+            "description": "The default Firefox 2 theme for Pale Moon. Fork of \"Firefox 2, the theme, reloaded\" by rctgamer3 et al.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/fox2themoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "fox2themoon"
+            }
+        },
+        {
+            "slug": "kempelton-reloaded",
+            "type": 4,
+            "name": "Kempelton Reloaded",
+            "description": "Remake of the beautiful Kempelton theme by Arvid Axelsson for Pale Moon.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/kempelton-reloaded/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "GPL-3.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "kempelton-reloaded"
+            }
+        },
+        {
+            "slug": "littlemoon",
+            "type": 4,
+            "name": "LittleMoon",
+            "description": "LittleMoon, designed for optimal screen usage, leaving lots of room for browsing. Based on icons from art.gnome.org. Fork of \"LittleFox\" by Alfred Kayser.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/littlemoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "littlemoon"
+            }
+        },
+        {
+            "slug": "macmoon",
+            "type": 4,
+            "name": "MacMoon",
+            "description": "The default Firefox 2 theme for Mac, now for Pale Moon!",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/macmoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "macmoon"
+            }
+        },
+        {
+            "slug": "maxi3",
+            "type": 4,
+            "name": "Maxi3",
+            "description": "Maxthon like theme for Pale Moon. Fork of \"MX3\" by dkgo.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/maxi3/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "maxi3"
+            }
+        },
+        {
+            "slug": "maxi4",
+            "type": 4,
+            "name": "Maxi4",
+            "description": "Maxthon 4 like theme for Pale Moon. Fork of \"mx4\" by dkgo",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/maxi4/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "Maxi4"
+            }
+        },
+        {
+            "slug": "micromoon",
+            "type": 4,
+            "name": "MicroMoon",
+            "description": "MicroMoon, designed for optimal screen usage, leaving lots of room for browsing. Based on icons from art.gnome.org. Fork of \"MicroFox\" by Alfred Kayser.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/micromoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "micromoon"
+            }
+        },
+        {
+            "slug": "modokimoon",
+            "type": 4,
+            "name": "Modoki Moon",
+            "description": "Remake of the Modern Modoki theme for Pale Moon.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/modokimoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "modokimoon"
+            }
+        },
+        {
+            "slug": "moonfox3",
+            "type": 4,
+            "name": "Moonfox3",
+            "description": "Experience all the benefits of Pale Moon with the colorful toolbar goodness of Firefox 3! Fork of \"Firefox 3 theme for Firefox 4+ Reloaded!\" by dallasthemaster and Jeremy Morton.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/moonfox3/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "GPL-3.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "moonfox3"
+            }
+        },
+        {
+            "slug": "moonola",
+            "type": 4,
+            "name": "Moonola",
+            "description": "Theme based on the Nuvola icon set. Fork of \"Nuvola FF\" by Richard Marti.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/moonola/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "moonola"
+            }
+        },
+        {
+            "slug": "nauticalia",
+            "type": 4,
+            "name": "Nauticalia",
+            "description": "Theme based on the Nuvola icon set. Fork of \"Nuvola FF\" by Richard Marti.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/nauticalia/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "nauticalia"
+            }
+        },
+        {
+            "slug": "noiamoon",
+            "type": 4,
+            "name": "Noia Moon",
+            "description": "Theme for Pale Moon based on Noia Iconpack by Carlitus (deviantART). Fork of \"Noia Fox\" by David.Vincent.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/noiamoon/master/src/theme/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "noiamoon"
+            }
+        },
+        {
+            "slug": "opresto",
+            "type": 4,
+            "name": "Opresto",
+            "description": "Opera Presto theme for Pale Moon. Fork of \"FXOpera\" (Presto version) by dkgo.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/opresto/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "opresto"
+            }
+        },
+        {
+            "slug": "pastmodern-revisited",
+            "type": 4,
+            "name": "Past Modern Revisited",
+            "description": "Remake of the classic Past Modern theme by Kuden for Pale Moon.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/pastmodern-revisited/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "pastmodern-revisited"
+            }
+        },
+        {
+            "slug": "phoenity-rebirth",
+            "type": 4,
+            "name": "Phoenity Rebirth",
+            "description": "Experience the Phoenity Aura theme, alive once again! Based on Phoenity Aura icons by cheeaun.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/phoenity-rebirth/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "GPL-3.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "phoenity-rebirth"
+            }
+        },
+        {
+            "slug": "photonic",
+            "type": 4,
+            "name": "Photonic",
+            "description": "The Quantum \"Photon\" theme beamed at the XUL.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/photonic/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "photonic"
+            }
+        },
+        {
+            "slug": "pmchrome",
+            "type": 4,
+            "name": "PMChrome",
+            "description": "Chrome like theme for Pale Moon. Fork of \"FXChrome\" by dkgo.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/pmchrome/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "pmchrome"
+            }
+        },
+        {
+            "slug": "pmopera",
+            "type": 4,
+            "name": "PMOpera",
+            "description": "Opera like theme for Pale Moon. Fork of \"FXOpera\" by dkgo.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/pmopera/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "pmopera"
+            }
+        },
+        {
+            "slug": "qute4pm",
+            "type": 4,
+            "name": "Qute 4 PM",
+            "description": "Customized version of Arvid Axelsson's great theme with the new Qute 4 icon set. Fork of \"Qute 4++ (custom mod)\" by Murphy.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/qute4pm/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "GPL-3.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "qute4pm"
+            }
+        },
+        {
+            "slug": "qutelarge",
+            "type": 4,
+            "name": "Qute Large",
+            "description": "Large version of the Qute theme by Arvid Axelsson for Pale Moon. Based on \"Qute 3++\" using icons from \"Qute Classic\".",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/qutelarge/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "GPL-3.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "qutelarge"
+            }
+        },
+        {
+            "slug": "qutelegacy",
+            "type": 4,
+            "name": "Qute Legacy",
+            "description": "Customized version of Arvid Axelsson's great theme. Fork of \"Qute 3++\" by Murphy.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/qutelegacy/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "GPL-3.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "qutelegacy"
+            }
+        },
+        {
+            "slug": "reinheit",
+            "type": 4,
+            "name": "reinheit",
+            "description": "das Monochrom wiederbelebung. (Fork of \"rein\" by Naoto Kusumi)",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/reinheit/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "reinheit"
+            }
+        },
+        {
+            "slug": "tangerinemoon",
+            "type": 4,
+            "name": "Tangerinemoon",
+            "description": "Theme with Tangerine icons for Pale Moon. A variant of the Tango-theme. Fork of \"Tangerinefox\" by Haven667.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/tangerinemoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "tangerinemoon"
+            }
+        },
+        {
+            "slug": "tangomoon",
+            "type": 4,
+            "name": "Tangomoon",
+            "description": "Theme with Tango icons for Pale Moon. Fork of \"Tangofox\" by Haven667.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/tangomoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "tangomoon"
+            }
+        },
+        {
+            "slug": "walnutty",
+            "type": 4,
+            "name": "Walnutty",
+            "description": "Walnutty, based on icons from art.gnome.org. A nice, wooden/nutty theme for Pale Moon. Fork of \"Walnut for Firefox\" by Alfred Kayser.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/walnutty/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "walnutty"
+            }
+        },
+        {
+            "slug": "whitemoon",
+            "type": 4,
+            "name": "White Moon",
+            "description": "Paint your Pale Moon white. Make it look simpler, nicer. Fork of \"Simple White\" by Louis Chan.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/whitemoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "whitemoon"
+            }
+        },
+        {
+            "slug": "xmoon",
+            "type": 4,
+            "name": "XMoon",
+            "description": "MacOSX theme for Pale Moon. Fork of \"MacOSX Theme (Firefox 4+)\" by GOLF-AT.",
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/xmoon/master/src/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "xmoon"
+            }
+        },
+        {
+            "slug": "winstripe-moon",
+            "type": 4,
+            "name": "Winstripe Moon",
+            "description": "A Pale Moon theme using some of the Firefox 1.x Winstripe icons.",
+            "iconUrl": "https://raw.githubusercontent.com/libertyernie/winstripe-moon/master/src/icon.png",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "libertyernie",
+                "repo": "winstripe-moon"
+            }
+        },
+        {
+            "slug": "blackmoon",
+            "type": 4,
+            "name": "Black Moon",
+            "description": "Black minimalistic theme.",
+            "iconUrl": "https://raw.githubusercontent.com/Servail/blackmoon/master/src/icon.png",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Servail",
+                "repo": "blackmoon"
+            }
+        },
+        {
+            "slug": "halloween",
+            "type": 4,
+            "name": "Halloween",
+            "description": "A special theme for Hallowe'en by Goodydino (originally Ed Hume).",
+            "iconUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/icon.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=20181",
+            "releasesUrl": "assets/static/halloween.json"
+        },
+        {
+            "slug": "ex-031",
+            "type": 4,
+            "name": "In The Dark",
+            "description": "A dark, simple, grayscale theme for Pale Moon.",
+            "iconUrl": "https://archive.palemoon.org/addons/29.x/addons/ex-031/icon.png",
+            "externalUrl": "https://realityripple.com/Software/Themes/In-The-Dark/Pale-Moon/"
+        },
+        {
+            "slug": "ex-039",
+            "type": 4,
+            "name": "In The Dark (Bloodmoon Edition)",
+            "description": "A dark, simple, grayscale theme for Pale Moon.",
+            "iconUrl": "https://archive.palemoon.org/addons/29.x/addons/ex-039/icon.png",
+            "externalUrl": "https://realityripple.com/Software/Themes/In-The-Dark/Pale-Moon/Bloodmoon-Edition/"
         }
     ]
 }
