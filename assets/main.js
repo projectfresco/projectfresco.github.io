@@ -1,4 +1,4 @@
-const METADATA_JSON = "assets/metadata.json?rel=1647948274";
+const METADATA_JSON = "assets/metadata.json";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
 
 import gat from "./config.js";
