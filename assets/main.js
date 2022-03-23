@@ -248,7 +248,7 @@ var gSite = {
                 gSite._appendBadge(listItem.title, "External");
             }
 
-            if (addon.apiUrl || addon.ghInfo) {
+            if (addon.apiUrl || addon.ghInfo || addon.releasesUrl) {
                 listItem.parentElement.href = `/addons/get?addon=${addon.slug}`;
             }
 
@@ -367,14 +367,22 @@ var gSite = {
         if (addon.supportEmail) {
             resourceLinks.supportEmail.href = addon.supportEmail;
         }
-        if (addon.ghInfo) {
-            resourceLinks.sourceRepository.href = gAPI.getRepositoryUrl(addon.ghInfo);
-        }
         if (addon.repositoryUrl) {
             resourceLinks.sourceRepository.href = addon.repositoryUrl;
         }
 
-        var releaseData = await gAPI.getReleases(addon.ghInfo);
+        var releaseData = null;
+        if (addon.ghInfo) {
+            resourceLinks.sourceRepository.href = gAPI.getRepositoryUrl(addon.ghInfo);
+            releaseData = await gAPI.getReleases(addon.ghInfo);
+        } else if (addon.releasesUrl) {
+            let response = await gAPI.request(addon.releasesUrl);
+            releaseData = response.json;
+        } else {
+            pageDetails.container.innerText = "Release data missing.";
+            gSite.doneLoading();
+            return;
+        }
 
         if (releaseData.message) {
             pageDetails.container.innerText = releaseData.message;
