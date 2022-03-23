@@ -121,39 +121,38 @@ var gSite = {
         return badgeElement;
     },
 
-    _appendButton: function (aTarget, aType) {
+    _appendInstallButton: function (aTarget, aAddonName, aInstallData) {
         let button = document.createElement("a");
+        let buttonIcon = document.createElement("img");
+        button.append(buttonIcon);
         button.className = "button";
-        switch (aType) {
-            // 0: Install add-on
-            case 0:
-                let downloadIcon = document.createElement("img");
-                downloadIcon.src = "assets/images/download.png";
-                downloadIcon.className = "button-icon";
-                button.append(downloadIcon);
-                button.append("Install Now");
-                button.href = "#";
-                break;
-            default:
-                break;
+        buttonIcon.className = "button-icon";
+        buttonIcon.src = "assets/images/download.png";
+
+        let isBrowserGRE = navigator.userAgent.includes("Goanna") && InstallTrigger;
+        if (isBrowserGRE) {
+            button.append("Install Now");
+            button.href = "#";
+            button.addEventListener("click", function (aEvent) {
+                aEvent.preventDefault();
+                var parameters = {
+                    [aAddonName]: aInstallData
+                };
+                try {
+                    InstallTrigger.install(parameters);
+                } catch (e) {
+                    // Rethrow and expose the DOMError
+                    console.error(e);
+                }
+            });
+        } else {
+            button.append("Download");
+            button.href = aInstallData.URL;
+            button.classList.add("download");
         }
+
         aTarget.append(button);
         return button;
-    },
-
-    _setInstallTrigger: function (aTarget, aAddonName, aInstallData) {
-        aTarget.addEventListener("click", function (aEvent) {
-            aEvent.preventDefault();
-            var parameters = {
-                [aAddonName]: aInstallData
-            };
-            try {
-                InstallTrigger.install(parameters);
-            } catch (e) {
-                // Rethrow and expose the DOMError
-                console.error(e);
-            }
-        });
     },
 
     _createListItem: function () {
@@ -205,12 +204,15 @@ var gSite = {
 
             // Download button
             if (addon.xpiUrl) {
-                let button = gSite._appendButton(listItem.parentElement, 0);
-                gSite._setInstallTrigger(button, addon.name, {
-                    URL: addon.xpiUrl,
-                    IconURL: addon.iconUrl,
-                    Hash: addon.hash
-                });
+                gSite._appendInstallButton(
+                    listItem.parentElement,
+                    addon.name,
+                    {
+                        URL: addon.xpiUrl,
+                        IconURL: addon.iconUrl,
+                        Hash: addon.hash
+                    }
+                );
             }
             
             if (addon.externalUrl) {
@@ -335,11 +337,14 @@ var gSite = {
                     gSite._appendBadge(listItem.title, "Pre-release", "prerelease");
                 }
                 if (release.xpiUrl) {
-                    let button = gSite._appendButton(listItem.parentElement, 0);
-                    gSite._setInstallTrigger(button, addon.name, {
-                        URL: release.xpiUrl,
-                        IconURL: addon.iconUrl,
-                    });
+                    gSite._appendInstallButton(
+                        listItem.parentElement,
+                        addon.name,
+                        {
+                            URL: release.xpiUrl,
+                            IconURL: addon.iconUrl,
+                        }
+                    );
                 }
                 if (release.datePublished) {
                     let dateString = gSite._formatDate(release.datePublished);
@@ -375,12 +380,15 @@ var gSite = {
                 resourceLinks.zipball.href = release.zipballUrl;
             }
             if (release.xpiUrl) {
-                gSite._setInstallTrigger(pageDetails.download, addon.name, {
-                    URL: release.xpiUrl,
-                    IconURL: addon.iconUrl,
-                });
-                pageDetails.download.href = "#";
                 resourceLinks.xpi.href = release.xpiUrl;
+                gSite._appendInstallButton(
+                    pageDetails.download,
+                    addon.name,
+                    {
+                        URL: release.xpiUrl,
+                        IconURL: addon.iconUrl,
+                    }
+                );
             }
             if (release.xpiSize) {
                 pageDetails.size.innerText = `${Math.round(release.xpiSize / 1024)} KB`;

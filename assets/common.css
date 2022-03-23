@@ -201,6 +201,11 @@ th {
   text-decoration: none;
 }
 
+.button.download {
+  border: 1px solid #0099FF;
+  background-color: #99CCFF;
+}
+
 /* ::::: Lists ::::: */
 
 .list {
