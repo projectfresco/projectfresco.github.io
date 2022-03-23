@@ -360,6 +360,8 @@ var gSite = {
                     pageDetails.license.href = `${URL_LICENSE}/${addon.license}`;
                     break;
             }
+        } else {
+            pageDetails.license.innerText = `© ${new Date().getFullYear()}`;
         }
         if (addon.supportUrl) {
             resourceLinks.supportSite.href = addon.supportUrl;
