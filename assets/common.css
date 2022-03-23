@@ -327,6 +327,7 @@ th {
 
 .addon-primary {
   flex: 1;
+  margin-right: 1em;
 }
 
 .addon-secondary {
@@ -344,6 +345,9 @@ th {
 @media screen and (max-width: 768px) {
   #addon-container {
     flex-direction: column;
+  }
+  .addon-primary {
+    margin-right: 0;
   }
 }
 
