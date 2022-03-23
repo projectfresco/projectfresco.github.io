@@ -1,5 +1,21 @@
 {
-    "lastUpdated": 1648014950,
+    "lastUpdated": 1648053691,
+    "licenses": {
+        "custom": "Custom License",
+        "Apache-2.0": "Apache License 2.0",
+        "Apache-1.1": "Apache License 1.1",
+        "BSD-3-Clause": "BSD 3-Clause",
+        "BSD-2-Clause": "BSD 2-Clause",
+        "GPL-3.0": "GNU General Public License 3.0",
+        "GPL-2.0": "GNU General Public License 2.0",
+        "LGPL-3.0": "GNU Lesser General Public License 3.0",
+        "LGPL-2.1": "GNU Lesser General Public License 2.1",
+        "AGPL-3.0": "GNU Affero General Public License v3",
+        "MIT": "MIT License",
+        "MPL-2.0": "Mozilla Public License 2.0",
+        "MPL-1.1": "Mozilla Public License 1.1",
+        "PD": "Public Domain"
+    },
     "types": [
         {
             "slug": "extensions",
@@ -34,6 +50,7 @@
             "description": "Sidebar control with award-winning user experience!",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/TGS/master/src/skin/icon64.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=16750",
+            "license": "GPL-3.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "TGS"
@@ -46,6 +63,7 @@
             "description": "A quick and easy note-taking solution. A fork of QuickFox Notes by InBasic.",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/NoteStruck/master/src/icon64.png",
             "supportUrl": "https://github.com/FranklinDM/NoteStruck/issues",
+            "license": "MPL-2.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "NoteStruck"
@@ -58,6 +76,7 @@
             "description": "Adds a splash screen when the application is launched.",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Splashed/master/src/skin/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=16042",
+            "license": "GPL-3.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "Splashed"
@@ -70,6 +89,7 @@
             "description": "A collection of XUL demos in a small add-on.",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/PTXE/master/src/icon.png",
             "supportUrl": "https://github.com/FranklinDM/PTXE/issues",
+            "license": "MPL-2.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "PTXE"
@@ -82,6 +102,7 @@
             "description": "Expands the visibility of \"Hard Refresh\" in many areas of the browser.",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/ReloadSkipCache/master/src/icon64.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=26629",
+            "license": "MPL-2.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "ReloadSkipCache"
@@ -94,6 +115,7 @@
             "description": "Modifies web pages to use a dark color scheme or based on the user's preferences.",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Swarth/master/src/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=27220",
+            "license": "MPL-2.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "Swarth"
@@ -106,6 +128,7 @@
             "description": "Provides more customization options for toolbars.",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/ToolboxPlus/master/src/icon64.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=26620",
+            "license": "MPL-2.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "ToolboxPlus"
@@ -118,6 +141,7 @@
             "description": "Material Chrome-like theme for Pale Moon. Based on Lootyhoof's PMChrome.",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/MaterialMoon/master/src/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=14631",
+            "license": "MPL-2.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "MaterialMoon"
@@ -130,6 +154,7 @@
             "description": "Features the look of early Mozilla builds (M4-M10).",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Milestone10/master/src/icon64.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=23201",
+            "license": "MPL-2.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "Milestone10"
@@ -142,6 +167,7 @@
             "description": "A full featured retro theme that looks like Netscape 4.x.",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape/master/src/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=14492",
+            "license": "GPL-3.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "Moonscape"
@@ -154,6 +180,8 @@
             "description": "Modifies the window icons to match Netscape 4.x.",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape-IconPack/master/src/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=14492",
+            "license": "custom",
+            "licenseUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape-IconPack/master/LICENSE",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "Moonscape-IconPack"
@@ -166,6 +194,7 @@
             "description": "Relive the monochrome screens of yesterday!",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Phosphor/master/src/icon64.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=24971",
+            "license": "MPL-2.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "Phosphor"
@@ -178,6 +207,7 @@
             "description": "Features old-style squared tabs, toolbar buttons and icons with blue glow.",
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Stratum/master/src/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=14861",
+            "license": "MPL-2.0",
             "ghInfo":  {
                 "owner": "FranklinDM",
                 "repo": "Stratum"
