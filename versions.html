@@ -9,7 +9,7 @@
         <script type="module">
             import gSite from "./assets/main.js";
             window.addEventListener("load", async function () {
-                await gSite.generateVersions();
+                await gSite.generateAddon(true);
                 gSite.doneLoading();
             });
         </script>

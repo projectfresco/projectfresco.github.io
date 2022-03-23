@@ -8,11 +8,11 @@ import snarkdown from "./snarkdown.es.js";
 
 var gAPI = {
     request: async function (aUrl, aHeaders = new Headers()) {
-        let cachedKey = btoa(aUrl);
-        let cachedETagKey = `${cachedKey}_ETag`;
+        let cacheKey = btoa(aUrl);
+        let cacheETagKey = `${cacheKey}_ETag`;
 
-        let data = localStorage.getItem(cachedKey);
-        let etag = localStorage.getItem(cachedETagKey);
+        let data = localStorage.getItem(cacheKey);
+        let etag = localStorage.getItem(cacheETagKey);
         if (data && etag) {
             data = JSON.parse(data);
             aHeaders.append("If-None-Match", etag);
@@ -24,19 +24,25 @@ var gAPI = {
             headers: aHeaders,
         });
 
+        let isCached = false;
         if (response.status == 304) {
             console.log(`Loading resource from cache: ${aUrl}`);
             // Take response data from local storage
+            isCached = true;
         } else {
             data = await response.json();
             if (response.status == 200) {
                 console.log(`Saving resource to cache: ${aUrl}`);
-                localStorage.setItem(cachedKey, JSON.stringify(data));
-                localStorage.setItem(cachedETagKey, response.headers.get("etag"));
+                localStorage.setItem(cacheKey, JSON.stringify(data));
+                localStorage.setItem(cacheETagKey, response.headers.get("etag"));
             }
         }
 
-        return data;        
+        return {
+            json: data,
+            isCached: isCached,
+            cacheKey: cacheKey,
+        };
     },
 
     requestFromGitHub: async function (aOptions, aEndpoint) {
@@ -48,16 +54,61 @@ var gAPI = {
         return this.request(url, headers);
     },
 
-    getLatestRelease: async function (aOptions) {
-        return await this.requestFromGitHub(aOptions, "releases/latest");
-    },
-
     getReleases: async function (aOptions) {
-        return await this.requestFromGitHub(aOptions, "releases");
+        let response = await this.requestFromGitHub(aOptions, "releases");
+        if (!response.isCached) {
+            // Convert GitHub releases to custom releases format
+            var releases = {
+                totalDownloadCount: 0,
+                data: [],
+            };
+            for (let ghRelease of response.json) {
+                var release = {
+                    name: ghRelease.name || ghRelease.tag_name,
+                    changelog: ghRelease.body,
+                    prerelease: ghRelease.prerelease,
+                    datePublished: ghRelease.published_at,
+                    dateCreated: ghRelease.created_at,
+                    zipballUrl: ghRelease.zipball_url,
+                    tarballUrl: ghRelease.tarball_url,
+                    xpiUrl: "",
+                    xpiHash: "",
+                    xpiSize: -1,
+                    xpiDownloadCount: -1,
+                    author: {
+                        slug: "",
+                        name: ghRelease.author.login,
+                        avatarUrl: ghRelease.author.avatar_url,
+                    },
+                };
+                for (let asset of ghRelease.assets) {
+                    if (asset.content_type != CONTENT_TYPE_XPI) {
+                        continue;
+                    }
+                    release.xpiUrl = asset.browser_download_url;
+                    release.xpiSize = asset.size;
+                    release.xpiDownloadCount = asset.download_count;
+                    releases.totalDownloadCount += asset.download_count;
+                    break;
+                }
+                releases.data.push(release);
+            }
+            // Replace cached JSON with converted releases copy
+            localStorage.setItem(response.cacheKey, JSON.stringify(releases));
+            return releases;
+        }
+        return response.json;
     },
 };
 
 var gSite = {
+    _formatDate: function (aDateString) {
+        let date = new Date(aDateString);
+        let dateOptions = { year: "numeric", month: "long", day: "numeric" };
+        let formattedDate = date.toLocaleDateString(undefined, dateOptions);
+        return formattedDate;
+    },
+
     _appendBadge: function (aTarget, aText, aClass = "") {
         let badgeElement = document.createElement("span");
         badgeElement.className = `badge ${aClass}`;
@@ -178,7 +229,8 @@ var gSite = {
             aTarget = document.getElementById("lists");
         }
         if (!aMetadata) {
-            aMetadata = await gAPI.request(METADATA_JSON);
+            let response = await gAPI.request(METADATA_JSON);
+            aMetadata = response.json;
         }
 
         var types = aMetadata.types;
@@ -202,13 +254,15 @@ var gSite = {
         }
     },
 
-    generateAddon: async function () {
+    generateAddon: async function (aIsVersionHistory) {
         var pageDetails = {
             icon: document.getElementById("addon-icon"),
             name: document.getElementById("addon-name"),
             author: document.getElementById("addon-author"),
             description: document.getElementById("addon-desc"),
             download: document.getElementById("addon-download"),
+            releaseCount: document.getElementById("addon-release-count"),
+            releaseList: document.getElementById("list-releases"),
             version: document.getElementById("addon-version"),
             updateDate: document.getElementById("addon-update-date"),
             size: document.getElementById("addon-size"),
@@ -232,12 +286,12 @@ var gSite = {
 
         pageDetails.icon.src = addon.iconUrl;
         pageDetails.name.innerText = addon.name;
-        pageDetails.description.innerText = addon.description;
 
         var resourceLinks = {
             xpi: document.getElementById("download-xpi"),
             tarball: document.getElementById("download-tarball"),
             zipball: document.getElementById("download-zipball"),
+            addonDetails: document.getElementById("link-addon-details"),
             versionHistory: document.getElementById("link-version-history"),
             supportSite: document.getElementById("link-support-site"),
             supportEmail: document.getElementById("link-support-email"),
@@ -254,106 +308,6 @@ var gSite = {
             resourceLinks.sourceRepository.href = addon.repositoryUrl;
         }
 
-        var releaseData = await gAPI.getLatestRelease(addon.ghInfo);
-
-        if (!releaseData) {
-            pageDetails.container.innerText = "Failed to retrieve add-on information from GitHub.";
-            gSite.doneLoading();
-            return;
-        }
-
-        pageDetails.author.innerText = `By ${releaseData.author.login}`;
-        pageDetails.version.innerText = releaseData.tag_name;
-        pageDetails.about.innerHTML = snarkdown(releaseData.body);
-
-        resourceLinks.tarball.href = releaseData.tarball_url;
-        resourceLinks.zipball.href = releaseData.zipball_url;
-        resourceLinks.versionHistory.href = `/addons/versions?addon=${addon.slug}`;
-
-        for (let i = 0; i < releaseData.assets.length; i++) {
-            let asset = releaseData.assets[i];
-            if (asset.content_type != CONTENT_TYPE_XPI) {
-                continue;
-            }
-
-            gSite._setInstallTrigger(pageDetails.download, addon.name, {
-                URL: asset.browser_download_url,
-                IconURL: addon.iconUrl,
-            });
-
-            pageDetails.download.href = "#";
-            resourceLinks.xpi.href = asset.browser_download_url;
-
-            let date = new Date(asset.updated_at);
-            let dateOptions = { year: "numeric", month: "long", day: "numeric" };
-            let dateString = date.toLocaleDateString(undefined, dateOptions);
-
-            pageDetails.updateDate.innerText = dateString;
-            pageDetails.size.innerText = `${Math.round(asset.size / 1024)} KB`;
-
-            break;
-        }
-
-        var resourceElements = Object.values(resourceLinks);
-        for (let i = 0; i < resourceElements.length; i++) {
-            let target = resourceElements[i];
-            if (target.href == "") {
-                target.hidden = true;
-            }
-        }
-    },
-
-    generateVersions: async function () {
-        var pageDetails = {
-            icon: document.getElementById("addon-icon"),
-            name: document.getElementById("addon-name"),
-            releaseCount: document.getElementById("addon-release-count"),
-            releaseList: document.getElementById("list-releases"),
-            container: document.getElementById("addon-container"),
-        };
-
-        var urlParameters = new URLSearchParams(window.location.search);
-        if (!urlParameters.has("addon")) {
-            pageDetails.container.innerText = "Missing add-on parameter.";
-            gSite.doneLoading();
-            return;
-        }
-
-        var addon = await gSite.findAddon(urlParameters.get("addon"));
-        if (!addon) {
-            pageDetails.container.innerText = "Invalid add-on.";
-            gSite.doneLoading();
-            return;
-        }
-
-        pageDetails.icon.src = addon.iconUrl;
-        pageDetails.name.innerText = addon.name;
-
-        var resourceLinks = {
-            addonDetails: document.getElementById("link-addon-details"),
-            supportSite: document.getElementById("link-support-site"),
-            supportEmail: document.getElementById("link-support-email"),
-            sourceRepository: document.getElementById("link-source-repo"),
-        };
-
-        resourceLinks.addonDetails.href = `/addons/get?addon=${addon.slug}`;
-        if (addon.supportUrl) {
-            resourceLinks.supportSite.href = addon.supportUrl;
-        }
-        if (addon.supportEmail) {
-            resourceLinks.supportEmail.href = addon.supportEmail;
-        }
-        if (addon.repositoryUrl) {
-            resourceLinks.sourceRepository.href = addon.repositoryUrl;
-        }
-        var resourceElements = Object.values(resourceLinks);
-        for (let i = 0; i < resourceElements.length; i++) {
-            let target = resourceElements[i];
-            if (target.href == "") {
-                target.hidden = true;
-            }
-        }
-
         var releaseData = await gAPI.getReleases(addon.ghInfo);
 
         if (releaseData.message) {
@@ -362,50 +316,70 @@ var gSite = {
             return;
         }
 
-        pageDetails.releaseCount.innerText = releaseData.length;
+        if (aIsVersionHistory) {
+            resourceLinks.addonDetails.href = `/addons/get?addon=${addon.slug}`;
+            pageDetails.releaseCount.innerText = releaseData.data.length;
 
-        for (let i = 0; i < releaseData.length; i++) {
-            let currentRelease = releaseData[i];
-            let listItem = gSite._createListItem();
-            listItem.icon.remove();
+            for (let i = 0; i < releaseData.data.length; i++) {
+                let release = releaseData.data[i];
+                let listItem = gSite._createListItem();
+                listItem.icon.remove();
 
-            // Title and description
-            listItem.title.innerText = currentRelease.tag_name;
+                // Title and description
+                listItem.title.innerText = release.name;
 
-            // Append list item to releases list
-            pageDetails.releaseList.appendChild(listItem.parentElement);
-            
-            if (currentRelease.prerelease) {
-                gSite._appendBadge(listItem.title, "Pre-release", "prerelease");
-            }
-            
-            for (let j = 0; j < currentRelease.assets.length; j++) {
-                let asset = currentRelease.assets[j];
-                if (asset.content_type != CONTENT_TYPE_XPI) {
-                    continue;
+                // Append list item to releases list
+                pageDetails.releaseList.appendChild(listItem.parentElement);
+                
+                if (release.prerelease) {
+                    gSite._appendBadge(listItem.title, "Pre-release", "prerelease");
                 }
-
+                
                 // Download button
                 let button = gSite._appendButton(listItem.parentElement, 0);
                 gSite._setInstallTrigger(button, addon.name, {
-                    URL: asset.browser_download_url,
+                    URL: release.xpiUrl,
                     IconURL: addon.iconUrl,
                 });
 
-                let date = new Date(asset.updated_at);
-                let dateOptions = { year: "numeric", month: "long", day: "numeric" };
-                let dateString = date.toLocaleDateString(undefined, dateOptions);
-
+                let dateString = gSite._formatDate(release.datePublished);
                 listItem.appendDesc(`Released: ${dateString}`);
-                listItem.appendDesc(`Size: ${Math.round(asset.size / 1024)} KB`);
+                listItem.appendDesc(`Size: ${Math.round(release.xpiSize / 1024)} KB`);
+            }
+        } else {
+            pageDetails.description.innerText = addon.description;
+            releaseData = releaseData.data[0];
+            resourceLinks.versionHistory.href = `/addons/versions?addon=${addon.slug}`;
+            pageDetails.author.innerText = `By ${releaseData.author.name}`;
+            pageDetails.version.innerText = releaseData.name;
+            pageDetails.about.innerHTML = snarkdown(releaseData.changelog);
 
-                break;
+            resourceLinks.tarball.href = releaseData.tarballUrl;
+            resourceLinks.zipball.href = releaseData.zipballUrl;
+
+            gSite._setInstallTrigger(pageDetails.download, addon.name, {
+                URL: releaseData.xpiUrl,
+                IconURL: addon.iconUrl,
+            });
+            pageDetails.download.href = "#";
+            resourceLinks.xpi.href = releaseData.xpiUrl;
+
+            pageDetails.updateDate.innerText = gSite._formatDate(releaseData.datePublished);
+            pageDetails.size.innerText = `${Math.round(releaseData.xpiSize / 1024)} KB`;
+        }
+
+        var resourceElements = Object.values(resourceLinks);
+        for (let i = 0; i < resourceElements.length; i++) {
+            let target = resourceElements[i];
+            if (target && target.href == "") {
+                target.hidden = true;
             }
         }
     },
 
     findAddon: async function (aSlug) {
-        var metadata = await gAPI.request(METADATA_JSON);
+        let response = await gAPI.request(METADATA_JSON);
+        let metadata = response.json
         var addon = metadata.addons.find(function (item) {
             return item.slug == aSlug;
         });
