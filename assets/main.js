@@ -1,6 +1,60 @@
 const METADATA_JSON = "assets/metadata.json?rel=1647948274";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
 
+import gat from "./config.js";
+
+var gAPI = {
+    request: async function (aUrl, aHeaders = {}) {
+        let cachedKey = btoa(aUrl);
+        let cachedETagKey = `${cachedKey}_ETag`;
+
+        let etag = "";
+        let data = localStorage.getItem(cachedKey);
+        if (data) {
+            data = JSON.parse(data);
+            etag = localStorage.getItem(cachedETagKey);
+        }
+
+        let response = await fetch(aUrl, {
+            method: "GET",
+            headers: Object.assign({
+                "If-None-Match": etag,
+            }, aHeaders),
+        });
+
+        if (response.status == 304) {
+            console.log(`Loading resource from cache: ${aUrl}`);
+            // Take response data from local storage
+        } else {
+            data = await response.json();
+            if (response.status == 200) {
+                console.log(`Saving resource to cache: ${aUrl}`);
+                localStorage.setItem(cachedKey, JSON.stringify(data));
+                localStorage.setItem(cachedETagKey, response.headers.get("etag"));
+            }
+        }
+
+        return data;        
+    },
+
+    requestFromGitHub: async function (aOptions, aEndpoint) {
+        let apiUrl = "https://api.github.com/repos/";
+        let url = `${apiUrl}${aOptions.owner}/${aOptions.repo}/${aEndpoint}`;
+        let headers = {
+            "Authorization": gat(),
+        };
+        return this.request(url, headers);
+    },
+
+    getLatestRelease: async function (aOptions) {
+        return await this.requestFromGitHub(aOptions, "releases/latest");
+    },
+
+    getReleases: async function (aOptions) {
+        return await this.requestFromGitHub(aOptions, "releases");
+    },
+};
+
 var gSite = {
     _appendBadge: function (aTarget, aText, aClass = "") {
         let badgeElement = document.createElement("span");
@@ -108,7 +162,7 @@ var gSite = {
                 gSite._appendBadge(listItem.title, "External");
             }
 
-            if (addon.apiUrl) {
+            if (addon.apiUrl || addon.ghInfo) {
                 listItem.parentElement.href = `/addons/get?addon=${addon.slug}`;
             }
 
@@ -122,7 +176,7 @@ var gSite = {
             aTarget = document.getElementById("lists");
         }
         if (!aMetadata) {
-            aMetadata = await gSite.getMetadata();
+            aMetadata = await gAPI.request(METADATA_JSON);
         }
 
         var types = aMetadata.types;
@@ -198,11 +252,10 @@ var gSite = {
             resourceLinks.sourceRepository.href = addon.repositoryUrl;
         }
 
-        var releaseResponse = await fetch(`${addon.apiUrl}/releases/latest`);
-        var releaseData = await releaseResponse.json();
+        var releaseData = await gAPI.getLatestRelease(addon.ghInfo);
 
-        if (releaseData.message) {
-            pageDetails.container.innerText = releaseData.message;
+        if (!releaseData) {
+            pageDetails.container.innerText = "Failed to retrieve add-on information from GitHub.";
             gSite.doneLoading();
             return;
         }
@@ -299,8 +352,7 @@ var gSite = {
             }
         }
 
-        var releaseResponse = await fetch(`${addon.apiUrl}/releases`);
-        var releaseData = await releaseResponse.json();
+        var releaseData = await gAPI.getReleases(addon.ghInfo);
 
         if (releaseData.message) {
             pageDetails.container.innerText = releaseData.message;
@@ -350,21 +402,12 @@ var gSite = {
         }
     },
 
-    getMetadata: async function () {
-        var response = await fetch(METADATA_JSON);
-        var responseJson = await response.json();
-        return responseJson;
-    },
-
     findAddon: async function (aSlug) {
-        var metadata = await gSite.getMetadata();
+        var metadata = await gAPI.request(METADATA_JSON);
         var addon = metadata.addons.find(function (item) {
             return item.slug == aSlug;
         });
         return addon;
-    },
-
-    getReleaseInfo: async function (aUrl) {
     },
 
     doneLoading: function () {
@@ -380,3 +423,5 @@ var gSite = {
         }
     },
 };
+
+export default gSite;
