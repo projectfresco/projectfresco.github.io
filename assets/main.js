@@ -2,6 +2,8 @@ const APP_NAME = "Fresco";
 const APP_VERSION = "0.0.1";
 const METADATA_JSON = "assets/metadata.json";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
+const URL_GITHUB_API = "https://api.github.com/repos";
+const URL_GITHUB = "https://github.com";
 
 import gat from "./config.js";
 import snarkdown from "./snarkdown.es.js";
@@ -46,8 +48,7 @@ var gAPI = {
     },
 
     requestFromGitHub: async function (aOptions, aEndpoint) {
-        let apiUrl = "https://api.github.com/repos/";
-        let url = `${apiUrl}${aOptions.owner}/${aOptions.repo}/${aEndpoint}`;
+        let url = `${URL_GITHUB_API}/${aOptions.owner}/${aOptions.repo}/${aEndpoint}`;
         let headers = new Headers({
             "Authorization": gat(),
         });
@@ -98,6 +99,10 @@ var gAPI = {
             return releases;
         }
         return response.json;
+    },
+
+    getRepositoryUrl: function (aOptions) {
+        return `${URL_GITHUB}/${aOptions.owner}/${aOptions.repo}`;
     },
 };
 
@@ -303,6 +308,9 @@ var gSite = {
         }
         if (addon.supportEmail) {
             resourceLinks.supportEmail.href = addon.supportEmail;
+        }
+        if (addon.ghInfo) {
+            resourceLinks.sourceRepository.href = gAPI.getRepositoryUrl(addon.ghInfo);
         }
         if (addon.repositoryUrl) {
             resourceLinks.sourceRepository.href = addon.repositoryUrl;
