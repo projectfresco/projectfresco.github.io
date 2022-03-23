@@ -1,3 +1,5 @@
+const APP_NAME = "Fresco";
+const APP_VERSION = "0.0.1";
 const METADATA_JSON = "assets/metadata.json";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
 
@@ -15,6 +17,7 @@ var gAPI = {
             data = JSON.parse(data);
             aHeaders.append("If-None-Match", etag);
         }
+        aHeaders.append("User-Agent", `${APP_NAME}/${APP_VERSION}`);
 
         let response = await fetch(aUrl, {
             method: "GET",
