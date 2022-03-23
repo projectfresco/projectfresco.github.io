@@ -2,6 +2,7 @@ const METADATA_JSON = "assets/metadata.json?rel=1647948274";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
 
 import gat from "./config.js";
+import snarkdown from "./snarkdown.es.js";
 
 var gAPI = {
     request: async function (aUrl, aHeaders = {}) {
