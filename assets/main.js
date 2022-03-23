@@ -167,7 +167,7 @@ var gSite = {
             desc: document.createElement("div"),
             appendDesc: function (aText) {
                 let container = document.createElement("div");
-                container.innerText = aText;
+                container.innerHTML = aText;
                 this.desc.appendChild(container);
             },
         };
@@ -353,6 +353,7 @@ var gSite = {
                 let dateString = gSite._formatDate(release.datePublished);
                 listItem.appendDesc(`Released: ${dateString}`);
                 listItem.appendDesc(`Size: ${Math.round(release.xpiSize / 1024)} KB`);
+                listItem.appendDesc(snarkdown(release.changelog));
             }
         } else {
             pageDetails.description.innerText = addon.description;
