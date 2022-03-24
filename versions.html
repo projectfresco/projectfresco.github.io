@@ -6,13 +6,10 @@
         <title>Fresco</title>
         <link rel="shortcut icon" href="assets/images/favicon.png"/>
 		<link href="assets/common.css?rel=1648061391" rel="stylesheet" title="Light"/>
-        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-        <script type="module">
-            import gSite from "./assets/main.js";
-            window.addEventListener("load", async function () {
-                await gSite.generateAddon(true);
-                gSite.doneLoading();
-            });
+        <script src="https://unpkg.com/systemjs@6.12.1/dist/system.min.js"></script>
+        <script src="assets/main.js"></script>
+        <script>
+            var pageId = 2;
         </script>
     </head>
     <body data-loaded="false">

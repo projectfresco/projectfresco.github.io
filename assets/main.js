@@ -7,8 +7,6 @@ const URL_GITHUB_API = "https://api.github.com/repos";
 const URL_GITHUB = "https://github.com";
 const URL_LICENSE = "https://opensource.org/licenses";
 
-import gat from "./config.js";
-
 var gAPI = {
     request: async function (aUrl, aHeaders = new Headers()) {
         let cacheKey = btoa(aUrl);
@@ -50,9 +48,14 @@ var gAPI = {
 
     requestFromGitHub: async function (aOptions, aEndpoint) {
         let url = `${URL_GITHUB_API}/${aOptions.owner}/${aOptions.repo}/${aEndpoint}`;
-        let headers = new Headers({
-            "Authorization": gat(),
+        let headers = new Headers();
+
+        System.import("./assets/config.js").then(() => {
+            headers = new Headers({
+                "Authorization": gat(),
+            });
         });
+
         return this.request(url, headers);
     },
 
@@ -135,6 +138,15 @@ var gSite = {
         let dateOptions = { year: "numeric", month: "long", day: "numeric" };
         let formattedDate = date.toLocaleDateString(undefined, dateOptions);
         return formattedDate;
+    },
+
+    _parseMarkdown: async function (aText) {
+        let parsedValue = "";
+        await System.import("https://unpkg.com/marked@4.0.12/marked.min.js")
+            .then(function () {
+                parsedValue = marked.parse(aText);
+            });
+        return parsedValue;
     },
 
     _appendBadge: function (aTarget, aText, aClass = "") {
@@ -429,7 +441,7 @@ var gSite = {
                     listItem.appendDesc(`Downloads: ${release.xpiDownloadCount}`);
                 }
                 if (release.changelog) {
-                    listItem.appendDesc(marked.parse(release.changelog));
+                    listItem.appendDesc(await gSite._parseMarkdown(release.changelog));
                 }
                 pageDetails.releaseList.appendChild(listItem.parentElement);
             }
@@ -448,7 +460,7 @@ var gSite = {
                 pageDetails.updateDate.innerText = gSite._formatDate(release.datePublished);
             }
             if (release.changelog) {
-                pageDetails.about.innerHTML = marked.parse(release.changelog);
+                pageDetails.about.innerHTML = await gSite._parseMarkdown(release.changelog);
             }
             if (release.tarballUrl) {
                 resourceLinks.tarball.href = release.tarballUrl;
@@ -481,6 +493,24 @@ var gSite = {
         }
     },
 
+    onLoad: async function () {
+        switch (pageId) {
+            case 0:
+                var urlParameters = new URLSearchParams(window.location.search);
+                let target = document.getElementById("lists");
+                let category = urlParameters.get("category");
+                await gSite.generateAll(target, category);
+                break;
+            case 1:
+                await gSite.generateAddon();
+                break;
+            case 2:
+                await gSite.generateAddon(true);
+                break;
+        }
+        gSite.doneLoading();
+    },
+
     doneLoading: function () {
         document.body.setAttribute("data-loaded", true);
         // Handle the fragment identifier, necessary if the anchor
@@ -495,4 +525,4 @@ var gSite = {
     },
 };
 
-export default gSite;
+window.addEventListener("DOMContentLoaded", gSite.onLoad);
