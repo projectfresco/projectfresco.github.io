@@ -469,6 +469,11 @@ var gSite = {
         container.className = "col";
         column.container = container;
 
+        let content = document.createElement("div");
+        content.className = "col-inner";
+        column.content = content;
+        container.appendChild(content);
+
         if (aSecondary) {
             container.classList.add("col-secondary");
             return column;
@@ -480,7 +485,7 @@ var gSite = {
         addonWrapper.id = "addon";
         addonWrapper.className = "island";
         column.addon = addonWrapper;
-        container.appendChild(addonWrapper);
+        content.appendChild(addonWrapper);
 
         let icon = document.createElement("img");
         icon.id = "addon-icon";
@@ -522,13 +527,8 @@ var gSite = {
         gSite.primary.main.appendChild(colPrimary.container);
         gSite.primary.main.appendChild(colSecondary.container);
 
-        var ilRelease = gSite._createIsland("Release Information");
         var ilLicense = gSite._createIsland("License");
         var ilResources = gSite._createIsland("Resources");
-
-        colSecondary.container.appendChild(ilRelease);
-        colSecondary.container.appendChild(ilLicense);
-        colSecondary.container.appendChild(ilResources);
 
         colPrimary.addonIcon.src = addon.iconUrl;
 
@@ -584,7 +584,7 @@ var gSite = {
             gSite._appendHtml(colPrimary.addonSummary, `${releaseData.data.length} releases`);
 
             let releaseList = document.createElement("div");
-            colPrimary.container.appendChild(releaseList);
+            colPrimary.content.appendChild(releaseList);
 
             for (let i = 0; i < releaseData.data.length; i++) {
                 let release = releaseData.data[i];
@@ -627,24 +627,34 @@ var gSite = {
 
             gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
             gSite._appendHtml(colPrimary.addonSummary, `By ${release.author.name}`);
-            if (releaseData.totalDownloadCount) {
-                gSite._appendHtml(colPrimary.addonSummary, `${releaseData.totalDownloadCount} downloads`);
-            }
             gSite._appendHtml(colPrimary.addonSummary, addon.description);
 
-            gSite._appendHtml(ilRelease, `Version: ${release.name}`);
+            if (release.name) {
+                var ilVersion = gSite._createIsland("Version");
+                colSecondary.content.appendChild(ilVersion);
+                gSite._appendHtml(ilVersion, release.name);
+            }
             if (release.datePublished) {
+                var ilLastUpdated = gSite._createIsland("Last Updated");
+                colSecondary.content.appendChild(ilLastUpdated);
                 let releaseDate = gSite._formatDate(release.datePublished);
-                gSite._appendHtml(ilRelease, `Updated on: ${releaseDate}`);
+                gSite._appendHtml(ilLastUpdated, releaseDate);
             }
             if (release.xpiSize) {
-                gSite._appendHtml(ilRelease, `Size: ${Math.round(release.xpiSize / 1024)} KB`);
+                var ilSize = gSite._createIsland("Size");
+                colSecondary.content.appendChild(ilSize);
+                gSite._appendHtml(ilSize, `${Math.round(release.xpiSize / 1024)} KB`);
+            }
+            if (releaseData.totalDownloadCount) {
+                var ilDownloads = gSite._createIsland("Total Downloads");
+                colSecondary.content.appendChild(ilDownloads);
+                gSite._appendHtml(ilDownloads, releaseData.totalDownloadCount);
             }
 
             if (release.changelog) {
                 var ilChangelog = gSite._createIsland("Release Notes");
                 gSite._appendHtml(ilChangelog, await gSite._parseMarkdown(release.changelog));
-                colPrimary.container.appendChild(ilChangelog);
+                colPrimary.content.appendChild(ilChangelog);
             }
             if (release.tarballUrl) {
                 // resourceLinks.tarball.href = release.tarballUrl;
@@ -676,6 +686,9 @@ var gSite = {
         } else if (addon.ghInfo) {
             gSite._appendLink(ilResources, "Source Repository", gAPI.getRepositoryUrl(addon.ghInfo), true);
         }
+
+        colSecondary.content.appendChild(ilLicense);
+        colSecondary.content.appendChild(ilResources);
     },
 
     onLoad: async function () {

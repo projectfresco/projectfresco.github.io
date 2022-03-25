@@ -309,13 +309,13 @@ th {
   margin-bottom: 0.5em;
 }
 
+.island:not(:last-child) {
+  margin-bottom: 1em;
+}
+
 .two-col {
   display: flex;
   justify-content: space-between;
-}
-
-.two-col > .col > div:not(:last-child) {
-  margin-bottom: 1em;
 }
 
 .two-col > .col-primary {
@@ -329,6 +329,11 @@ th {
 
 .two-col > .col-secondary > div:not(:first-child) {
   margin-top: 1em;
+}
+
+.two-col > .col-secondary > .col-inner {
+  position: sticky;
+  top: 1em;
 }
 
 @media screen and (max-width: 768px) {
