@@ -106,10 +106,12 @@ var gAPI = {
                     dateCreated: ghRelease.created_at,
                     zipballUrl: ghRelease.zipball_url,
                     tarballUrl: ghRelease.tarball_url,
-                    xpiUrl: "",
-                    xpiHash: "",
-                    xpiSize: 0,
-                    xpiDownloadCount: 0,
+                    xpi: {
+                        url: "",
+                        hash: "",
+                        size: "",
+                        downloadCount: "",
+                    },
                     author: {
                         slug: "",
                         name: ghRelease.author.login,
@@ -120,9 +122,9 @@ var gAPI = {
                     if (asset.content_type != CONTENT_TYPE_XPI) {
                         continue;
                     }
-                    release.xpiUrl = asset.browser_download_url;
-                    release.xpiSize = asset.size;
-                    release.xpiDownloadCount = asset.download_count;
+                    release.xpi.url = asset.browser_download_url;
+                    release.xpi.size = asset.size;
+                    release.xpi.downloadCount = asset.download_count;
                     releases.totalDownloadCount += asset.download_count;
                     break;
                 }
@@ -624,8 +626,8 @@ var gSite = {
                     let dateString = gSite._formatDate(release.datePublished);
                     gSite._appendHtml(listItem.desc, `Released: ${dateString}`);
                 }
-                if (release.xpiSize) {
-                    gSite._appendHtml(listItem.desc, `Size: ${Math.round(release.xpiSize / 1024)} KB`);
+                if (release.xpi.size) {
+                    gSite._appendHtml(listItem.desc, `Size: ${Math.round(release.xpi.size / 1024)} KB`);
                 }
                 if (release.xpiDownloadCount) {
                     gSite._appendHtml(listItem.desc, `Downloads: ${release.xpiDownloadCount}`);
@@ -635,18 +637,19 @@ var gSite = {
                 }
 
                 let artifactLinks = [];
-                if (release.xpiUrl) {
+                if (release.xpi.url) {
                     gSite._appendInstallButton(
                         listItem.parentElement,
                         addon.name,
                         {
-                            URL: release.xpiUrl,
+                            URL: release.xpi.url,
                             IconURL: addon.iconUrl,
+                            Hash: release.xpi.hash
                         }
                     );
                     artifactLinks.push({
                         label: "Download XPI",
-                        url: release.xpiUrl
+                        url: release.xpi.url
                     });
                 }
                 if (release.tarballUrl) {
@@ -685,10 +688,10 @@ var gSite = {
                 let releaseDate = gSite._formatDate(release.datePublished);
                 gSite._appendHtml(ilLastUpdated, releaseDate);
             }
-            if (release.xpiSize) {
+            if (release.xpi.size) {
                 var ilSize = gSite._createIsland("Size");
                 colSecondary.content.appendChild(ilSize);
-                gSite._appendHtml(ilSize, `${Math.round(release.xpiSize / 1024)} KB`);
+                gSite._appendHtml(ilSize, `${Math.round(release.xpi.size / 1024)} KB`);
             }
             if (releaseData.totalDownloadCount) {
                 var ilDownloads = gSite._createIsland("Total Downloads");
@@ -700,13 +703,14 @@ var gSite = {
                 gSite._appendHtml(ilChangelog, await gSite._parseMarkdown(release.changelog));
                 colPrimary.content.appendChild(ilChangelog);
             }
-            if (release.xpiUrl) {
+            if (release.xpi.url) {
                 gSite._appendInstallButton(
                     colPrimary.addonInstall,
                     addon.name,
                     {
-                        URL: release.xpiUrl,
+                        URL: release.xpi.url,
                         IconURL: addon.iconUrl,
+                        Hash: release.xpi.hash
                     }
                 );
             }
