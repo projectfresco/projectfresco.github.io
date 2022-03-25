@@ -43,24 +43,31 @@ var gAPI = {
         }
         aHeaders.append("User-Agent", `${APP_NAME}/${APP_VERSION}`);
 
-        let response = await fetch(aUrl, {
+        var isCached = false;
+        await fetch(aUrl, {
             method: "GET",
             headers: aHeaders,
-        });
-
-        let isCached = false;
-        if (response.status == 304) {
-            console.log(`Loading resource from cache: ${aUrl}`);
-            // Take response data from local storage
-            isCached = true;
-        } else {
-            data = await response.json();
-            if (response.status == 200) {
-                console.log(`Saving resource to cache: ${aUrl}`);
-                localStorage.setItem(cacheKey, JSON.stringify(data));
-                localStorage.setItem(cacheETagKey, response.headers.get("etag"));
+        }).then(async function (aResponse) {
+            switch (aResponse.status) {
+                case 304:
+                    console.log(`Loading resource from cache: ${aUrl}`);
+                    // Take response data from local storage
+                    isCached = true;
+                    break;
+                case 200:
+                    data = await aResponse.json();
+                    console.log(`Saving resource to cache: ${aUrl}`);
+                    localStorage.setItem(cacheKey, JSON.stringify(data));
+                    localStorage.setItem(cacheETagKey, aResponse.headers.get("etag"));
+                    break;
+                default:
+                    break;
             }
-        }
+        }).catch(function (aException) {
+            data = {
+                message: aException.message
+            };
+        });
 
         return {
             json: data,
@@ -84,7 +91,7 @@ var gAPI = {
 
     getReleases: async function (aOptions) {
         let response = await this.requestFromGitHub(aOptions, "releases");
-        if (!response.isCached) {
+        if (!response.isCached && !response.json.message) {
             // Convert GitHub releases to custom releases format
             var releases = {
                 totalDownloadCount: 0,
