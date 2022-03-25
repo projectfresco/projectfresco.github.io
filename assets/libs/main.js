@@ -23,7 +23,7 @@ const APP_NAV = [
     }
 ];
 
-const METADATA_JSON = "assets/metadata.json";
+const JSON_METADATA = "assets/metadata.json";
 const JSON_LICENSES = "assets/licenses.json";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
 
@@ -145,7 +145,7 @@ var gAPI = {
     _metadata: null,
     getMetadata: async function () {
         if (this._metadata == null) {
-            let response = await this.request(METADATA_JSON);
+            let response = await this.request(JSON_METADATA);
             this._metadata = response.json;
         }
         return this._metadata;
