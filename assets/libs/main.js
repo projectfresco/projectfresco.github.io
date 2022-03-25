@@ -519,6 +519,25 @@ var gSite = {
         return column;
     },
 
+    _appendLinkGroup(aTarget, aLinks, aClassName) {
+        let container = document.createElement("div");
+        container.className = aClassName;
+        let lastIndex = aLinks.length - 1;
+        for (let i = 0; i < aLinks.length; i++) {
+            let link = aLinks[i];
+            let anchor = document.createElement("a");
+            anchor.innerText = link.label;
+            anchor.href = link.url;
+            container.appendChild(anchor);
+            if (i < lastIndex) {
+                let separator = document.createElement("span");
+                separator.innerText = " | ";
+                container.appendChild(separator);
+            }
+        }
+        aTarget.appendChild(container);
+    },
+
     buildAddonPage: async function (aAddonSlug, aVersionHistory) {
         var addon = await gAPI.getAddon(aAddonSlug);
         if (!addon) {
@@ -601,16 +620,6 @@ var gSite = {
                 if (release.prerelease) {
                     gSite._appendBadge(listItem.title, "Pre-release", "prerelease");
                 }
-                if (release.xpiUrl) {
-                    gSite._appendInstallButton(
-                        listItem.parentElement,
-                        addon.name,
-                        {
-                            URL: release.xpiUrl,
-                            IconURL: addon.iconUrl,
-                        }
-                    );
-                }
                 if (release.datePublished) {
                     let dateString = gSite._formatDate(release.datePublished);
                     gSite._appendHtml(listItem.desc, `Released: ${dateString}`);
@@ -624,6 +633,35 @@ var gSite = {
                 if (release.changelog) {
                     gSite._appendHtml(listItem.desc, await gSite._parseMarkdown(release.changelog));
                 }
+
+                let artifactLinks = [];
+                if (release.xpiUrl) {
+                    gSite._appendInstallButton(
+                        listItem.parentElement,
+                        addon.name,
+                        {
+                            URL: release.xpiUrl,
+                            IconURL: addon.iconUrl,
+                        }
+                    );
+                    artifactLinks.push({
+                        label: "Download XPI",
+                        url: release.xpiUrl
+                    });
+                }
+                if (release.tarballUrl) {
+                    artifactLinks.push({
+                        label: "Download tarball",
+                        url: release.tarballUrl
+                    });
+                }
+                if (release.zipballUrl) {
+                    artifactLinks.push({
+                        label: "Download zipball",
+                        url: release.zipballUrl
+                    });
+                }
+                gSite._appendLinkGroup(listItem.desc, artifactLinks, "addon-artifacts");
                 releaseList.appendChild(listItem.parentElement);
             }
         } else {
@@ -657,20 +695,12 @@ var gSite = {
                 colSecondary.content.appendChild(ilDownloads);
                 gSite._appendHtml(ilDownloads, releaseData.totalDownloadCount);
             }
-
             if (release.changelog) {
                 var ilChangelog = gSite._createIsland("Release Notes");
                 gSite._appendHtml(ilChangelog, await gSite._parseMarkdown(release.changelog));
                 colPrimary.content.appendChild(ilChangelog);
             }
-            if (release.tarballUrl) {
-                // resourceLinks.tarball.href = release.tarballUrl;
-            }
-            if (release.zipballUrl) {
-                // resourceLinks.zipball.href = release.zipballUrl;
-            }
             if (release.xpiUrl) {
-                // resourceLinks.xpi.href = release.xpiUrl;
                 gSite._appendInstallButton(
                     colPrimary.addonInstall,
                     addon.name,

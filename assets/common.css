@@ -310,6 +310,11 @@ th {
   margin-bottom: 0.5em;
 }
 
+.addon-artifacts {
+  margin-top: 12px;
+  font-size: 0.9em;
+}
+
 .island:not(:last-child) {
   margin-bottom: 1em;
 }
