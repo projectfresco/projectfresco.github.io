@@ -59,7 +59,8 @@ footer {
   text-align: center;
   line-height: 13px;
   font-size: 10px;
-  margin-top: 12px;
+  margin-top: 3px;
+  margin-bottom: 9px;
 }
 
 .mono {
@@ -75,49 +76,53 @@ footer {
   max-width: var(--max-distance);
 }
 
-.content-layout.fixed {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  position: fixed;
-}
-
 .box {
   box-shadow: 2px 2px 8px #333333;
   border-radius: var(--radius);
   padding: 3px;
   background-color: #F9F9F9;
   color: black;
-  margin: 1em 0;
 }
 
 .box-inner {
   padding: 17px 9px 9px 9px;
 }
 
+section {
+  margin: 1em;
+}
+
+section.fixed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+}
+
 /* ::::: Content: Page ::::: */
 
-#page-loader, #page-main {
+#section-loader, #section-primary {
   transition: opacity 300ms ease-in;
 }
 
-#page-loader {
+#section-loader {
   opacity: 1;
 }
 
-#page-main {
+#section-primary {
   opacity: 0;
 }
 
-body[data-loaded="true"] #page-loader {
+body[data-loaded="true"] #section-loader {
   opacity: 0;
 }
 
-body[data-loaded="true"] #page-main {
+body[data-loaded="true"] #section-primary {
   opacity: 1;
 }
 
@@ -290,53 +295,51 @@ th {
 
 /* ::::: Page: Individual Add-on ::::: */
 
-#addon-container {
+#addon {
+  display: flex;
+  margin-right: 1em;
+}
+
+#addon > #addon-icon {
+  margin-right: 1em;
+  object-fit: scale-down;
+}
+
+#addon > #addon-detail > div:not(:last-child) {
+  margin-bottom: 0.5em;
+}
+
+.two-col {
   display: flex;
   justify-content: space-between;
 }
 
-.addon-general {
-  display: flex;
-  margin-right: 1em;
+.two-col > .col > div:not(:last-child) {
+  margin-bottom: 1em;
 }
 
-.addon-general > .addon-icon-container {
-  margin-right: 1em;
-}
-
-.addon-general > .addon-summary-container > #addon-download {
-  margin-top: 0.5em;
-}
-
-.addon-about-container {
-  margin-top: 1em;
-}
-
-.addon-primary {
+.two-col > .col-primary {
   flex: 1;
   margin-right: 1em;
 }
 
-.addon-secondary {
+.two-col > .col-secondary {
   flex: 280px 0 0;
 }
 
-.addon-secondary > .addon-secondary-section:not(:first-child) {
+.two-col > .col-secondary > div:not(:first-child) {
   margin-top: 1em;
 }
 
-.addon-releases-container {
-  margin: 1em 0;
-}
-
 @media screen and (max-width: 768px) {
-  #addon-container {
+  .two-col {
     flex-direction: column;
   }
-  .addon-primary {
+  .two-col > .col-primary {
     margin-right: 0;
   }
 }
+
 
 /* ::::: Web Fonts ::::: */
 

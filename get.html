@@ -9,98 +9,12 @@
         <script src="https://unpkg.com/systemjs@6.12.1/dist/system.min.js"></script>
         <script src="assets/main.js"></script>
         <script>
-            var pageId = 1;
+            var pageInfo = { id: 1 };
         </script>
     </head>
     <body data-loaded="false">
-        <section>
-            <div class="content-layout fixed">
-                <div id="page-loader" class="box">
-                    <div class="box-inner">
-                        <img src="assets/images/throbber.gif" width="32" height="32">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section>
-            <div class="content-layout">
-                <main id="page-main" class="box">
-                    <div id="page-header">
-                        Fresco
-                    </div>
-                    <nav id="page-nav">
-                        <ul>
-                            <li>
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a href="/addons/#extensions">Extensions</a>
-                            </li>
-                            <li>
-                                <a href="/addons/#themes">Themes</a>
-                            </li>
-                            <li>
-                                <a href="/addons/#dictionaries">Dictionaries</a>
-                            </li>
-                            <li>
-                                <a href="/addons/#language-packs">Language Packs</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="box-inner">
-                        <div id="addon-container">
-                            <div class="addon-primary">
-                                <div class="addon-general">
-                                    <div class="addon-icon-container">
-                                        <img id="addon-icon" width="64" height="64"/>
-                                    </div>
-                                    <div class="addon-summary-container">
-                                        <div id="addon-summary">
-                                        </div>
-                                        <div id="addon-download">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="addon-about-container">
-                                    <h3>Release Notes</h3>
-                                    <p id="addon-about"></p>
-                                </div>
-                            </div>
-                            <div class="addon-secondary">
-                                <div class="addon-secondary-section">
-                                    <h3>Release Information</h3>
-                                    <div>
-                                        Version: <span id="addon-version"></span>
-                                    </div>
-                                    <div>
-                                        Updated on: <span id="addon-update-date"></span>
-                                    </div>
-                                    <div>
-                                        Size: <span id="addon-size"></span>
-                                    </div>
-                                </div>
-                                <div class="addon-secondary-section">
-                                    <h3>License</h3>
-                                    <a id="addon-license" target="_blank">-</a>
-                                </div>
-                                <div class="addon-secondary-section">
-                                    <h3>Resources</h3>
-                                    <a id="download-xpi">Download XPI<br/></a>
-                                    <a id="download-tarball">Download tarball<br/></a>
-                                    <a id="download-zipball">Download zipball<br/></a>
-                                    <a id="link-version-history">Version History<br/></a>
-                                    <a id="link-support-email">Support E-mail<br/></a>
-                                    <a id="link-support-site" target="_blank">Support Site<br/></a>
-                                    <a id="link-source-repo" target="_blank">Source Repository<br/></a>
-                                </div>
-                            </div>
-                        </div>
-                        <footer>
-                            This site is maintained by FranklinDM.
-                        </footer>
-                    </div>
-                </main>
-            </div>
-        </section>
+        <noscript>
+            This site requires JavaScript.
+        </noscript>
     </body>
 </html>
