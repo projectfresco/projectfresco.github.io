@@ -463,8 +463,8 @@ var gSite = {
             let addons = metadata.addons.filter(function (item) {
                 let matchType = item.type == addonType.type;
                 let matchOwner = true;
-                if (ownerId) {
-                    matchOwner = item.owners && item.owners.includes(ownerId);
+                if (aOwner && item.owners) {
+                    matchOwner = item.owners.includes(ownerId);
                 }
                 let matchTerms = true;
                 if (aTerms) {
