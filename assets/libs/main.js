@@ -24,6 +24,7 @@ const APP_NAV = [
 ];
 
 const METADATA_JSON = "assets/metadata.json";
+const JSON_LICENSES = "assets/licenses.json";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
 
 const URL_GITHUB_API = "https://api.github.com/repos";
@@ -148,6 +149,15 @@ var gAPI = {
             this._metadata = response.json;
         }
         return this._metadata;
+    },
+
+    _licenses: null,
+    getLicenses: async function () {
+        if (this._licenses == null) {
+            let response = await this.request(JSON_LICENSES);
+            this._licenses = response.json;
+        }
+        return this._licenses;
     },
 
     getAddon: async function (aSlug) {
@@ -562,23 +572,10 @@ var gSite = {
 
         // Identify add-on license
         var licenseText = "";
-        var licenseUrl = "#";
+        var licenseUrl = `/addons/license?addon=${addon.slug}`;
         if (addon.license) {
-            let metadata = await gAPI.getMetadata();
-            let licenses = metadata.licenses;
-            licenseText = licenses[addon.license];
-            switch (addon.license) {
-                case "custom":
-                    if (addon.licenseUrl) {
-                        licenseUrl = addon.licenseUrl;
-                    }
-                    break;
-                case "PD":
-                    break;
-                default:
-                    licenseUrl = `${URL_LICENSE}/${addon.license}`;
-                    break;
-            }
+            let licenses = await gAPI.getLicenses();
+            licenseText = licenses.names[addon.license];
         } else {
             licenseText = `© ${new Date().getFullYear()}`;
         }
@@ -732,6 +729,56 @@ var gSite = {
         colSecondary.content.appendChild(ilResources);
     },
 
+    buildLicensePage: async function (aAddonSlug) {
+        var addon = await gAPI.getAddon(aAddonSlug);
+        if (!addon) {
+            gSite.primary.main.innerText = "Invalid add-on.";
+            gSite.doneLoading();
+            return;
+        }
+
+        gSite._updateTitle(`${addon.name} - License`);
+
+        if (addon.license && addon.license != "PD") {
+            gSite.primary.main.innerText = "Redirecting to license page...";
+            let licenseUrl;
+            if (addon.license == "custom" && addon.licenseUrl) {
+                licenseUrl = addon.licenseUrl;
+            } else {
+                licenseUrl = `${URL_LICENSE}/${addon.license}`;
+            }
+            window.location.href = licenseUrl;
+            return;
+        }
+
+        var colPrimary = gSite._createAddonColumn();
+        gSite.primary.main.appendChild(colPrimary.container);
+        gSite.primary.main.classList.add("two-col");
+
+        // License data
+        var licenses = await gAPI.getLicenses();
+        // Show message thrown by API and return early
+        if (licenses.message) {
+            gSite.primary.main.innerText = licenses.message;
+            gSite.doneLoading();
+            return;
+        }
+
+        colPrimary.addonIcon.src = addon.iconUrl;
+        gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
+        //gSite._appendHtml(colPrimary.addonSummary, `By ${release.author.name}`);
+
+        var ilLicense = gSite._createIsland("License");
+        var licenseText = "";
+        if (addon.license == "PD") {
+            licenseText = licenses.licenseText["publicDomain"];
+        } else {
+            licenseText = licenses.licenseText["copyrighted"];
+        }
+        gSite._appendHtml(ilLicense, licenseText);
+        colPrimary.content.appendChild(ilLicense);
+    },
+
     _clearStorage: function () {
         console.log(`Clearing local storage`);
         localStorage.clear();
@@ -753,26 +800,33 @@ var gSite = {
         gSite._addPrimarySection();
 
         var urlParameters = new URLSearchParams(window.location.search);
-
         if (urlParameters.has("reset")) {
             gSite._clearStorage();
         }
+        var category = urlParameters.get("category");
+        var addonSlug = urlParameters.get("addon");
 
         switch (pageInfo.id) {
             // Category
             case 0:
-                let category = urlParameters.get("category");
                 await gSite.buildCategoryPage(category);
                 break;
             // Add-on
             case 1:
-                let addonSlug = urlParameters.get("addon");
                 if (!addonSlug) {
                     gSite.primary.main.innerText = "Missing add-on parameter.";
                     gSite.doneLoading();
                     return;
                 }
                 await gSite.buildAddonPage(addonSlug, pageInfo.versionHistory);
+                break;
+            case 2:
+                if (!addonSlug) {
+                    gSite.primary.main.innerText = "Missing add-on parameter.";
+                    gSite.doneLoading();
+                    return;
+                }
+                await gSite.buildLicensePage(addonSlug);
                 break;
         }
 
