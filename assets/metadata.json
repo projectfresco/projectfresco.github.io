@@ -1,5 +1,5 @@
 {
-    "lastUpdated": 1648230210,
+    "lastUpdated": 1648231269,
     "owners": [
         {
             "username": "franklindm",
@@ -24,6 +24,10 @@
         {
             "username": "realityripple",
             "displayName": "RealityRipple"
+        },
+        {
+            "username": "addons",
+            "displayName": "Pale Moon Add-ons Team"
         }
     ],
     "types": [
@@ -253,6 +257,7 @@
             "type": 8,
             "name": "Tagalog/Filipino (PH)",
             "description": "",
+            "owners": [6],
             "xpiUrl": "http://archive.palemoon.org/palemoon/langpacks/30.x/30.0.1/tl.xpi",
             "hash": ""
         },
