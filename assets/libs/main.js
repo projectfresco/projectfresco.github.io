@@ -168,25 +168,17 @@ var gAPI = {
         return addon;
     },
 
-    getOwners: async function (aOwnerIds) {
+    getOwners: async function () {
         let metadata = await this.getMetadata();
-        if (!aOwnerIds) {
-            return "{unknown owner}";
-        }
+        return metadata.owners;
+    },
 
-        var owners = "";
-        let lastIndex = aOwnerIds.length - 1;
-        for (let i = 0; i < aOwnerIds.length; i++) {
-            var ownerId = aOwnerIds[i];
-            if (ownerId < metadata.owners.length) {
-                owners += metadata.owners[ownerId].displayName;
-            }
-            if (i < lastIndex) {
-                owners += ", ";
-            }
-        }
-
-        return owners;
+    getOwnerId: async function (aUsername) {
+        let ownerData = await this.getOwners();
+        var owner = ownerData.find(function (item) {
+            return item.username == aUsername;
+        });
+        return ownerData.indexOf(owner);
     },
 };
 
@@ -435,7 +427,7 @@ var gSite = {
         section.content.appendChild(footer);
     },
 
-    buildCategoryPage: async function (aTypeSlug, aHideInfo) {
+    buildCategoryPage: async function (aTypeSlug, aOwner) {
         var listBox = document.createElement("div");
         listBox.id = "lists";
         gSite.primary.main.appendChild(listBox);
@@ -445,33 +437,51 @@ var gSite = {
         var types = metadata.types;
         for (let i = 0; i < types.length; i++) {
             let addonType = types[i];
+            let title = "";
             if (aTypeSlug) {
                 if (addonType.slug != aTypeSlug) {
                     continue;
                 }
-                gSite._updateTitle(addonType.name);
+                title = addonType.name;
             } else {
-                gSite._updateTitle("All");
+                title = "All";
             }
+            gSite._updateTitle(title);
 
-            if (!aHideInfo) {
-                let listTitle = document.createElement("h1");
-                listTitle.innerText = addonType.name;
-                listTitle.id = addonType.slug;
-                listBox.append(listTitle);
-                
-                let listDescription = document.createElement("p");
-                listDescription.innerText = addonType.description;
-                listBox.append(listDescription);
+            let listTitle = document.createElement("h1");
+            listTitle.innerText = addonType.name;
+            listTitle.id = addonType.slug;
+            
+            let listDescription = document.createElement("p");
+            listDescription.innerText = addonType.description;
+
+            var filterFunction;
+            if (aOwner) {
+                let aOwnerId = await gAPI.getOwnerId(aOwner);
+                filterFunction = function (item) {
+                    return item.type == addonType.type &&
+                           item.owners && item.owners.includes(aOwnerId);
+                };
+            } else {
+                filterFunction = function (item) {
+                    return item.type == addonType.type;
+                };
             }
-
-            let addons = metadata.addons.filter(function (item) {
-                return item.type == addonType.type;
-            }).sort(function (a, b) {
+            let addons = metadata.addons
+                .filter(filterFunction)
+                .sort(function (a, b) {
                 return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-            });
+                });
+            if (addons.length == 0) {
+                continue;
+            }
 
             let list = gSite._createList(addons, addonType.defaultIcon);
+
+            listBox.append(listTitle);
+            if (!aOwner) {
+                listBox.append(listDescription);
+            }
             listBox.append(list);
         }
     },
@@ -570,6 +580,32 @@ var gSite = {
         aTarget.appendChild(container);
     },
 
+    _createOwners: async function (aOwnerIds, aLink) {
+        let ownerData = await gAPI.getOwners();
+        if (!aOwnerIds) {
+            return "{unknown owner}";
+        }
+
+        var ownersList = "";
+        let lastIndex = aOwnerIds.length - 1;
+        for (let i = 0; i < aOwnerIds.length; i++) {
+            let ownerId = aOwnerIds[i];
+            let currOwner = ownerData[ownerId];
+            if (aLink) {
+                ownersList += `<a href="/addons/?user=${currOwner.username}">`;
+            }
+            ownersList += currOwner.displayName;
+            if (aLink) {
+                ownersList += "</a>";
+            }
+            if (i < lastIndex) {
+                ownersList += ", ";
+            }
+        }
+
+        return ownersList;
+    },
+
     buildAddonPage: async function (aAddonSlug, aVersionHistory) {
         var addon = await gAPI.getAddon(aAddonSlug);
         if (!addon) {
@@ -589,7 +625,6 @@ var gSite = {
         var ilResources = gSite._createIsland("Resources");
 
         colPrimary.addonIcon.src = addon.iconUrl;
-        var ownersList = await gAPI.getOwners(addon.owners);
 
         // Identify add-on license
         var licenseText = "";
@@ -598,6 +633,7 @@ var gSite = {
             let licenses = await gAPI.getLicenses();
             licenseText = licenses.names[addon.license];
         } else {
+            let ownersList = await gSite._createOwners(addon.owners);
             licenseText = `© ${new Date().getFullYear()} ${ownersList}`;
         }
         gSite._appendLink(ilLicense, licenseText, licenseUrl, true);
@@ -691,6 +727,7 @@ var gSite = {
 
             let release = releaseData.data[0];
 
+            let ownersList = await gSite._createOwners(addon.owners, true);
             gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
             gSite._appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
             gSite._appendHtml(colPrimary.addonSummary, addon.description);
@@ -787,7 +824,7 @@ var gSite = {
 
         colPrimary.addonIcon.src = addon.iconUrl;
         gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
-        var ownersList = await gAPI.getOwners(addon.owners);
+        var ownersList = await gSite._createOwners(addon.owners, true);
         gSite._appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
 
         var ilLicense = gSite._createIsland("License");
@@ -826,12 +863,13 @@ var gSite = {
             gSite._clearStorage();
         }
         var category = urlParameters.get("category");
+        var user = urlParameters.get("user");
         var addonSlug = urlParameters.get("addon");
 
         switch (pageInfo.id) {
             // Category
             case 0:
-                await gSite.buildCategoryPage(category);
+                await gSite.buildCategoryPage(category, user);
                 break;
             // Add-on
             case 1:
