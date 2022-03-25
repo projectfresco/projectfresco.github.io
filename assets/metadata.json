@@ -1,5 +1,5 @@
 {
-    "lastUpdated": 1648228862,
+    "lastUpdated": 1648230210,
     "owners": [
         {
             "username": "franklindm",
@@ -716,6 +716,47 @@
             "ghInfo":  {
                 "owner": "Lootyhoof",
                 "repo": "xmoon"
+            }
+        },
+        {
+            "slug": "home-styler",
+            "type": 2,
+            "name": "Home Styler",
+            "description": "Make your about:home page stylish!",
+            "owners": [1],
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "home-styler"
+            }
+        },
+        {
+            "slug": "stylem",
+            "type": 2,
+            "name": "Stylem",
+            "description": "Restyle the web with Stylem, a user styles manager.",
+            "owners": [1],
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/stylem/master/src/skin/32.svg",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "GPL-3.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "stylem"
+            }
+        },
+        {
+            "slug": "mozarchiver",
+            "type": 2,
+            "name": "MozArchiver",
+            "description": "Save exactly what you see, in a single file. MAFF (based on ZIP) is compact and exceptional for video and audio. MHT (Internet Explorer's format) allows easy exchange with IE users. Store many tabs, find original, and more!",
+            "owners": [1],
+            "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/mozarchiver/master/src/icon64.png",
+            "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
+            "license": "MPL-2.0",
+            "ghInfo":  {
+                "owner": "Lootyhoof",
+                "repo": "mozarchiver"
             }
         },
         {
