@@ -151,6 +151,21 @@ var gAPI = {
 
 };
 
+var gAppInfo = {
+    identify: function () {
+        var ua = navigator.userAgent;
+        this.isGRE = /Goanna/.test(ua) && InstallTrigger;
+
+        var match = /(PaleMoon|Basilisk|Interlink|Borealis)\/([^\s]*).*$/.exec(ua);
+        if (!match || match.length != 3) {
+            return;
+        }
+
+        this.name = match[1];
+        this.version = match[2];
+    },
+};
+
 var gSite = {
     _updateTitle: function (aTitle) {
         document.title = `${aTitle} - Add-ons - ${APP_NAME}`;
@@ -196,8 +211,7 @@ var gSite = {
         buttonIcon.className = "button-icon";
         buttonIcon.src = "assets/images/download.png";
 
-        let isBrowserGRE = navigator.userAgent.includes("Goanna") && InstallTrigger;
-        if (isBrowserGRE) {
+        if (gAppInfo.isGRE) {
             button.append("Install Now");
             button.href = "#";
             button.addEventListener("click", function (aEvent) {
@@ -665,6 +679,7 @@ var gSite = {
     },
 
     onLoad: async function () {
+        gAppInfo.identify();
         gSite._addLoaderSection();
         gSite._addPrimarySection();
 
