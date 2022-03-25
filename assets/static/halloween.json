@@ -6,10 +6,12 @@
             "prerelease": false,
             "datePublished": "2020-03-15T06:29:00Z",
             "dateCreated": "2020-03-15T06:29:00Z",
-            "xpiUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/halloween-8.32.xpi",
-            "xpiHash": "",
-            "xpiSize": 1809156,
-            "xpiDownloadCount": 0,
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/halloween-8.32.xpi",
+                "hash": "",
+                "size": 1809156,
+                "downloadCount": 0
+            },
             "author": {
                 "slug": "goodydino",
                 "name": "Goodydino",
@@ -22,10 +24,12 @@
             "prerelease": false,
             "datePublished": "2019-09-27T08:16:00Z",
             "dateCreated": "2019-09-27T08:16:00Z",
-            "xpiUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.31.xpi",
-            "xpiHash": "",
-            "xpiSize": 1801729,
-            "xpiDownloadCount": 0,
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.31.xpi",
+                "hash": "",
+                "size": 1801729,
+                "downloadCount": 0
+            },
             "author": {
                 "slug": "goodydino",
                 "name": "Goodydino",
@@ -38,10 +42,12 @@
             "prerelease": false,
             "datePublished": "2019-09-27T08:16:00Z",
             "dateCreated": "2019-09-27T08:16:00Z",
-            "xpiUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.30.xpi",
-            "xpiHash": "",
-            "xpiSize": 1801708,
-            "xpiDownloadCount": 0,
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.30.xpi",
+                "hash": "",
+                "size": 1801708,
+                "downloadCount": 0
+            },
             "author": {
                 "slug": "goodydino",
                 "name": "Goodydino",
@@ -54,10 +60,12 @@
             "prerelease": false,
             "datePublished": "2019-09-27T08:16:00Z",
             "dateCreated": "2019-09-27T08:16:00Z",
-            "xpiUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.23.xpi",
-            "xpiHash": "",
-            "xpiSize": 1801625,
-            "xpiDownloadCount": 0,
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.23.xpi",
+                "hash": "",
+                "size": 1801625,
+                "downloadCount": 0
+            },
             "author": {
                 "slug": "goodydino",
                 "name": "Goodydino",
@@ -70,10 +78,12 @@
             "prerelease": false,
             "datePublished": "2019-09-27T08:16:00Z",
             "dateCreated": "2019-09-27T08:16:00Z",
-            "xpiUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.22.xpi",
-            "xpiHash": "",
-            "xpiSize": 1738640,
-            "xpiDownloadCount": 0,
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.22.xpi",
+                "hash": "",
+                "size": 1738640,
+                "downloadCount": 0
+            },
             "author": {
                 "slug": "goodydino",
                 "name": "Goodydino",
@@ -86,10 +96,12 @@
             "prerelease": false,
             "datePublished": "2019-09-27T08:16:00Z",
             "dateCreated": "2019-09-27T08:16:00Z",
-            "xpiUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.21.xpi",
-            "xpiHash": "",
-            "xpiSize": 1733231,
-            "xpiDownloadCount": 0,
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.21.xpi",
+                "hash": "",
+                "size": 1733231,
+                "downloadCount": 0
+            },
             "author": {
                 "slug": "goodydino",
                 "name": "Goodydino",
@@ -102,10 +114,12 @@
             "prerelease": false,
             "datePublished": "2019-09-27T08:16:00Z",
             "dateCreated": "2019-09-27T08:16:00Z",
-            "xpiUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.2.xpi",
-            "xpiHash": "",
-            "xpiSize": 1725474,
-            "xpiDownloadCount": 0,
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.2.xpi",
+                "hash": "",
+                "size": 1725474,
+                "downloadCount": 0
+            },
             "author": {
                 "slug": "goodydino",
                 "name": "Goodydino",
@@ -118,10 +132,12 @@
             "prerelease": false,
             "datePublished": "2019-09-27T08:16:00Z",
             "dateCreated": "2019-09-27T08:16:00Z",
-            "xpiUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.01.xpi",
-            "xpiHash": "",
-            "xpiSize": 1695196,
-            "xpiDownloadCount": 0,
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.01.xpi",
+                "hash": "",
+                "size": 1695196,
+                "downloadCount": 0
+            },
             "author": {
                 "slug": "goodydino",
                 "name": "Goodydino",
@@ -134,10 +150,12 @@
             "prerelease": false,
             "datePublished": "2019-09-27T08:16:00Z",
             "dateCreated": "2019-09-27T08:16:00Z",
-            "xpiUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.0.xpi",
-            "xpiHash": "",
-            "xpiSize": 1694784,
-            "xpiDownloadCount": 0,
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.0.xpi",
+                "hash": "",
+                "size": 1694784,
+                "downloadCount": 0
+            },
             "author": {
                 "slug": "goodydino",
                 "name": "Goodydino",

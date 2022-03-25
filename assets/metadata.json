@@ -1,21 +1,5 @@
 {
-    "lastUpdated": 1648055528,
-    "licenses": {
-        "custom": "Custom License",
-        "Apache-2.0": "Apache License 2.0",
-        "Apache-1.1": "Apache License 1.1",
-        "BSD-3-Clause": "BSD 3-Clause",
-        "BSD-2-Clause": "BSD 2-Clause",
-        "GPL-3.0": "GNU General Public License 3.0",
-        "GPL-2.0": "GNU General Public License 2.0",
-        "LGPL-3.0": "GNU Lesser General Public License 3.0",
-        "LGPL-2.1": "GNU Lesser General Public License 2.1",
-        "AGPL-3.0": "GNU Affero General Public License v3",
-        "MIT": "MIT License",
-        "MPL-2.0": "Mozilla Public License 2.0",
-        "MPL-1.1": "Mozilla Public License 1.1",
-        "PD": "Public Domain"
-    },
+    "lastUpdated": 1648222879,
     "types": [
         {
             "type": 2,
