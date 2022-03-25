@@ -92,6 +92,7 @@ section {
   margin: 1em;
 }
 
+noscript,
 section.fixed {
   display: flex;
   align-items: center;
