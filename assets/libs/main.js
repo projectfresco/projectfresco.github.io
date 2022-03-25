@@ -427,7 +427,7 @@ var gSite = {
         section.content.appendChild(footer);
     },
 
-    buildCategoryPage: async function (aTypeSlug, aOwner) {
+    buildCategoryPage: async function (aTypeSlug, aOwner, aTerms) {
         var listBox = document.createElement("div");
         listBox.id = "lists";
         gSite.primary.main.appendChild(listBox);
@@ -455,23 +455,26 @@ var gSite = {
             let listDescription = document.createElement("p");
             listDescription.innerText = addonType.description;
 
-            var filterFunction;
+            var ownerId;
             if (aOwner) {
-                let aOwnerId = await gAPI.getOwnerId(aOwner);
-                filterFunction = function (item) {
-                    return item.type == addonType.type &&
-                           item.owners && item.owners.includes(aOwnerId);
-                };
-            } else {
-                filterFunction = function (item) {
-                    return item.type == addonType.type;
-                };
+                ownerId = await gAPI.getOwnerId(aOwner);
             }
-            let addons = metadata.addons
-                .filter(filterFunction)
-                .sort(function (a, b) {
+
+            let addons = metadata.addons.filter(function (item) {
+                let matchType = item.type == addonType.type;
+                let matchOwner = true;
+                if (ownerId) {
+                    matchOwner = item.owners && item.owners.includes(ownerId);
+                }
+                let matchTerms = true;
+                if (aTerms) {
+                    matchTerms = item.name.includes(aTerms) || item.description.includes(aTerms);
+                }
+                
+                return matchType && matchOwner && matchTerms;
+            }).sort(function (a, b) {
                 return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-                });
+            });
             if (addons.length == 0) {
                 continue;
             }
@@ -479,7 +482,7 @@ var gSite = {
             let list = gSite._createList(addons, addonType.defaultIcon);
 
             listBox.append(listTitle);
-            if (!aOwner) {
+            if (!aOwner && !aTerms) {
                 listBox.append(listDescription);
             }
             listBox.append(list);
@@ -862,14 +865,15 @@ var gSite = {
         if (urlParameters.has("reset")) {
             gSite._clearStorage();
         }
-        var category = urlParameters.get("category");
-        var user = urlParameters.get("user");
         var addonSlug = urlParameters.get("addon");
 
         switch (pageInfo.id) {
-            // Category
+            // Category/User/Search
             case 0:
-                await gSite.buildCategoryPage(category, user);
+                var category = urlParameters.get("category");
+                var user = urlParameters.get("user");
+                var searchTerms = urlParameters.get("terms");
+                await gSite.buildCategoryPage(category, user, searchTerms);
                 break;
             // Add-on
             case 1:
