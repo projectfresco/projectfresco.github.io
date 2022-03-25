@@ -543,6 +543,7 @@ var gSite = {
         icon.id = "addon-icon";
         icon.width = 64;
         icon.height = 64;
+        icon.src = "assets/images/icon-extension.png"; // TODO: should not be hardcoded
         column.addonIcon = icon;
         addonWrapper.appendChild(icon);
 
@@ -627,7 +628,9 @@ var gSite = {
         var ilLicense = gSite._createIsland("License");
         var ilResources = gSite._createIsland("Resources");
 
-        colPrimary.addonIcon.src = addon.iconUrl;
+        if (addon.iconUrl) {
+            colPrimary.addonIcon.src = addon.iconUrl;
+        }
 
         // Identify add-on license
         var licenseText = "";
@@ -825,7 +828,9 @@ var gSite = {
             return;
         }
 
-        colPrimary.addonIcon.src = addon.iconUrl;
+        if (addon.iconUrl) {
+            colPrimary.addonIcon.src = addon.iconUrl;
+        }
         gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
         var ownersList = await gSite._createOwners(addon.owners, true);
         gSite._appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
