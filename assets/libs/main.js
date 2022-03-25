@@ -168,6 +168,26 @@ var gAPI = {
         return addon;
     },
 
+    getOwners: async function (aOwnerIds) {
+        let metadata = await this.getMetadata();
+        if (!aOwnerIds) {
+            return "{unknown owner}";
+        }
+
+        var owners = "";
+        let lastIndex = aOwnerIds.length - 1;
+        for (let i = 0; i < aOwnerIds.length; i++) {
+            var ownerId = aOwnerIds[i];
+            if (ownerId < metadata.owners.length) {
+                owners += metadata.owners[ownerId].displayName;
+            }
+            if (i < lastIndex) {
+                owners += ", ";
+            }
+        }
+
+        return owners;
+    },
 };
 
 var gAppInfo = {
@@ -569,6 +589,7 @@ var gSite = {
         var ilResources = gSite._createIsland("Resources");
 
         colPrimary.addonIcon.src = addon.iconUrl;
+        var ownersList = await gAPI.getOwners(addon.owners);
 
         // Identify add-on license
         var licenseText = "";
@@ -577,7 +598,7 @@ var gSite = {
             let licenses = await gAPI.getLicenses();
             licenseText = licenses.names[addon.license];
         } else {
-            licenseText = `© ${new Date().getFullYear()}`;
+            licenseText = `© ${new Date().getFullYear()} ${ownersList}`;
         }
         gSite._appendLink(ilLicense, licenseText, licenseUrl, true);
 
@@ -671,7 +692,7 @@ var gSite = {
             let release = releaseData.data[0];
 
             gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
-            gSite._appendHtml(colPrimary.addonSummary, `By ${release.author.name}`);
+            gSite._appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
             gSite._appendHtml(colPrimary.addonSummary, addon.description);
 
             if (release.name) {
@@ -766,7 +787,8 @@ var gSite = {
 
         colPrimary.addonIcon.src = addon.iconUrl;
         gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
-        //gSite._appendHtml(colPrimary.addonSummary, `By ${release.author.name}`);
+        var ownersList = await gAPI.getOwners(addon.owners);
+        gSite._appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
 
         var ilLicense = gSite._createIsland("License");
         var licenseText = "";
