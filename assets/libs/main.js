@@ -728,12 +728,31 @@ var gSite = {
         colSecondary.content.appendChild(ilResources);
     },
 
+    _clearStorage: function () {
+        console.log(`Clearing local storage`);
+        localStorage.clear();
+        localStorage.setItem("version", APP_VERSION);
+    },
+
+    _migrate: function () {
+        let version = localStorage.getItem("version");
+        if (version && version == APP_VERSION) {
+            return;
+        }
+        gSite._clearStorage();
+    },
+
     onLoad: async function () {
         gAppInfo.identify();
+        gSite._migrate();
         gSite._addLoaderSection();
         gSite._addPrimarySection();
 
         var urlParameters = new URLSearchParams(window.location.search);
+
+        if (urlParameters.has("reset")) {
+            gSite._clearStorage();
+        }
 
         switch (pageInfo.id) {
             // Category
