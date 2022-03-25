@@ -180,7 +180,7 @@ var gSite = {
 
     _parseMarkdown: async function (aText) {
         let parsedValue = "";
-        await System.import("https://unpkg.com/marked@4.0.12/marked.min.js")
+        await System.import("./assets/libs/marked/marked.min.js")
             .then(function () {
                 parsedValue = marked.parse(aText);
             });
