@@ -236,11 +236,10 @@ var gSite = {
 
     _appendInstallButton: function (aTarget, aAddonName, aInstallData) {
         let button = document.createElement("a");
-        let buttonIcon = document.createElement("img");
+        let buttonIcon = document.createElement("div");
         button.append(buttonIcon);
         button.className = "button";
         buttonIcon.className = "button-icon";
-        buttonIcon.src = "assets/images/download.png";
 
         if (gAppInfo.isGRE) {
             button.append("Install Now");
@@ -393,8 +392,18 @@ var gSite = {
         // Header
         let header = document.createElement("header");
         header.id = "page-header";
-        header.innerText = APP_NAME;
         section.header = header;
+
+        let headerInner = document.createElement("div");
+        headerInner.id = "page-header-inner";
+        section.headerInner = headerInner;
+        header.appendChild(headerInner);
+
+        let headerLogo = document.createElement("img");
+        headerLogo.id = "page-header-logo";
+        headerLogo.src = "assets/images/header_logo.svg";
+        section.headerLogo = headerLogo;
+        headerInner.appendChild(headerLogo);
 
         // Navigation
         let navList = document.createElement("ul");
@@ -411,6 +420,7 @@ var gSite = {
         let navContainer = document.createElement("nav");
         navContainer.id = "page-nav";
         navContainer.appendChild(navList);
+        header.appendChild(navContainer);
 
         // Main
         let main = gSite._createInnerBox("main", "main");
@@ -422,7 +432,6 @@ var gSite = {
         section.footer = footer;
 
         section.content.appendChild(header);
-        section.content.appendChild(navContainer);
         section.content.appendChild(main);
         section.content.appendChild(footer);
     },

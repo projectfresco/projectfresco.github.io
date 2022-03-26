@@ -1,0 +1,121 @@
+/* ::::: Primary ::::: */
+
+:root {
+  --color-primary: #000000;
+  --color-accent: #000000;
+  --link-color: #003399;
+  --link-hover-color: #333333;
+  --radius: 9px;
+  --max-distance: 910px;
+}
+
+html {
+  font-family: verdana, sans-serif;
+  font-size: small;
+  background-color: #FFFFFF;
+  background-image: linear-gradient(to bottom, #E5E5E5, #FFFFFF 65px);
+  background-repeat: no-repeat;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  border-bottom: 1px solid #CCCCCC;
+  font-family: arial, verdana, sans-serif;
+}
+
+footer {
+  border-top: 1px solid #999999;
+  color: #666666;
+  text-align: center;
+  line-height: 13px;
+  margin: 2em 0;
+  padding: 1em 0;
+}
+
+/* ::::: Content: Box Layout ::::: */
+
+.box {
+  padding: 3px;
+  color: black;
+}
+
+.box-inner {
+  padding: 17px 9px 9px 9px;
+}
+
+/* ::::: Header ::::: */
+
+#page-header {
+  font-size: 1.5em;
+  color: var(--color-primary);
+  background-color: #2A3753;
+  background-image: linear-gradient(to bottom, #455372 0%, #2A3753 80%, #2A3753 100%);
+  border-radius: var(--radius);
+  padding: 1em 1em 0 1em;
+}
+
+#page-header-inner {
+  margin-bottom: -18px;
+}
+
+#page-header-logo {
+  height: 40px;
+}
+
+/* ::::: Navigation ::::: */
+
+#page-nav ul {
+  justify-content: end;
+}
+
+#page-nav ul > li a {
+  display: block;
+  padding: 5px 10px;
+  color: #FFFFFF;
+  background-color: #5F697E;
+  background-image: linear-gradient(to bottom, #6A758A 0%, #5F697E 95%, #5F697E 100%);
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px 8px 0 0;
+  margin-left: 1px;
+}
+
+#page-nav ul > li a:focus,
+#page-nav ul > li a:hover {
+  background: #747F96;
+}
+
+/* ::::: Buttons ::::: */
+
+.button {
+  border: 1px groove #A1AD78;
+  border-top-style: none;
+  border-left-style: none;
+  border-radius: 9px;
+  background-color: #BEE6A1;
+  width: 120px;
+  height: 21px;
+  padding: 10px;
+}
+
+.button > .button-icon {
+  background-image: url("/addons/assets/images/download_alt.png");
+}
+
+.button.download {
+  background-color: #DFE5A0;
+}
+
+/* ::::: Lists ::::: */
+
+.list-item[href]:hover .list-item-title {
+  color: var(--link-hover-color);
+}
+
+.list-item[href] .list-item-title {
+  color: var(--link-color);
+}
+
+.list-item:nth-child(odd) {
+  background: #F0F0F0;
+}
