@@ -9,22 +9,22 @@ const APP_NAV = [
     {
         id: "extensions",
         label: "Extensions",
-        url: "/addons/?category=extensions"
+        url: "/addons/?category=extensions&page=1"
     },
     {
         id: "themes",
         label: "Themes",
-        url: "/addons/?category=themes"
+        url: "/addons/?category=themes&page=1"
     },
     {
         id: "dictionaries",
         label: "Dictionaries",
-        url: "/addons/?category=dictionaries"
+        url: "/addons/?category=dictionaries&page=1"
     },
     {
         id: "language-packs",
         label: "Language Packs",
-        url: "/addons/?category=language-packs"
+        url: "/addons/?category=language-packs&page=1"
     }
 ];
 
@@ -40,6 +40,8 @@ const MIRROR_PHOEBUS_PM = "https://addons.palemoon.org/addon/";
 const MIRROR_PHOEBUS_BK = "https://addons.basilisk-browser.org/addon/";
 const MIRROR_PHOEBUS_IN = "https://interlink-addons.binaryoutcast.com/addon/";
 const MIRROR_AMO = "https://addons.mozilla.org/en-US/firefox/addon/";
+
+const LIST_MAX_ITEMS = 25;
 
 var gAPI = {
     request: async function (aUrl, aHeaders = new Headers()) {
@@ -326,11 +328,25 @@ var gSite = {
         return listItem;
     },
 
-    _createList: function (aAddons, aDefaultIcon) {
+    _createList: function (aAddons, aDefaultIcon, aPage) {
         let list = document.createElement("div");
         list.className = "list";
+    
+        var i = 0;
+        var length = aAddons.length;
+        if (aPage) {
+            i = (aPage - 1) * LIST_MAX_ITEMS;
+            length = aPage * LIST_MAX_ITEMS;
+            if (length > aAddons.length) {
+                length = aAddons.length;
+            }
+            if (i >= length) {
+                list.append("No results found.");
+                return list;
+            }
+        }
 
-        for (let i = 0; i < aAddons.length; i++) {
+        for (; i < length; i++) {
             let addon = aAddons[i];
             let listItem = gSite._createListItem();
 
@@ -481,15 +497,66 @@ var gSite = {
         }
     },
 
-    buildCategoryPage: async function (aTypeSlug, aOwner, aTerms) {
-        var listBox = document.createElement("div");
-        listBox.id = "lists";
-        gSite.primary.main.appendChild(listBox);
+    _createPaginationLink: function (aUrlParameters, aPageCount, aCurrentPage, aTargetPage, aLabel) {
+        let link = document.createElement("a");
+        link.className = "pagination-link";
+        link.innerText = aLabel || aTargetPage;
+        if (aTargetPage == aCurrentPage) {
+            link.classList.add("active");
+        }
+        if (aTargetPage < 1 || aTargetPage > aPageCount || aTargetPage == aCurrentPage) {
+            link.classList.add("disabled");
+        } else {
+            aUrlParameters.set("page", aTargetPage);
+            link.href = "?" + aUrlParameters.toString();
+        }
+        return link;
+    },
+
+    _createPagination: function (aPageCount, aCurrentPage) {
+        var pagination = document.createElement("div");
+        pagination.className = "pagination";
         
+        if (aCurrentPage > aPageCount) {
+            return pagination;
+        }
+
+        let startIndex = Math.max(1, aCurrentPage - 2);
+        let lastIndex = Math.min(startIndex + 5, aPageCount + 1);
+        startIndex = Math.max(1, startIndex - (5 - (lastIndex - startIndex)));
+        console.log(startIndex, lastIndex);
+
+        let linkWrapper = document.createElement("div");
+        linkWrapper.className = "pagination-link-wrapper";
+        pagination.append(linkWrapper);
+
+        var urlParameters = new URLSearchParams(window.location.search);
+        let prevLink = gSite._createPaginationLink(urlParameters, aPageCount, aCurrentPage, aCurrentPage - 1, "Previous");
+        let nextLink = gSite._createPaginationLink(urlParameters, aPageCount, aCurrentPage, aCurrentPage + 1, "Next");
+
+        linkWrapper.append(prevLink);
+        for (let i = startIndex; i < lastIndex; i++) {
+            let link = gSite._createPaginationLink(urlParameters, aPageCount, aCurrentPage, i);
+            linkWrapper.append(link);
+        }
+        linkWrapper.append(nextLink);
+
+        let pageNumber = document.createElement("div");
+        pageNumber.className = "pagination-page-number";
+        pageNumber.innerText = `Page ${aCurrentPage} of ${aPageCount}`;
+        pagination.append(pageNumber);
+        
+        return pagination;
+    },
+
+    buildCategoryPage: async function (aTypeSlug, aOwner, aTerms, aPage) {
         let metadata = await gAPI.getMetadata();
 
         var types = metadata.types;
         for (let i = 0; i < types.length; i++) {
+            var listBox = document.createElement("div");
+            listBox.className = "list-wrapper";
+
             let addonType = types[i];
             let title = "";
             if (aTypeSlug) {
@@ -533,13 +600,19 @@ var gSite = {
                 continue;
             }
 
-            let list = gSite._createList(addons, addonType.defaultIcon);
+            let list = gSite._createList(addons, addonType.defaultIcon, aPage);
 
             listBox.append(listTitle);
             if (!aOwner && !aTerms) {
                 listBox.append(listDescription);
             }
             listBox.append(list);
+            if (aPage) {
+                let pageCount = Math.ceil(addons.length / LIST_MAX_ITEMS);
+                listBox.append(gSite._createPagination(pageCount, aPage));
+            }
+
+            gSite.primary.main.appendChild(listBox);
         }
 
         if (aTypeSlug) {
@@ -1014,7 +1087,12 @@ var gSite = {
                 var category = urlParameters.get("category");
                 var user = urlParameters.get("user");
                 var searchTerms = urlParameters.get("terms");
-                await gSite.buildCategoryPage(category, user, searchTerms);
+                var page = parseInt(urlParameters.get("page"));
+                // Ignore page parameter if showing all add-ons
+                if (!category && page) {
+                    page = null;
+                }
+                await gSite.buildCategoryPage(category, user, searchTerms, page);
                 break;
             // Add-on
             case 1:

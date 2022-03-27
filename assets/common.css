@@ -222,6 +222,30 @@ th {
   }
 }
 
+.pagination {
+  text-align: center;
+}
+
+.pagination-link-wrapper {
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pagination-link {
+  display: inline-block;
+  padding: 1em;
+}
+
+.pagination-link.disabled {
+  cursor: not-allowed;
+  color: inherit;
+  text-decoration: none;
+}
+
+.pagination-link.active {
+  font-weight: bold;
+}
+
 /* ::::: Page: Individual Add-on ::::: */
 
 #addon {
