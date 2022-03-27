@@ -1,5 +1,5 @@
 const APP_NAME = "Fresco";
-const APP_VERSION = "0.0.1";
+const APP_VERSION = "0.0.1a1";
 const APP_NAV = [
     {
         id: "all",
