@@ -189,6 +189,15 @@ var gAPI = {
         return addonType;
     },
 
+    getApplicationFromId: async function (aApplicationId) {
+        let metadata = await this.getMetadata();
+        if (aApplicationId > metadata.applications.length) {
+            return null;
+        }
+        let application = metadata.applications[aApplicationId];
+        return application;
+    },
+
     getOwners: async function () {
         let metadata = await this.getMetadata();
         return metadata.owners;
@@ -695,10 +704,20 @@ var gSite = {
         var releaseData = null;
         if (addon.ghInfo) {
             releaseData = await gAPI.getReleases(addon.ghInfo);
-        } else if (addon.releasesUrl) {
+        }
+        var compatibilityData = null;
+        if (addon.releasesUrl) {
             let response = await gAPI.request(addon.releasesUrl);
-            releaseData = response.json;
-        } else {
+            let responseData = response.json;
+            // Take compatibility information from static release data
+            // if there is information from the GitHub API
+            if (releaseData) {
+                compatibilityData = responseData.data;
+            } else {
+                releaseData = responseData;
+            }
+        }
+        if (releaseData == null) {
             gSite.primary.main.innerText = "Release data missing.";
             gSite.doneLoading();
             return;
@@ -712,18 +731,17 @@ var gSite = {
         }
 
         if (aVersionHistory) {
-            let releaseDataValues = Object.values(releaseData.data)
+            let releaseDataEntries = Object.entries(releaseData.data)
             gSite._updateTitle(`${addon.name} - Versions`);
             gSite._appendLink(ilResources, "Add-on Details", `/addons/get?addon=${addon.slug}`, false);
 
             gSite._appendHtml(colPrimary.addonSummary, `${addon.name} Versions`, "h1");
-            gSite._appendHtml(colPrimary.addonSummary, `${releaseDataValues.length} releases`);
+            gSite._appendHtml(colPrimary.addonSummary, `${releaseDataEntries.length} releases`);
 
             let releaseList = document.createElement("div");
             colPrimary.content.appendChild(releaseList);
 
-            for (let i = 0; i < releaseDataValues.length; i++) {
-                let release = releaseDataValues[i];
+            for (let [version, release] of releaseDataEntries) {
                 let listItem = gSite._createListItem();
                 listItem.icon.remove();
                 listItem.title.innerText = release.name;
@@ -739,6 +757,17 @@ var gSite = {
                 }
                 if (release.xpiDownloadCount) {
                     gSite._appendHtml(listItem.desc, `Downloads: ${release.xpiDownloadCount}`);
+                }
+                let releaseCompatibility = release.applications ||
+                    (compatibilityData &&
+                     compatibilityData[version].applications);
+                if (releaseCompatibility) {
+                    gSite._appendHtml(listItem.desc, "Works with:");
+                    for (let j = 0; j < releaseCompatibility.length; j++) {
+                        let compatInfo = releaseCompatibility[j];
+                        let appInfo = await gAPI.getApplicationFromId(compatInfo.id);
+                        gSite._appendHtml(listItem.desc, `${appInfo.displayName} ${compatInfo.minVersion} to ${compatInfo.maxVersion}`);
+                    }
                 }
                 if (release.changelog) {
                     gSite._appendHtml(listItem.desc, await gSite._parseMarkdown(release.changelog));
@@ -779,7 +808,8 @@ var gSite = {
             gSite._updateTitle(addon.name);
             gSite._appendLink(ilResources, "Version History", `/addons/versions?addon=${addon.slug}`, false);
 
-            let release = releaseData.data[releaseData.stable] || releaseData.data[releaseData.experimental];
+            let version = releaseData.stable || releaseData.experimental;
+            let release = releaseData.data[version];
 
             let ownersList = await gSite._createOwners(addon.owners, true);
             gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
@@ -806,6 +836,18 @@ var gSite = {
                 var ilDownloads = gSite._createIsland("Total Downloads");
                 colSecondary.content.appendChild(ilDownloads);
                 gSite._appendHtml(ilDownloads, releaseData.totalDownloadCount);
+            }
+            let releaseCompatibility = release.applications ||
+                (compatibilityData &&
+                 compatibilityData[version].applications);
+            if (releaseCompatibility) {
+                var ilCompatibility = gSite._createIsland("Compatibility");
+                colPrimary.content.appendChild(ilCompatibility);
+                for (let j = 0; j < releaseCompatibility.length; j++) {
+                    let compatInfo = releaseCompatibility[j];
+                    let appInfo = await gAPI.getApplicationFromId(compatInfo.id);
+                    gSite._appendHtml(ilCompatibility, `${appInfo.displayName} ${compatInfo.minVersion} to ${compatInfo.maxVersion}`);
+                }
             }
             if (release.changelog) {
                 var ilChangelog = gSite._createIsland("Release Notes");
