@@ -15,11 +15,14 @@
                 "size": 1809156,
                 "downloadCount": 0
             },
-            "author": {
-                "slug": "goodydino",
-                "name": "Goodydino",
-                "avatarUrl": ""
-            }
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
         },
         "8.31": {
             "name": "8.31",
@@ -33,11 +36,14 @@
                 "size": 1801729,
                 "downloadCount": 0
             },
-            "author": {
-                "slug": "goodydino",
-                "name": "Goodydino",
-                "avatarUrl": ""
-            }
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
         },
         "8.30": {
             "name": "8.30",
@@ -51,11 +57,14 @@
                 "size": 1801708,
                 "downloadCount": 0
             },
-            "author": {
-                "slug": "goodydino",
-                "name": "Goodydino",
-                "avatarUrl": ""
-            }
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
         },
         "8.23": {
             "name": "8.23",
@@ -69,11 +78,14 @@
                 "size": 1801625,
                 "downloadCount": 0
             },
-            "author": {
-                "slug": "goodydino",
-                "name": "Goodydino",
-                "avatarUrl": ""
-            }
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
         },
         "8.22": {
             "name": "8.22",
@@ -87,11 +99,14 @@
                 "size": 1738640,
                 "downloadCount": 0
             },
-            "author": {
-                "slug": "goodydino",
-                "name": "Goodydino",
-                "avatarUrl": ""
-            }
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
         },
         "8.21": {
             "name": "8.21",
@@ -105,11 +120,13 @@
                 "size": 1733231,
                 "downloadCount": 0
             },
-            "author": {
-                "slug": "goodydino",
-                "name": "Goodydino",
-                "avatarUrl": ""
-            }
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
         },
         "8.2": {
             "name": "8.2",
@@ -123,11 +140,14 @@
                 "size": 1725474,
                 "downloadCount": 0
             },
-            "author": {
-                "slug": "goodydino",
-                "name": "Goodydino",
-                "avatarUrl": ""
-            }
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
         },
         "8.01": {
             "name": "8.01",
@@ -141,11 +161,13 @@
                 "size": 1695196,
                 "downloadCount": 0
             },
-            "author": {
-                "slug": "goodydino",
-                "name": "Goodydino",
-                "avatarUrl": ""
-            }
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
         },
         "8.0": {
             "name": "8.0",
@@ -159,11 +181,14 @@
                 "size": 1694784,
                 "downloadCount": 0
             },
-            "author": {
-                "slug": "goodydino",
-                "name": "Goodydino",
-                "avatarUrl": ""
-            }
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
         }
     }
 }
