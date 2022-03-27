@@ -344,17 +344,19 @@ var gSite = {
 
             // Title and description
             listItem.title.innerText = addon.name;
-            listItem.desc.innerText = addon.description;
+            if (addon.description) {
+                listItem.desc.innerText = addon.description;
+            }
 
             // Download button
-            if (addon.xpiUrl) {
+            if (addon.xpi) {
                 gSite._appendInstallButton(
                     listItem.parentElement,
                     addon.name,
                     {
-                        URL: addon.xpiUrl,
+                        URL: addon.xpi.url,
                         IconURL: addon.iconUrl,
-                        Hash: addon.hash
+                        Hash: addon.xpi.hash
                     }
                 );
             }
@@ -819,7 +821,9 @@ var gSite = {
             let ownersList = await gSite._createOwners(addon.owners, true);
             gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
             gSite._appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
-            gSite._appendHtml(colPrimary.addonSummary, addon.description);
+            if (addon.description) {
+                gSite._appendHtml(colPrimary.addonSummary, addon.description);
+            }
 
             if (release) {
                 if (release.name) {
