@@ -101,16 +101,16 @@ var gAPI = {
             // Convert GitHub releases to custom releases format
             var releases = {
                 totalDownloadCount: 0,
-                latest: "",
-                latestPrerelease: "",
+                stable: "",
+                experimental: "",
                 data: {},
             };
             for (let ghRelease of response.json) {
-                if (!releases.latest && !ghRelease.prerelease) {
-                    releases.latest = ghRelease.tag_name;
+                if (!releases.stable && !ghRelease.prerelease) {
+                    releases.stable = ghRelease.tag_name;
                 }
-                if (!releases.latestPrerelease && ghRelease.prerelease) {
-                    releases.latestPrerelease = ghRelease.tag_name;
+                if (!releases.experimental && ghRelease.prerelease) {
+                    releases.experimental = ghRelease.tag_name;
                 }
                 var release = {
                     name: ghRelease.name || ghRelease.tag_name,
@@ -779,7 +779,7 @@ var gSite = {
             gSite._updateTitle(addon.name);
             gSite._appendLink(ilResources, "Version History", `/addons/versions?addon=${addon.slug}`, false);
 
-            let release = releaseData.data[releaseData.latest] || releaseData.data[releaseData.latestPrerelease];
+            let release = releaseData.data[releaseData.stable] || releaseData.data[releaseData.experimental];
 
             let ownersList = await gSite._createOwners(addon.owners, true);
             gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
