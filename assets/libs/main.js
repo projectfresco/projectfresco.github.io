@@ -351,7 +351,7 @@ var gSite = {
                 gSite._appendBadge(listItem.title, "External");
             }
 
-            if (addon.apiUrl || addon.ghInfo || addon.releasesUrl) {
+            if (addon.ghInfo || addon.releasesUrl) {
                 listItem.parentElement.href = `/addons/get?addon=${addon.slug}`;
             }
 
