@@ -101,9 +101,17 @@ var gAPI = {
             // Convert GitHub releases to custom releases format
             var releases = {
                 totalDownloadCount: 0,
-                data: [],
+                latest: "",
+                latestPrerelease: "",
+                data: {},
             };
             for (let ghRelease of response.json) {
+                if (!releases.latest && !ghRelease.prerelease) {
+                    releases.latest = ghRelease.tag_name;
+                }
+                if (!releases.latestPrerelease && ghRelease.prerelease) {
+                    releases.latestPrerelease = ghRelease.tag_name;
+                }
                 var release = {
                     name: ghRelease.name || ghRelease.tag_name,
                     changelog: ghRelease.body,
@@ -134,7 +142,7 @@ var gAPI = {
                     releases.totalDownloadCount += asset.download_count;
                     break;
                 }
-                releases.data.push(release);
+                releases.data[ghRelease.tag_name] = release;
             }
             // Replace cached JSON with converted releases copy
             localStorage.setItem(response.cacheKey, JSON.stringify(releases));
@@ -704,17 +712,18 @@ var gSite = {
         }
 
         if (aVersionHistory) {
+            let releaseDataValues = Object.values(releaseData.data)
             gSite._updateTitle(`${addon.name} - Versions`);
             gSite._appendLink(ilResources, "Add-on Details", `/addons/get?addon=${addon.slug}`, false);
 
             gSite._appendHtml(colPrimary.addonSummary, `${addon.name} Versions`, "h1");
-            gSite._appendHtml(colPrimary.addonSummary, `${releaseData.data.length} releases`);
+            gSite._appendHtml(colPrimary.addonSummary, `${releaseDataValues.length} releases`);
 
             let releaseList = document.createElement("div");
             colPrimary.content.appendChild(releaseList);
 
-            for (let i = 0; i < releaseData.data.length; i++) {
-                let release = releaseData.data[i];
+            for (let i = 0; i < releaseDataValues.length; i++) {
+                let release = releaseDataValues[i];
                 let listItem = gSite._createListItem();
                 listItem.icon.remove();
                 listItem.title.innerText = release.name;
@@ -770,7 +779,7 @@ var gSite = {
             gSite._updateTitle(addon.name);
             gSite._appendLink(ilResources, "Version History", `/addons/versions?addon=${addon.slug}`, false);
 
-            let release = releaseData.data[0];
+            let release = releaseData.data[releaseData.latest] || releaseData.data[releaseData.latestPrerelease];
 
             let ownersList = await gSite._createOwners(addon.owners, true);
             gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
