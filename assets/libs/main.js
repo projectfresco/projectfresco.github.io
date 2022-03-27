@@ -36,6 +36,11 @@ const URL_GITHUB_API = "https://api.github.com/repos";
 const URL_GITHUB = "https://github.com";
 const URL_LICENSE = "https://opensource.org/licenses";
 
+const MIRROR_PHOEBUS_PM = "https://addons.palemoon.org/addon/";
+const MIRROR_PHOEBUS_BK = "https://addons.basilisk-browser.org/addon/";
+const MIRROR_PHOEBUS_IN = "https://interlink-addons.binaryoutcast.com/addon/";
+const MIRROR_AMO = "https://addons.mozilla.org/en-US/firefox/addon/";
+
 var gAPI = {
     request: async function (aUrl, aHeaders = new Headers()) {
         let cacheKey = btoa(aUrl);
@@ -877,6 +882,32 @@ var gSite = {
             gSite._appendLink(ilResources, "Source Repository", addon.repositoryUrl, true);
         } else if (addon.ghInfo) {
             gSite._appendLink(ilResources, "Source Repository", gAPI.getRepositoryUrl(addon.ghInfo), true);
+        }
+        if (addon.mirrors) {
+            for (let i = 0; i < addon.mirrors.length; i++) {
+                var mirrorSite = addon.mirrors[i];
+                var mirrorUrl = "";
+                var mirrorName = "Mirror: "
+                switch (mirrorSite) {
+                    case "phoebus_pm":
+                        mirrorName += "Pale Moon Add-ons Site";
+                        mirrorUrl = MIRROR_PHOEBUS_PM + addon.slug;
+                        break;
+                    case "phoebus_bk":
+                        mirrorName += "Basilisk Add-ons Site";
+                        mirrorUrl = MIRROR_PHOEBUS_BK + addon.slug;
+                        break;
+                    case "phoebus_in":
+                        mirrorName += "Interlink Add-ons Site";
+                        mirrorUrl = MIRROR_PHOEBUS_IN + addon.slug;
+                        break;
+                    case "amo":
+                        mirrorName += "Mozilla Add-ons Site";
+                        mirrorUrl = MIRROR_AMO + addon.slug;
+                        break;
+                }
+                gSite._appendLink(ilResources, mirrorName, mirrorUrl, true);
+            }
         }
 
         colSecondary.content.appendChild(ilLicense);
