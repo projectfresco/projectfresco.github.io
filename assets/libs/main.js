@@ -601,7 +601,6 @@ var gSite = {
         icon.id = "addon-icon";
         icon.width = 64;
         icon.height = 64;
-        icon.src = "assets/images/icon-extension.png"; // TODO: should not be hardcoded
         column.addonIcon = icon;
         addonWrapper.appendChild(icon);
 
@@ -689,6 +688,7 @@ var gSite = {
         var ilLicense = gSite._createIsland("License");
         var ilResources = gSite._createIsland("Resources");
 
+        colPrimary.addonIcon.src = addonType.defaultIcon;
         if (addon.iconUrl) {
             colPrimary.addonIcon.src = addon.iconUrl;
         }
@@ -821,54 +821,60 @@ var gSite = {
             gSite._appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
             gSite._appendHtml(colPrimary.addonSummary, addon.description);
 
-            if (release.name) {
-                var ilVersion = gSite._createIsland("Version");
-                colSecondary.content.appendChild(ilVersion);
-                gSite._appendHtml(ilVersion, release.name);
-            }
-            if (release.datePublished) {
-                var ilLastUpdated = gSite._createIsland("Last Updated");
-                colSecondary.content.appendChild(ilLastUpdated);
-                let releaseDate = gSite._formatDate(release.datePublished);
-                gSite._appendHtml(ilLastUpdated, releaseDate);
-            }
-            if (release.xpi.size) {
-                var ilSize = gSite._createIsland("Size");
-                colSecondary.content.appendChild(ilSize);
-                gSite._appendHtml(ilSize, `${Math.round(release.xpi.size / 1024)} KB`);
-            }
-            if (releaseData.totalDownloadCount) {
-                var ilDownloads = gSite._createIsland("Total Downloads");
-                colSecondary.content.appendChild(ilDownloads);
-                gSite._appendHtml(ilDownloads, releaseData.totalDownloadCount);
-            }
-            let releaseCompatibility = release.applications ||
-                (compatibilityData &&
-                 compatibilityData[version].applications);
-            if (releaseCompatibility) {
-                var ilCompatibility = gSite._createIsland("Compatibility");
-                colPrimary.content.appendChild(ilCompatibility);
-                for (let j = 0; j < releaseCompatibility.length; j++) {
-                    let compatInfo = releaseCompatibility[j];
-                    let appInfo = await gAPI.getApplicationFromId(compatInfo.id);
-                    gSite._appendHtml(ilCompatibility, `${appInfo.displayName} ${compatInfo.minVersion} to ${compatInfo.maxVersion}`);
+            if (release) {
+                if (release.name) {
+                    var ilVersion = gSite._createIsland("Version");
+                    colSecondary.content.appendChild(ilVersion);
+                    gSite._appendHtml(ilVersion, release.name);
                 }
-            }
-            if (release.changelog) {
-                var ilChangelog = gSite._createIsland("Release Notes");
-                gSite._appendHtml(ilChangelog, await gSite._parseMarkdown(release.changelog));
-                colPrimary.content.appendChild(ilChangelog);
-            }
-            if (release.xpi.url) {
-                gSite._appendInstallButton(
-                    colPrimary.addonInstall,
-                    addon.name,
-                    {
-                        URL: release.xpi.url,
-                        IconURL: addon.iconUrl,
-                        Hash: release.xpi.hash
+                if (release.datePublished) {
+                    var ilLastUpdated = gSite._createIsland("Last Updated");
+                    colSecondary.content.appendChild(ilLastUpdated);
+                    let releaseDate = gSite._formatDate(release.datePublished);
+                    gSite._appendHtml(ilLastUpdated, releaseDate);
+                }
+                if (release.xpi.size) {
+                    var ilSize = gSite._createIsland("Size");
+                    colSecondary.content.appendChild(ilSize);
+                    gSite._appendHtml(ilSize, `${Math.round(release.xpi.size / 1024)} KB`);
+                }
+                if (releaseData.totalDownloadCount) {
+                    var ilDownloads = gSite._createIsland("Total Downloads");
+                    colSecondary.content.appendChild(ilDownloads);
+                    gSite._appendHtml(ilDownloads, releaseData.totalDownloadCount);
+                }
+                let releaseCompatibility = release.applications ||
+                    (compatibilityData &&
+                     compatibilityData[version].applications);
+                if (releaseCompatibility) {
+                    var ilCompatibility = gSite._createIsland("Compatibility");
+                    colPrimary.content.appendChild(ilCompatibility);
+                    for (let j = 0; j < releaseCompatibility.length; j++) {
+                        let compatInfo = releaseCompatibility[j];
+                        let appInfo = await gAPI.getApplicationFromId(compatInfo.id);
+                        gSite._appendHtml(ilCompatibility, `${appInfo.displayName} ${compatInfo.minVersion} to ${compatInfo.maxVersion}`);
                     }
-                );
+                }
+                if (release.changelog) {
+                    var ilChangelog = gSite._createIsland("Release Notes");
+                    gSite._appendHtml(ilChangelog, await gSite._parseMarkdown(release.changelog));
+                    colPrimary.content.appendChild(ilChangelog);
+                }
+                if (release.xpi.url) {
+                    gSite._appendInstallButton(
+                        colPrimary.addonInstall,
+                        addon.name,
+                        {
+                            URL: release.xpi.url,
+                            IconURL: addon.iconUrl,
+                            Hash: release.xpi.hash
+                        }
+                    );
+                }
+            } else {
+                var ilMessage = gSite._createIsland("Message");
+                gSite._appendHtml(ilMessage, "This add-on has no releases.");
+                colPrimary.content.appendChild(ilMessage);
             }
         }
 
