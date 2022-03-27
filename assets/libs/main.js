@@ -581,6 +581,10 @@ var gSite = {
                 ownerId = await gAPI.getOwnerId(aOwner);
             }
 
+            if (aTerms) {
+                aTerms = aTerms.trim().toLowerCase();
+            }
+
             let addons = metadata.addons.filter(function (item) {
                 let matchType = item.type == addonType.type;
                 let matchOwner = true;
@@ -589,7 +593,8 @@ var gSite = {
                 }
                 let matchTerms = true;
                 if (aTerms) {
-                    matchTerms = item.name.includes(aTerms) || item.description.includes(aTerms);
+                    matchTerms = item.name.toLowerCase().includes(aTerms) ||
+                                 item.description && item.description.includes(aTerms);
                 }
                 
                 return matchType && matchOwner && matchTerms;
