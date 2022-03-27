@@ -928,6 +928,9 @@ var gSite = {
             return;
         }
 
+        var addonType = await gAPI.getAddonTypeFromId(addon.type);
+        gSite._setActiveNav(addonType.slug);
+
         gSite._updateTitle(`${addon.name} - License`);
 
         if (addon.license && addon.license != "PD") {
@@ -955,9 +958,11 @@ var gSite = {
             return;
         }
 
+        colPrimary.addonIcon.src = addonType.defaultIcon;
         if (addon.iconUrl) {
             colPrimary.addonIcon.src = addon.iconUrl;
         }
+
         gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
         var ownersList = await gSite._createOwners(addon.owners, true);
         gSite._appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
