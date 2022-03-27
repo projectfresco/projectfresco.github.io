@@ -123,6 +123,6 @@ footer {
   color: var(--link-color);
 }
 
-.list-item:nth-child(odd) {
+.list-item:nth-child(even) {
   background: #F0F0F0;
 }

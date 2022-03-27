@@ -94,7 +94,7 @@ footer {
   color: var(--link-color);
 }
 
-.list-item:nth-child(odd) {
+.list-item:nth-child(even) {
   background: linear-gradient(to right, #F0F0F0 50%, transparent 100%);
 }
 
