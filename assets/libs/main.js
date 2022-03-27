@@ -2,22 +2,27 @@ const APP_NAME = "Fresco";
 const APP_VERSION = "0.0.1";
 const APP_NAV = [
     {
+        id: "all",
         label: "All",
         url: "/addons"
     },
     {
+        id: "extensions",
         label: "Extensions",
         url: "/addons/?category=extensions"
     },
     {
+        id: "themes",
         label: "Themes",
         url: "/addons/?category=themes"
     },
     {
+        id: "dictionaries",
         label: "Dictionaries",
         url: "/addons/?category=dictionaries"
     },
     {
+        id: "language-packs",
         label: "Language Packs",
         url: "/addons/?category=language-packs"
     }
@@ -166,6 +171,14 @@ var gAPI = {
             return item.slug == aSlug;
         });
         return addon;
+    },
+
+    getAddonTypeFromId: async function (aTypeId) {
+        let metadata = await this.getMetadata();
+        let addonType = metadata.types.find(function (item) {
+            return item.type == aTypeId;
+        });
+        return addonType;
     },
 
     getOwners: async function () {
@@ -410,6 +423,7 @@ var gSite = {
         for (let nav of APP_NAV) {
             let navItem = document.createElement("li");
             let navLink = document.createElement("a");
+            navLink.id = `menu-${nav.id}`;
             navLink.href = nav.url;
             navLink.innerText = nav.label;
             navItem.appendChild(navLink);
@@ -434,6 +448,13 @@ var gSite = {
         section.content.appendChild(header);
         section.content.appendChild(main);
         section.content.appendChild(footer);
+    },
+
+    _setActiveNav: function (aId) {
+        let navLink = document.getElementById(`menu-${aId}`);
+        if (navLink) {
+            navLink.classList.add("active");
+        }
     },
 
     buildCategoryPage: async function (aTypeSlug, aOwner, aTerms) {
@@ -495,6 +516,12 @@ var gSite = {
                 listBox.append(listDescription);
             }
             listBox.append(list);
+        }
+
+        if (aTypeSlug) {
+            gSite._setActiveNav(aTypeSlug);
+        } else {
+            gSite._setActiveNav("all");
         }
     },
 
@@ -626,6 +653,9 @@ var gSite = {
             gSite.doneLoading();
             return;
         }
+
+        var addonType = await gAPI.getAddonTypeFromId(addon.type);
+        gSite._setActiveNav(addonType.slug);
 
         gSite.primary.main.classList.add("two-col");
         var colPrimary = gSite._createAddonColumn();
