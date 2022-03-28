@@ -526,7 +526,6 @@ var gSite = {
         let startIndex = Math.max(1, aCurrentPage - 2);
         let lastIndex = Math.min(startIndex + 5, aPageCount + 1);
         startIndex = Math.max(1, startIndex - (5 - (lastIndex - startIndex)));
-        console.log(startIndex, lastIndex);
 
         let linkWrapper = document.createElement("div");
         linkWrapper.className = "pagination-link-wrapper";
