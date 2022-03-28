@@ -110,15 +110,15 @@ var gAPI = {
             var releases = {
                 totalDownloadCount: 0,
                 stable: "",
-                experimental: "",
+                prerelease: "",
                 data: {},
             };
             for (let ghRelease of response.json) {
                 if (!releases.stable && !ghRelease.prerelease) {
                     releases.stable = ghRelease.tag_name;
                 }
-                if (!releases.experimental && ghRelease.prerelease) {
-                    releases.experimental = ghRelease.tag_name;
+                if (!releases.prerelease && ghRelease.prerelease) {
+                    releases.prerelease = ghRelease.tag_name;
                 }
                 var release = {
                     name: ghRelease.name || ghRelease.tag_name,
@@ -133,12 +133,7 @@ var gAPI = {
                         hash: "",
                         size: "",
                         downloadCount: "",
-                    },
-                    author: {
-                        slug: "",
-                        name: ghRelease.author.login,
-                        avatarUrl: ghRelease.author.avatar_url,
-                    },
+                    }
                 };
                 for (let asset of ghRelease.assets) {
                     if (asset.content_type != CONTENT_TYPE_XPI) {
@@ -898,7 +893,7 @@ var gSite = {
             gSite._updateTitle(addon.name);
             gSite._appendLink(ilResources, "Version History", `/addons/versions?addon=${addon.slug}`, false);
 
-            let version = releaseData.stable || releaseData.experimental;
+            let version = releaseData.stable || releaseData.prerelease;
             let release = releaseData.data[version];
 
             let ownersList = await gSite._createOwners(addon.owners, true);
