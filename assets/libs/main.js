@@ -1,41 +1,45 @@
+const URL_APP_BASE = "/addons/";
+
+const URL_CONTENT = "/addons-content/";
+const URL_CONTENT_METADATA = URL_CONTENT + "metadata.json";
+const URL_CONTENT_LICENSES = URL_CONTENT + "licenses.json";
+const URL_CONTENT_RELEASES = URL_CONTENT + "releases";
+
+const URL_GITHUB_API = "https://api.github.com/repos/";
+const URL_GITHUB = "https://github.com/";
+const URL_LICENSE = "https://opensource.org/licenses/";
+
 const APP_NAME = "Fresco";
 const APP_VERSION = "0.0.1a2";
 const APP_NAV = [
     {
         id: "all",
         label: "All",
-        url: "/addons"
+        url: URL_APP_BASE
     },
     {
         id: "extensions",
         label: "Extensions",
-        url: "/addons/?category=extensions&page=1"
+        url: URL_APP_BASE + "?category=extensions&page=1"
     },
     {
         id: "themes",
         label: "Themes",
-        url: "/addons/?category=themes&page=1"
+        url: URL_APP_BASE + "?category=themes&page=1"
     },
     {
         id: "dictionaries",
         label: "Dictionaries",
-        url: "/addons/?category=dictionaries&page=1"
+        url: URL_APP_BASE + "?category=dictionaries&page=1"
     },
     {
         id: "language-packs",
         label: "Language Packs",
-        url: "/addons/?category=language-packs&page=1"
+        url: URL_APP_BASE + "?category=language-packs&page=1"
     }
 ];
 
-const JSON_METADATA = "assets/metadata.json";
-const JSON_LICENSES = "assets/licenses.json";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
-
-const URL_ASSETS_STATIC = "assets/static";
-const URL_GITHUB_API = "https://api.github.com/repos";
-const URL_GITHUB = "https://github.com";
-const URL_LICENSE = "https://opensource.org/licenses";
 
 const MIRROR_PHOEBUS_PM = "https://addons.palemoon.org/addon/";
 const MIRROR_PHOEBUS_BK = "https://addons.basilisk-browser.org/addon/";
@@ -91,7 +95,7 @@ var gAPI = {
     },
 
     requestFromGitHub: async function (aOptions, aEndpoint) {
-        let url = `${URL_GITHUB_API}/${aOptions.owner}/${aOptions.repo}/${aEndpoint}`;
+        let url = `${URL_GITHUB_API}${aOptions.owner}/${aOptions.repo}/${aEndpoint}`;
         let headers = new Headers();
 
         System.import("./assets/libs/config.js").then(() => {
@@ -155,13 +159,13 @@ var gAPI = {
     },
 
     getRepositoryUrl: function (aOptions) {
-        return `${URL_GITHUB}/${aOptions.owner}/${aOptions.repo}`;
+        return `${URL_GITHUB}${aOptions.owner}/${aOptions.repo}`;
     },
 
     _metadata: null,
     getMetadata: async function () {
         if (this._metadata == null) {
-            let response = await this.request(JSON_METADATA);
+            let response = await this.request(URL_CONTENT_METADATA);
             this._metadata = response.json;
         }
         return this._metadata;
@@ -170,7 +174,7 @@ var gAPI = {
     _licenses: null,
     getLicenses: async function () {
         if (this._licenses == null) {
-            let response = await this.request(JSON_LICENSES);
+            let response = await this.request(URL_CONTENT_LICENSES);
             this._licenses = response.json;
         }
         return this._licenses;
@@ -380,7 +384,7 @@ var gSite = {
             }
 
             if (addon.ghInfo || addon.releasesUrl) {
-                listItem.parentElement.href = `/addons/get?addon=${addon.slug}`;
+                listItem.parentElement.href = `${URL_APP_BASE}get?addon=${addon.slug}`;
             }
 
             // Append list item to extensions list
@@ -729,7 +733,7 @@ var gSite = {
             let ownerId = aOwnerIds[i];
             let currOwner = ownerData[ownerId];
             if (aLink) {
-                ownersList += `<a href="/addons/?user=${currOwner.username}">`;
+                ownersList += `<a href="${URL_APP_BASE}?user=${currOwner.username}">`;
             }
             ownersList += currOwner.displayName;
             if (aLink) {
@@ -771,7 +775,7 @@ var gSite = {
 
         // Identify add-on license
         var licenseText = "";
-        var licenseUrl = `/addons/license?addon=${addon.slug}`;
+        var licenseUrl = `${URL_APP_BASE}license?addon=${addon.slug}`;
         if (addon.license) {
             let licenses = await gAPI.getLicenses();
             licenseText = licenses.names[addon.license];
@@ -790,7 +794,7 @@ var gSite = {
         if (addon.releasesUrl) {
             var releasesUrl = addon.releasesUrl;
             if (releasesUrl == "static") {
-                releasesUrl = `${URL_ASSETS_STATIC}/${addon.slug}.json`;
+                releasesUrl = `${URL_CONTENT_RELEASES}/${addon.slug}.json`;
             }
             var response = await gAPI.request(releasesUrl);
             var responseData = response.json;
@@ -818,7 +822,7 @@ var gSite = {
         if (aVersionHistory) {
             let releaseDataEntries = Object.entries(releaseData.data)
             gSite._updateTitle(`${addon.name} - Versions`);
-            gSite._appendLink(ilResources, "Add-on Details", `/addons/get?addon=${addon.slug}`, false);
+            gSite._appendLink(ilResources, "Add-on Details", `${URL_APP_BASE}get?addon=${addon.slug}`, false);
 
             gSite._appendHtml(colPrimary.addonSummary, `${addon.name} Versions`, "h1");
             gSite._appendHtml(colPrimary.addonSummary, `${releaseDataEntries.length} releases`);
@@ -891,7 +895,7 @@ var gSite = {
             }
         } else {
             gSite._updateTitle(addon.name);
-            gSite._appendLink(ilResources, "Version History", `/addons/versions?addon=${addon.slug}`, false);
+            gSite._appendLink(ilResources, "Version History", `${URL_APP_BASE}versions?addon=${addon.slug}`, false);
 
             let version = releaseData.stable || releaseData.prerelease;
             let release = releaseData.data[version];
@@ -1021,7 +1025,7 @@ var gSite = {
             if (addon.license == "custom" && addon.licenseUrl) {
                 licenseUrl = addon.licenseUrl;
             } else {
-                licenseUrl = `${URL_LICENSE}/${addon.license}`;
+                licenseUrl = `${URL_LICENSE}${addon.license}`;
             }
             window.location.href = licenseUrl;
             return;
