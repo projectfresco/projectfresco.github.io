@@ -1,8 +1,10 @@
 const URL_APP_BASE = "/addons/";
 
+const CONTENT_REVISION = "";
+
 const URL_CONTENT = "/addons-content/";
-const URL_CONTENT_METADATA = URL_CONTENT + "metadata.json";
-const URL_CONTENT_LICENSES = URL_CONTENT + "licenses.json";
+const URL_CONTENT_METADATA = URL_CONTENT + "metadata.json" + CONTENT_REVISION;
+const URL_CONTENT_LICENSES = URL_CONTENT + "licenses.json" + CONTENT_REVISION;
 const URL_CONTENT_RELEASES = URL_CONTENT + "releases";
 
 const URL_GITHUB_API = "https://api.github.com/repos/";
