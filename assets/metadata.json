@@ -1,9 +1,9 @@
 {
-    "lastUpdated": 1648377626,
+    "lastUpdated": 1648381461,
     "applications": [
         {
             "name": "toolkit",
-            "displayName": "Toolkit (all applications)",
+            "displayName": "Toolkit",
             "guid": "toolkit@mozilla.org"
         },
         {
@@ -109,6 +109,831 @@
     ],
     "addons": [
         {
+            "slug": "dictionary-af-ZA",
+            "type": "64",
+            "name": "Afrikaans (af-ZA)",
+            "owners": [6],
+            "license": "LGPL-2.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-an-ES",
+            "type": "64",
+            "name": "Aragonese (an-ES)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ar-arabic",
+            "type": "64",
+            "name": "Arabic spell check (ar-arabic)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-as-IN",
+            "type": "64",
+            "name": "Assamese (as-IN)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ast-ES",
+            "type": "64",
+            "name": "Asturian (ast-ES)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-az-AZ",
+            "type": "64",
+            "name": "Azerbaijani (az-AZ)",
+            "owners": [6],
+            "license": "MPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-be-BE-classic",
+            "type": "64",
+            "name": "Belarusian (classic) (be-BE-classic)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-be-BE",
+            "type": "64",
+            "name": "Belarusian (be-BE)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-bg-BG",
+            "type": "64",
+            "name": "Bulgarian (bg-BG)",
+            "owners": [6],
+            "license": "MPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-bn-BD",
+            "type": "64",
+            "name": "Bengali (bn-BD)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-br-FR",
+            "type": "64",
+            "name": "Breton (br-FR)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-cs-CZ",
+            "type": "64",
+            "name": "Czech (cs-CZ)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-cy-GB",
+            "type": "64",
+            "name": "Welsh (cy-GB)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-da-DK",
+            "type": "64",
+            "name": "Danish (da-DK)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-de-AT",
+            "type": "64",
+            "name": "Austrian German (de-AT)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-de-CH",
+            "type": "64",
+            "name": "Swiss German (de-CH)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-de-DE-1901",
+            "type": "64",
+            "name": "German (1901) (de-DE-1901)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-de-DE",
+            "type": "64",
+            "name": "German (de-DE)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-dsb-DE",
+            "type": "64",
+            "name": "Lower Sorbian (dsb-DE)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-el-GR",
+            "type": "64",
+            "name": "Greek (el-GR)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-en-AU",
+            "type": "64",
+            "name": "Australian English (en-AU)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-en-CA",
+            "type": "64",
+            "name": "Canadian English (en-CA)",
+            "owners": [6],
+            "license": "Custom",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-en-GB",
+            "type": "64",
+            "name": "British English (en-GB)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-en-NZ",
+            "type": "64",
+            "name": "New Zealand English (en-NZ)",
+            "owners": [6],
+            "license": "LGPL-2.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-eo",
+            "type": "64",
+            "name": "Esperanto (eo)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-es-AR",
+            "type": "64",
+            "name": "Argentinian Spanish (es-AR)",
+            "owners": [6],
+            "license": "MPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-es-CL",
+            "type": "64",
+            "name": "Chilean Spanish (es-CL)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-es-ES",
+            "type": "64",
+            "name": "Spanish (es-ES)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-es-MX",
+            "type": "64",
+            "name": "Mexican Spanish (es-MX)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-es-VE",
+            "type": "64",
+            "name": "Venezuelan Spanish (es-VE)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-et-EE",
+            "type": "64",
+            "name": "Estonian (et-EE)",
+            "owners": [6],
+            "license": "LGPL-2.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-eu-ES",
+            "type": "64",
+            "name": "Basque (eu-ES)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-fa-IR",
+            "type": "64",
+            "name": "Lilak Persian (Iran) (Farsi) (fa-IR)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-fr-FR",
+            "type": "64",
+            "name": "French (fr-FR)",
+            "owners": [6],
+            "license": "MPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-fur-IT",
+            "type": "64",
+            "name": "Friulian (fur-IT)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-fy-NL",
+            "type": "64",
+            "name": "Farisian Word List (fy-NL)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ga-IE",
+            "type": "64",
+            "name": "Irish (ga-IE)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-gd-GB",
+            "type": "64",
+            "name": "Scottish Gaelic (gd-GB)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-gl-ES",
+            "type": "64",
+            "name": "Galician (gl-ES)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-gu-IN",
+            "type": "64",
+            "name": "Gujarati spell checker (India) (gu-IN)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ha-GH",
+            "type": "64",
+            "name": "Hausa Spelling Dictionary (Ghana) (ha-GH)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-he-IL",
+            "type": "64",
+            "name": "Hebrew (he-IL)",
+            "owners": [6],
+            "license": "AGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-hi-IN-optional_accents",
+            "type": "64",
+            "name": "Hindi optional accents (Hungarian) (hi-IN-optional_accents)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-hi-IN",
+            "type": "64",
+            "name": "Hindi Spell Checker (hi-IN)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-hr-HR",
+            "type": "64",
+            "name": "Croatian (hr-HR)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-hsb-DE",
+            "type": "64",
+            "name": "Upper Sorbian (hsb-DE)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-hu-HU",
+            "type": "64",
+            "name": "Hungarian (hu-HU)",
+            "owners": [6],
+            "license": "MPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-hy-AM",
+            "type": "64",
+            "name": "Armenian (hy-AM)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ia",
+            "type": "64",
+            "name": "Interlingua (ia)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-id-ID",
+            "type": "64",
+            "name": "Indonesian spell check (id-ID)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-is-IS",
+            "type": "64",
+            "name": "Icelandic (is-IS)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-it-IT",
+            "type": "64",
+            "name": "Italian (it-IT)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ka-GE",
+            "type": "64",
+            "name": "Georgian (ka-GE)",
+            "owners": [6],
+            "license": "MIT",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-kn-IN",
+            "type": "64",
+            "name": "Kannada (kn-IN)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ko-KR",
+            "type": "64",
+            "name": "Korean dictionary (ko-KR)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ku-TR.XPI",
+            "type": "64",
+            "name": "Kurdish spell check (Turkey) (ku-TR.XPI)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-la",
+            "type": "64",
+            "name": "Latin (la)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ln-CD",
+            "type": "64",
+            "name": "Lingala spell check (Congo) (ln-CD)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-lo-LA",
+            "type": "64",
+            "name": "Lao (lo-LA)",
+            "owners": [6],
+            "license": "BSD-2-Clause",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-lt-LT",
+            "type": "64",
+            "name": "Lithuanian (lt-LT)",
+            "owners": [6],
+            "license": "BSD-3-Clause",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-lv-LV",
+            "type": "64",
+            "name": "Latvian (lv-LV)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-mg-MG.XPI",
+            "type": "64",
+            "name": "Malagasy spell check (mg-MG.XPI)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-mi-NZ",
+            "type": "64",
+            "name": "Maori Dictionary (Tai Tokerau) (mi-NZ)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-mk-MK",
+            "type": "64",
+            "name": "Macedonian (mk-MK)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-mn-MN",
+            "type": "64",
+            "name": "Mongolian spell check dictionary (mn-MN)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-mr-IN",
+            "type": "64",
+            "name": "Marathi (mr-IN)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-nb-NO",
+            "type": "64",
+            "name": "Norwegian Bokm\u00e5l (nb-NO)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ne-NP",
+            "type": "64",
+            "name": "Nepali (ne-NP)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-nl-NL",
+            "type": "64",
+            "name": "Dutch (nl-NL)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-nn-NO",
+            "type": "64",
+            "name": "Norwegian Nynorsk (nn-NO)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-nso-ZA",
+            "type": "64",
+            "name": "Northen Sotho (nso-ZA)",
+            "owners": [6],
+            "license": "LGPL-2.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-or-IN",
+            "type": "64",
+            "name": "Oriya (or-IN)",
+            "owners": [6],
+            "license": "MPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-pa-IN",
+            "type": "64",
+            "name": "Punjabi spell checker (India) (pa-IN)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-persian",
+            "type": "64",
+            "name": "Persian dictionary (persian)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-pl-PL",
+            "type": "64",
+            "name": "Polish Spellcheck Dictionary (pl-PL)",
+            "owners": [6],
+            "license": "COPYRIGHT",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-pt-BR-antigo",
+            "type": "64",
+            "name": "Brazilian Portugese (former spelling) (pt-BR-antigo)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-pt-BR",
+            "type": "64",
+            "name": "Brazilian Portugese (pt-BR)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-pt-PT",
+            "type": "64",
+            "name": "Portugese (pt-PT)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ro-RO",
+            "type": "64",
+            "name": "Romanian dictionary (contemporary and ante1993 spellings) (ro-RO)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-roa-ES-val",
+            "type": "64",
+            "name": "Catalan (Valencian) (roa-ES-val)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ru-RU",
+            "type": "64",
+            "name": "Russian (ru-RU)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-sa-IN",
+            "type": "64",
+            "name": "Sanskrit (sa-IN)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-sk-SK",
+            "type": "64",
+            "name": "Slovak (sk-SK)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-sl-SL",
+            "type": "64",
+            "name": "Slovenian (sl-SL)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-son-ML",
+            "type": "64",
+            "name": "Songhai (son-ML)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-sq-AL",
+            "type": "64",
+            "name": "Albanian (sq-AL)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-sr-RS",
+            "type": "64",
+            "name": "Serbian (sr-RS)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-st-ZA",
+            "type": "64",
+            "name": "Southern Sotho (st-ZA)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-sv-SE",
+            "type": "64",
+            "name": "Swedish (sv-SE)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-sw-TZ",
+            "type": "64",
+            "name": "Kiswahili spell checker (Swahili)(Tanzania) (sw-TZ)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ta-IN",
+            "type": "64",
+            "name": "Tamil (ta-IN)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-te-IN",
+            "type": "64",
+            "name": "Telugu spell check (India) (te-IN)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-tn-ZA",
+            "type": "64",
+            "name": "Tswana (tn-ZA)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-tr-TR",
+            "type": "64",
+            "name": "Turkish (tr-TR)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ts-ZA",
+            "type": "64",
+            "name": "Tsonga spell check (ts-ZA)",
+            "owners": [6],
+            "license": "LGPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-uk-UA",
+            "type": "64",
+            "name": "Ukrainian (uk-UA)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-ur-PK",
+            "type": "64",
+            "name": "Urdu (ur-PK)",
+            "owners": [6],
+            "license": "MPL-1.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-uz-UZ",
+            "type": "64",
+            "name": "Uzbek (uz-UZ)",
+            "owners": [6],
+            "license": "GPL-2.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-vi-VN",
+            "type": "64",
+            "name": "Vietnamese (vi-VN)",
+            "owners": [6],
+            "license": "GPL-3.0",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "dictionary-zu-ZA",
+            "type": "64",
+            "name": "Zulu (zu-ZA)",
+            "owners": [6],
+            "license": "LGPL-2.1",
+            "releasesUrl": "static"
+        },
+        {
+            "slug": "tagfil-dictionary",
+            "type": 64,
+            "name": "Tagalog/Filipino Dictionary",
+            "description": "A Filipino language spellchecker based on the current orthography.",
+            "owners": [0],
+            "license": "GPL-2.0",
+            "mirrors": ["amo"],
+            "ghInfo": {
+                "owner": "FranklinDM",
+                "repo": "tagfil-dictionary"
+            }
+        },
+        {
+            "slug": "languagepack-tl",
+            "type": 8,
+            "name": "Tagalog/Filipino (PH)",
+            "description": "",
+            "owners": [6],
+            "license": "MPL-2.0",
+            "xpi": {
+                "url": "http://archive.palemoon.org/palemoon/langpacks/30.x/30.0.1/tl.xpi",
+                "hash": ""
+            }
+        },
+        {
             "slug": "tgsidebar",
             "type": 2,
             "name": "The Good 'ol Sidebar",
@@ -206,7 +1031,7 @@
             "owners": [0],
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/ToolboxPlus/master/src/icon64.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=26620",
-            "releasesUrl": "assets/static/toolboxplus.json",
+            "releasesUrl": "static",
             "license": "MPL-2.0",
             "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in"],
             "ghInfo": {
@@ -302,28 +1127,6 @@
                 "owner": "FranklinDM",
                 "repo": "Stratum"
             }
-        },
-        {
-            "slug": "tagfil-dictionary",
-            "type": 64,
-            "owners": [0],
-            "name": "Tagalog/Filipino Dictionary",
-            "description": "A Filipino language spellchecker based on the current orthography.",
-            "license": "GPL-2.0",
-            "mirrors": ["amo"],
-            "ghInfo": {
-                "owner": "FranklinDM",
-                "repo": "tagfil-dictionary"
-            }
-        },
-        {
-            "slug": "languagepack-tl",
-            "type": 8,
-            "name": "Tagalog/Filipino (PH)",
-            "description": "",
-            "owners": [6],
-            "xpiUrl": "http://archive.palemoon.org/palemoon/langpacks/30.x/30.0.1/tl.xpi",
-            "hash": ""
         },
         {
             "slug": "aeromoon",
@@ -900,7 +1703,7 @@
             "owners": [4],
             "iconUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=20181",
-            "releasesUrl": "assets/static/halloween.json",
+            "releasesUrl": "static",
             "mirrors": ["phoebus_pm"]
         },
         {
