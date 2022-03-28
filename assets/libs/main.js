@@ -32,6 +32,7 @@ const JSON_METADATA = "assets/metadata.json";
 const JSON_LICENSES = "assets/licenses.json";
 const CONTENT_TYPE_XPI = "application/x-xpinstall";
 
+const URL_ASSETS_STATIC = "assets/static";
 const URL_GITHUB_API = "https://api.github.com/repos";
 const URL_GITHUB = "https://github.com";
 const URL_LICENSE = "https://opensource.org/licenses";
@@ -792,8 +793,12 @@ var gSite = {
         }
         var compatibilityData = null;
         if (addon.releasesUrl) {
-            let response = await gAPI.request(addon.releasesUrl);
-            let responseData = response.json;
+            var releasesUrl = addon.releasesUrl;
+            if (releasesUrl == "static") {
+                releasesUrl = `${URL_ASSETS_STATIC}/${addon.slug}.json`;
+            }
+            var response = await gAPI.request(releasesUrl);
+            var responseData = response.json;
             // Take compatibility information from static release data
             // if there is information from the GitHub API
             if (releaseData) {
