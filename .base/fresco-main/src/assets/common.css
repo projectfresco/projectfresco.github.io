@@ -95,6 +95,10 @@ body[data-loaded="true"] #section-primary {
   opacity: 1;
 }
 
+#section-loader .throbber {
+  margin: 5px;
+}
+
 /* ::::: Navigation ::::: */
 
 #page-nav ul {
@@ -137,6 +141,7 @@ th {
   height: 24px;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: contain;
   margin-right: 8px;
 }
 

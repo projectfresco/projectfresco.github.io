@@ -25,6 +25,15 @@ footer {
   margin-bottom: 9px;
 }
 
+.throbber {
+  width: 32px;
+  height: 32px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("throbber.gif");
+}
+
 /* ::::: Content: Box Layout ::::: */
 
 .box {
@@ -91,6 +100,14 @@ footer {
   background-image: url("download.png");
 }
 
+.button.loading > .button-icon {
+  background-image: url("throbber.gif");
+}
+
+.button.disabled {
+  background-color: #D8D8D8;
+}
+
 .button.download {
   border: 1px solid #0099FF;
   background-color: #99CCFF;
@@ -104,6 +121,14 @@ footer {
 
 .list-item:nth-child(even) {
   background: linear-gradient(to right, #F0F0F0 50%, transparent 100%);
+}
+
+.list-item > .button {
+  visibility: collapse;
+}
+
+.list-item:hover > .button {
+  visibility: visible;
 }
 
 /* ::::: Web Fonts ::::: */
