@@ -935,7 +935,7 @@ var gSite = {
         }
 
         if (aVersionHistory) {
-            let releaseDataEntries = Object.entries(releaseData.data)
+            let releaseDataEntries = Object.entries(releaseData.data);
             gSite.title = `${addon.name} - Versions`;
             gUtils.appendLink(ilResources, "Add-on Details", `${URL_APP_BASE}get?addon=${addon.slug}`, false);
 
