@@ -123,6 +123,14 @@ footer {
   background: linear-gradient(to right, #F0F0F0 50%, transparent 100%);
 }
 
+.list-item > .button {
+  visibility: collapse;
+}
+
+.list-item:hover > .button {
+  visibility: visible;
+}
+
 /* ::::: Web Fonts ::::: */
 
 /*!
