@@ -80,7 +80,7 @@ footer {
 }
 
 .button > .button-icon {
-  background-image: url("/addons/assets/images/download.png");
+  background-image: url("../assets/images/download.png");
 }
 
 .button.download {
