@@ -288,6 +288,14 @@ var gUtils = {
                     button.classList.add("loading");
                     let releaseData = await gUtils.getReleaseData(aAddon);
                     let version = releaseData.stable || releaseData.prerelease;
+                    // Return and mark button as disabled if there are
+                    // no available releases
+                    if (!version) {
+                        button.classList.add("disabled");
+                        button.classList.remove("loading");
+                        button.innerText = "Unavailable";
+                        return;
+                    }
                     let release = releaseData.data[version];
                     parameters[aAddon.name] = {
                         URL: release.xpi.url,
