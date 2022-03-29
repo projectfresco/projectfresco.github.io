@@ -269,7 +269,7 @@ var gUtils = {
         return container;
     },
 
-    appendInstallButton: function (aTarget, aAddonName, aInstallData) {
+    appendInstallButton: function (aTarget, aAddon, aInstallData) {
         let button = document.createElement("a");
         let buttonIcon = document.createElement("div");
         button.append(buttonIcon);
@@ -279,13 +279,25 @@ var gUtils = {
         if (gAppInfo.isGRE) {
             button.append("Install Now");
             button.href = "#";
-            button.addEventListener("click", function (aEvent) {
+            button.addEventListener("click", async function (aEvent) {
                 aEvent.preventDefault();
-                var parameters = {
-                    [aAddonName]: aInstallData
-                };
+                var parameters = {};
+                if (aInstallData) {
+                    parameters[aAddon.name] = aInstallData
+                } else {
+                    button.classList.add("loading");
+                    let releaseData = await gUtils.getReleaseData(aAddon);
+                    let version = releaseData.stable || releaseData.prerelease;
+                    let release = releaseData.data[version];
+                    parameters[aAddon.name] = {
+                        URL: release.xpi.url,
+                        IconURL: aAddon.iconUrl,
+                        Hash: release.xpi.hash
+                    };
+                }
                 try {
                     InstallTrigger.install(parameters);
+                    button.classList.remove("loading");
                 } catch (e) {
                     // Rethrow and expose the DOMError
                     console.error(e);
@@ -366,7 +378,7 @@ var gUtils = {
             if (addon.xpi) {
                 gUtils.appendInstallButton(
                     listItem.parentElement,
-                    addon.name,
+                    addon,
                     {
                         URL: addon.xpi.url,
                         IconURL: addon.iconUrl,
@@ -383,6 +395,11 @@ var gUtils = {
 
             if (addon.ghInfo || addon.releasesUrl) {
                 listItem.parentElement.href = `${URL_APP_BASE}get?addon=${addon.slug}`;
+                gUtils.appendInstallButton(
+                    listItem.parentElement,
+                    addon,
+                    null
+                );
             }
 
             // Append list item to extensions list
@@ -964,7 +981,7 @@ var gSite = {
                 if (release.xpi.url) {
                     gUtils.appendInstallButton(
                         listItem.parentElement,
-                        addon.name,
+                        addon,
                         {
                             URL: release.xpi.url,
                             IconURL: addon.iconUrl,
@@ -1047,7 +1064,7 @@ var gSite = {
                 if (release.xpi.url) {
                     gUtils.appendInstallButton(
                         colPrimary.addonInstall,
-                        addon.name,
+                        addon,
                         {
                             URL: release.xpi.url,
                             IconURL: addon.iconUrl,
