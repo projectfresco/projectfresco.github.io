@@ -761,10 +761,7 @@ var gSections = {
         // Throbber
         let throbber = document.createElement("div");
         throbber.className = "throbber";
-
-        let throbberBox = gSections._createInnerBox("loader");
-        throbberBox.appendChild(throbber);
-        section.content.appendChild(throbberBox);
+        section.content.appendChild(throbber);
 
         /* ::: Primary :::*/
         var section = gSections.add("primary");
