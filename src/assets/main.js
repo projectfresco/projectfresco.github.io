@@ -578,6 +578,80 @@ var gUtils = {
     },
 };
 
+var gThemes = {
+    get styleSheetSets() {
+        if (gAppInfo.isGRE && document.styleSheetSets) {
+            return document.styleSheetSets;
+        }
+
+        let styleSheetSets = [];
+        let links = document.getElementsByTagName("link");
+        for (let i = 0; i < links.length; i++) {
+            let currentLink = links[i];
+            if (!currentLink.rel.includes("stylesheet") ||
+                currentLink.title == "") {
+                continue;
+            }
+            if (currentLink.title) {
+                styleSheetSets.push(currentLink.title);
+            }
+        }
+        return styleSheetSets;
+    },
+    
+    set selectedStyleSheetSet(aTitle) {
+        if (gAppInfo.isGRE && document.selectedStyleSheetSet) {
+            document.selectedStyleSheetSet = aTitle;
+            return;
+        }
+
+        let links = document.getElementsByTagName("link");
+        for (let i = 0; i < links.length; i++) {
+            let currentLink = links[i];
+            if (!currentLink.rel.includes("stylesheet") ||
+                !currentLink.title) {
+                continue;
+            }
+            currentLink.disabled = true;
+            if (currentLink.title == aTitle) {
+                currentLink.disabled = false;
+            }
+        }
+    },
+    
+    init: function () {
+        if (gThemes.styleSheetSets.length == 0) {
+            return;
+        }
+
+        let preferredTheme = localStorage.getItem("theme");
+        if (preferredTheme) {
+            gThemes.selectedStyleSheetSet = preferredTheme;
+        }
+
+        let themeSelector = document.createElement("div"); 
+        themeSelector.innerText = "Theme: ";
+
+        let lastIndex = gThemes.styleSheetSets.length - 1;
+        for (let i = 0; i < gThemes.styleSheetSets.length; i++) {
+            let themeName = gThemes.styleSheetSets[i];
+            let themeLink = document.createElement("a");
+            themeLink.href = "#";
+            themeLink.innerText = themeName;
+            themeLink.addEventListener("click", function (aEvent) {
+                aEvent.preventDefault();
+                gThemes.selectedStyleSheetSet = themeName;
+                localStorage.setItem("theme", themeName);
+            });
+            themeSelector.append(themeLink);
+            if (i < lastIndex) {
+                themeSelector.append(" | ");
+            }
+        }
+        gSections.primary.footer.append(themeSelector);
+    },
+};
+
 var gSections = {
     add: function (aName, aFixed) {
         var section = {};
@@ -1085,6 +1159,7 @@ var gSite = {
         gAppInfo.identify();
         gUtils.migrate();
         gSections.init();
+        gThemes.init();
 
         var urlParameters = new URLSearchParams(window.location.search);
         if (urlParameters.has("reset")) {
