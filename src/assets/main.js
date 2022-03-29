@@ -50,6 +50,21 @@ const MIRROR_AMO = "https://addons.mozilla.org/en-US/firefox/addon/";
 
 const LIST_MAX_ITEMS = 25;
 
+var gAppInfo = {
+    identify: function () {
+        var ua = navigator.userAgent;
+        this.isGRE = /Goanna/.test(ua) && InstallTrigger;
+
+        var match = /(PaleMoon|Basilisk|Interlink|Borealis)\/([^\s]*).*$/.exec(ua);
+        if (!match || match.length != 3) {
+            return;
+        }
+
+        this.name = match[1];
+        this.version = match[2];
+    },
+};
+
 var gAPI = {
     request: async function (aUrl, aHeaders = new Headers()) {
         let cacheKey = btoa(aUrl);
@@ -221,34 +236,15 @@ var gAPI = {
     },
 };
 
-var gAppInfo = {
-    identify: function () {
-        var ua = navigator.userAgent;
-        this.isGRE = /Goanna/.test(ua) && InstallTrigger;
-
-        var match = /(PaleMoon|Basilisk|Interlink|Borealis)\/([^\s]*).*$/.exec(ua);
-        if (!match || match.length != 3) {
-            return;
-        }
-
-        this.name = match[1];
-        this.version = match[2];
-    },
-};
-
-var gSite = {
-    _updateTitle: function (aTitle) {
-        document.title = `${aTitle} - Add-ons - ${APP_NAME}`;
-    },
-    
-    _formatDate: function (aDateString) {
+var gUtils = {
+    formatDate: function (aDateString) {
         let date = new Date(aDateString);
         let dateOptions = { year: "numeric", month: "long", day: "numeric" };
         let formattedDate = date.toLocaleDateString(undefined, dateOptions);
         return formattedDate;
     },
 
-    _parseMarkdown: async function (aText) {
+    parseMarkdown: async function (aText) {
         let parsedValue = "";
         await System.import("./assets/libs/marked/marked.min.js")
             .then(function () {
@@ -257,7 +253,7 @@ var gSite = {
         return parsedValue;
     },
 
-    _appendBadge: function (aTarget, aText, aClass = "") {
+    appendBadge: function (aTarget, aText, aClass = "") {
         let badgeElement = document.createElement("span");
         badgeElement.className = `badge ${aClass}`;
         badgeElement.innerText = aText;
@@ -265,7 +261,7 @@ var gSite = {
         return badgeElement;
     },
 
-    _appendHtml: function (aTarget, aHtml, aClass = "") {
+    appendHtml: function (aTarget, aHtml, aClass = "") {
         let container = document.createElement("div");
         container.innerHTML = aHtml;
         container.className = aClass;
@@ -273,7 +269,7 @@ var gSite = {
         return container;
     },
 
-    _appendInstallButton: function (aTarget, aAddonName, aInstallData) {
+    appendInstallButton: function (aTarget, aAddonName, aInstallData) {
         let button = document.createElement("a");
         let buttonIcon = document.createElement("div");
         button.append(buttonIcon);
@@ -305,7 +301,7 @@ var gSite = {
         return button;
     },
 
-    _createListItem: function () {
+    createListItem: function () {
         let listItem = {
             parentElement: document.createElement("a"),
             body: document.createElement("div"),
@@ -330,10 +326,10 @@ var gSite = {
         return listItem;
     },
 
-    _createList: function (aAddons, aDefaultIcon, aPage) {
+    createList: function (aAddons, aDefaultIcon, aPage) {
         let list = document.createElement("div");
         list.className = "list";
-    
+
         var i = 0;
         var length = aAddons.length;
         if (aPage) {
@@ -350,7 +346,7 @@ var gSite = {
 
         for (; i < length; i++) {
             let addon = aAddons[i];
-            let listItem = gSite._createListItem();
+            let listItem = gUtils.createListItem();
 
             // Icon
             if (addon.iconUrl) {
@@ -368,7 +364,7 @@ var gSite = {
 
             // Download button
             if (addon.xpi) {
-                gSite._appendInstallButton(
+                gUtils.appendInstallButton(
                     listItem.parentElement,
                     addon.name,
                     {
@@ -378,11 +374,11 @@ var gSite = {
                     }
                 );
             }
-            
+
             if (addon.externalUrl) {
                 listItem.parentElement.href = addon.externalUrl;
                 listItem.parentElement.target = "_blank";
-                gSite._appendBadge(listItem.title, "External");
+                gUtils.appendBadge(listItem.title, "External");
             }
 
             if (addon.ghInfo || addon.releasesUrl) {
@@ -392,112 +388,11 @@ var gSite = {
             // Append list item to extensions list
             list.appendChild(listItem.parentElement);
         }
-        
+
         return list;
     },
 
-    _createInnerBox: function (aName, aTagName) {
-        let tagName = aTagName ? aTagName : "div";
-        let innerBox = document.createElement(tagName);
-        innerBox.className = "box-inner";
-        innerBox.id = `page-${aName}`;
-        return innerBox;
-    },
-
-    _addSection: function (aName, aFixed) {
-        var section = {};
-
-        // Section element
-        let container = document.createElement("section");
-        if (aFixed) {
-            container.className = "fixed";
-        }
-        container.id = `section-${aName}`;
-        section.container = container;
-        document.body.appendChild(container);
-
-        // Content layout
-        let content = document.createElement("div");
-        content.className = "content-layout box";
-        section.content = content;
-        container.appendChild(content);
-
-        return section;
-    },
-
-    _addLoaderSection: function () {
-        var section = gSite._addSection("loader", true);
-        gSite.loader = section;
-
-        // Throbber
-        let throbber = document.createElement("img");
-        throbber.src = "assets/images/throbber.gif";
-        throbber.width = 32;
-        throbber.height = 32;
-
-        let throbberBox = gSite._createInnerBox("loader");
-        throbberBox.appendChild(throbber);
-        section.content.appendChild(throbberBox);
-    },
-
-    _addPrimarySection: function () {
-        var section = gSite._addSection("primary");
-        gSite.primary = section;
-
-        // Header
-        let header = document.createElement("header");
-        header.id = "page-header";
-        section.header = header;
-
-        let headerInner = document.createElement("div");
-        headerInner.id = "page-header-inner";
-        section.headerInner = headerInner;
-        header.appendChild(headerInner);
-
-        let headerLogo = document.createElement("div");
-        headerLogo.id = "page-header-logo";
-        headerInner.appendChild(headerLogo);
-
-        // Navigation
-        let navList = document.createElement("ul");
-        for (let nav of APP_NAV) {
-            let navItem = document.createElement("li");
-            let navLink = document.createElement("a");
-            navLink.id = `menu-${nav.id}`;
-            navLink.href = nav.url;
-            navLink.innerText = nav.label;
-            navItem.appendChild(navLink);
-            navList.appendChild(navItem);
-        }
-        section.navList = navList;
-
-        let navContainer = document.createElement("nav");
-        navContainer.id = "page-nav";
-        navContainer.appendChild(navList);
-        header.appendChild(navContainer);
-
-        // Main
-        let main = gSite._createInnerBox("main", "main");
-        section.main = main;
-
-        // Footer
-        let footer = document.createElement("footer");
-        footer.innerText = `This site is powered by ${APP_NAME} ${APP_VERSION}.`;
-        section.footer = footer;
-
-        section.content.appendChild(header);
-        section.content.appendChild(main);
-        section.content.appendChild(footer);
-    },
-
-    _setActiveNav: function (aId) {
-        let navLink = document.getElementById(`menu-${aId}`);
-        if (navLink) {
-            navLink.classList.add("active");
-        }
-    },
-
-    _createPaginationLink: function (aUrlParameters, aPageCount, aCurrentPage, aTargetPage, aLabel) {
+    createPaginationLink: function (aUrlParameters, aPageCount, aCurrentPage, aTargetPage, aLabel) {
         let link = document.createElement("a");
         link.className = "pagination-link";
         link.innerText = aLabel || aTargetPage;
@@ -513,10 +408,10 @@ var gSite = {
         return link;
     },
 
-    _createPagination: function (aPageCount, aCurrentPage) {
+    createPagination: function (aPageCount, aCurrentPage) {
         var pagination = document.createElement("div");
         pagination.className = "pagination";
-        
+
         if (aCurrentPage > aPageCount) {
             return pagination;
         }
@@ -530,12 +425,12 @@ var gSite = {
         pagination.append(linkWrapper);
 
         var urlParameters = new URLSearchParams(window.location.search);
-        let prevLink = gSite._createPaginationLink(urlParameters, aPageCount, aCurrentPage, aCurrentPage - 1, "Previous");
-        let nextLink = gSite._createPaginationLink(urlParameters, aPageCount, aCurrentPage, aCurrentPage + 1, "Next");
+        let prevLink = gUtils.createPaginationLink(urlParameters, aPageCount, aCurrentPage, aCurrentPage - 1, "Previous");
+        let nextLink = gUtils.createPaginationLink(urlParameters, aPageCount, aCurrentPage, aCurrentPage + 1, "Next");
 
         linkWrapper.append(prevLink);
         for (let i = startIndex; i < lastIndex; i++) {
-            let link = gSite._createPaginationLink(urlParameters, aPageCount, aCurrentPage, i);
+            let link = gUtils.createPaginationLink(urlParameters, aPageCount, aCurrentPage, i);
             linkWrapper.append(link);
         }
         linkWrapper.append(nextLink);
@@ -544,89 +439,11 @@ var gSite = {
         pageNumber.className = "pagination-page-number";
         pageNumber.innerText = `Page ${aCurrentPage} of ${aPageCount}`;
         pagination.append(pageNumber);
-        
+
         return pagination;
     },
 
-    buildCategoryPage: async function (aTypeSlug, aOwner, aTerms, aPage) {
-        let metadata = await gAPI.getMetadata();
-
-        var types = metadata.types;
-        for (let i = 0; i < types.length; i++) {
-            var listBox = document.createElement("div");
-            listBox.className = "list-wrapper";
-
-            let addonType = types[i];
-            let title = "";
-            if (aTypeSlug) {
-                if (addonType.slug != aTypeSlug) {
-                    continue;
-                }
-                title = addonType.name;
-            } else {
-                title = "All";
-            }
-            gSite._updateTitle(title);
-
-            let listTitle = document.createElement("h1");
-            listTitle.innerText = addonType.name;
-            listTitle.id = addonType.slug;
-            
-            let listDescription = document.createElement("p");
-            listDescription.innerText = addonType.description;
-
-            var ownerId;
-            if (aOwner) {
-                ownerId = await gAPI.getOwnerId(aOwner);
-            }
-
-            if (aTerms) {
-                aTerms = aTerms.trim().toLowerCase();
-            }
-
-            let addons = metadata.addons.filter(function (item) {
-                let matchType = item.type == addonType.type;
-                let matchOwner = true;
-                if (aOwner && item.owners) {
-                    matchOwner = item.owners.includes(ownerId);
-                }
-                let matchTerms = true;
-                if (aTerms) {
-                    matchTerms = item.name.toLowerCase().includes(aTerms) ||
-                                 item.description && item.description.includes(aTerms);
-                }
-                
-                return matchType && matchOwner && matchTerms;
-            }).sort(function (a, b) {
-                return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-            });
-            if (addons.length == 0) {
-                continue;
-            }
-
-            let list = gSite._createList(addons, addonType.defaultIcon, aPage);
-
-            listBox.append(listTitle);
-            if (!aOwner && !aTerms) {
-                listBox.append(listDescription);
-            }
-            listBox.append(list);
-            if (aPage) {
-                let pageCount = Math.ceil(addons.length / LIST_MAX_ITEMS);
-                listBox.append(gSite._createPagination(pageCount, aPage));
-            }
-
-            gSite.primary.main.appendChild(listBox);
-        }
-
-        if (aTypeSlug) {
-            gSite._setActiveNav(aTypeSlug);
-        } else {
-            gSite._setActiveNav("all");
-        }
-    },
-
-    _createIsland: function (aTitle) {
+    createIsland: function (aTitle) {
         let island = document.createElement("div");
         island.className = "island";
 
@@ -639,7 +456,7 @@ var gSite = {
         return island;
     },
 
-    _appendLink: function (aTarget, aText, aUrl, aExternal) {
+    appendLink: function (aTarget, aText, aUrl, aExternal) {
         let link = document.createElement("a");
         link.innerText = aText;
         link.href = aUrl;
@@ -651,7 +468,7 @@ var gSite = {
         return link;
     },
 
-    _createAddonColumn: function (aSecondary) {
+    createAddonColumn: function (aSecondary) {
         var column = {};
 
         let container = document.createElement("div");
@@ -701,7 +518,7 @@ var gSite = {
         return column;
     },
 
-    _appendLinkGroup(aTarget, aLinks, aClassName) {
+    appendLinkGroup(aTarget, aLinks, aClassName) {
         let container = document.createElement("div");
         container.className = aClassName;
         let lastIndex = aLinks.length - 1;
@@ -720,7 +537,7 @@ var gSite = {
         aTarget.appendChild(container);
     },
 
-    _createOwners: async function (aOwnerIds, aLink) {
+    createOwners: async function (aOwnerIds, aLink) {
         let ownerData = await gAPI.getOwners();
         if (!aOwnerIds) {
             return "{unknown owner}";
@@ -746,26 +563,227 @@ var gSite = {
         return ownersList;
     },
 
+    clearStorage: function () {
+        console.log(`Clearing local storage`);
+        localStorage.clear();
+        localStorage.setItem("version", APP_VERSION);
+    },
+
+    migrate: function () {
+        let version = localStorage.getItem("version");
+        if (version && version == APP_VERSION) {
+            return;
+        }
+        gUtils.clearStorage();
+    },
+};
+
+var gSections = {
+    add: function (aName, aFixed) {
+        var section = {};
+
+        // Section element
+        let container = document.createElement("section");
+        if (aFixed) {
+            container.className = "fixed";
+        }
+        container.id = `section-${aName}`;
+        section.container = container;
+        document.body.appendChild(container);
+
+        // Content layout
+        let content = document.createElement("div");
+        content.className = "content-layout box";
+        section.content = content;
+        container.appendChild(content);
+
+        return section;
+    },
+
+    _createInnerBox: function (aName, aTagName) {
+        let tagName = aTagName ? aTagName : "div";
+        let innerBox = document.createElement(tagName);
+        innerBox.className = "box-inner";
+        innerBox.id = `page-${aName}`;
+        return innerBox;
+    },
+
+    init: function () {
+        /* ::: Loader :::*/
+        var section = gSections.add("loader", true);
+        gSections.loader = section;
+
+        // Throbber
+        let throbber = document.createElement("img");
+        throbber.src = "assets/images/throbber.gif";
+        throbber.width = 32;
+        throbber.height = 32;
+
+        let throbberBox = gSections._createInnerBox("loader");
+        throbberBox.appendChild(throbber);
+        section.content.appendChild(throbberBox);
+
+        /* ::: Primary :::*/
+        var section = gSections.add("primary");
+        gSections.primary = section;
+
+        // Header
+        let header = document.createElement("header");
+        header.id = "page-header";
+        section.header = header;
+
+        let headerInner = document.createElement("div");
+        headerInner.id = "page-header-inner";
+        section.headerInner = headerInner;
+        header.appendChild(headerInner);
+
+        let headerLogo = document.createElement("div");
+        headerLogo.id = "page-header-logo";
+        headerInner.appendChild(headerLogo);
+
+        // Navigation
+        let navList = document.createElement("ul");
+        for (let nav of APP_NAV) {
+            let navItem = document.createElement("li");
+            let navLink = document.createElement("a");
+            navLink.id = `menu-${nav.id}`;
+            navLink.href = nav.url;
+            navLink.innerText = nav.label;
+            navItem.appendChild(navLink);
+            navList.appendChild(navItem);
+        }
+        section.navList = navList;
+
+        let navContainer = document.createElement("nav");
+        navContainer.id = "page-nav";
+        navContainer.appendChild(navList);
+        header.appendChild(navContainer);
+
+        // Main
+        let main = gSections._createInnerBox("main", "main");
+        section.main = main;
+
+        // Footer
+        let footer = document.createElement("footer");
+        footer.innerText = `This site is powered by ${APP_NAME} ${APP_VERSION}.`;
+        section.footer = footer;
+
+        section.content.appendChild(header);
+        section.content.appendChild(main);
+        section.content.appendChild(footer);
+    },
+
+    setActiveNav: function (aId) {
+        let navLink = document.getElementById(`menu-${aId}`);
+        if (navLink) {
+            navLink.classList.add("active");
+        }
+    },
+};
+
+var gSite = {
+    set title(aTitle) {
+        document.title = `${aTitle} - Add-ons - ${APP_NAME}`;
+    },
+
+    buildCategoryPage: async function (aTypeSlug, aOwner, aTerms, aPage) {
+        let metadata = await gAPI.getMetadata();
+
+        var types = metadata.types;
+        for (let i = 0; i < types.length; i++) {
+            var listBox = document.createElement("div");
+            listBox.className = "list-wrapper";
+
+            let addonType = types[i];
+            let title = "";
+            if (aTypeSlug) {
+                if (addonType.slug != aTypeSlug) {
+                    continue;
+                }
+                title = addonType.name;
+            } else {
+                title = "All";
+            }
+            gSite.title = title;
+
+            let listTitle = document.createElement("h1");
+            listTitle.innerText = addonType.name;
+            listTitle.id = addonType.slug;
+
+            let listDescription = document.createElement("p");
+            listDescription.innerText = addonType.description;
+
+            var ownerId;
+            if (aOwner) {
+                ownerId = await gAPI.getOwnerId(aOwner);
+            }
+
+            if (aTerms) {
+                aTerms = aTerms.trim().toLowerCase();
+            }
+
+            let addons = metadata.addons.filter(function (item) {
+                let matchType = item.type == addonType.type;
+                let matchOwner = true;
+                if (aOwner && item.owners) {
+                    matchOwner = item.owners.includes(ownerId);
+                }
+                let matchTerms = true;
+                if (aTerms) {
+                    matchTerms = item.name.toLowerCase().includes(aTerms) ||
+                                 item.description && item.description.includes(aTerms);
+                }
+
+                return matchType && matchOwner && matchTerms;
+            }).sort(function (a, b) {
+                return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+            });
+            if (addons.length == 0) {
+                continue;
+            }
+
+            let list = gUtils.createList(addons, addonType.defaultIcon, aPage);
+
+            listBox.append(listTitle);
+            if (!aOwner && !aTerms) {
+                listBox.append(listDescription);
+            }
+            listBox.append(list);
+            if (aPage) {
+                let pageCount = Math.ceil(addons.length / LIST_MAX_ITEMS);
+                listBox.append(gUtils.createPagination(pageCount, aPage));
+            }
+
+            gSections.primary.main.appendChild(listBox);
+        }
+
+        if (aTypeSlug) {
+            gSections.setActiveNav(aTypeSlug);
+        } else {
+            gSections.setActiveNav("all");
+        }
+    },
+
     buildAddonPage: async function (aAddonSlug, aVersionHistory) {
         var addon = await gAPI.getAddon(aAddonSlug);
         if (!addon) {
-            gSite.primary.main.innerText = "Invalid add-on.";
+            gSections.primary.main.innerText = "Invalid add-on.";
             gSite.doneLoading();
             return;
         }
 
         var addonType = await gAPI.getAddonTypeFromId(addon.type);
-        gSite._setActiveNav(addonType.slug);
+        gSections.setActiveNav(addonType.slug);
 
-        gSite.primary.main.classList.add("two-col");
-        var colPrimary = gSite._createAddonColumn();
-        var colSecondary = gSite._createAddonColumn(true);
+        gSections.primary.main.classList.add("two-col");
+        var colPrimary = gUtils.createAddonColumn();
+        var colSecondary = gUtils.createAddonColumn(true);
 
-        gSite.primary.main.appendChild(colPrimary.container);
-        gSite.primary.main.appendChild(colSecondary.container);
+        gSections.primary.main.appendChild(colPrimary.container);
+        gSections.primary.main.appendChild(colSecondary.container);
 
-        var ilLicense = gSite._createIsland("License");
-        var ilResources = gSite._createIsland("Resources");
+        var ilLicense = gUtils.createIsland("License");
+        var ilResources = gUtils.createIsland("Resources");
 
         colPrimary.addonIcon.src = addonType.defaultIcon;
         if (addon.iconUrl) {
@@ -779,10 +797,10 @@ var gSite = {
             let licenses = await gAPI.getLicenses();
             licenseText = licenses.names[addon.license];
         } else {
-            let ownersList = await gSite._createOwners(addon.owners);
+            let ownersList = await gUtils.createOwners(addon.owners);
             licenseText = `© ${new Date().getFullYear()} ${ownersList}`;
         }
-        gSite._appendLink(ilLicense, licenseText, licenseUrl, true);
+        gUtils.appendLink(ilLicense, licenseText, licenseUrl, true);
 
         // Add-on releases data
         var releaseData = null;
@@ -806,64 +824,64 @@ var gSite = {
             }
         }
         if (releaseData == null) {
-            gSite.primary.main.innerText = "Release data missing.";
+            gSections.primary.main.innerText = "Release data missing.";
             gSite.doneLoading();
             return;
         }
 
         // Show message thrown by API and return early
         if (releaseData.message) {
-            gSite.primary.main.innerText = releaseData.message;
+            gSections.primary.main.innerText = releaseData.message;
             gSite.doneLoading();
             return;
         }
 
         if (aVersionHistory) {
             let releaseDataEntries = Object.entries(releaseData.data)
-            gSite._updateTitle(`${addon.name} - Versions`);
-            gSite._appendLink(ilResources, "Add-on Details", `${URL_APP_BASE}get?addon=${addon.slug}`, false);
+            gSite.title = `${addon.name} - Versions`;
+            gUtils.appendLink(ilResources, "Add-on Details", `${URL_APP_BASE}get?addon=${addon.slug}`, false);
 
-            gSite._appendHtml(colPrimary.addonSummary, `${addon.name} Versions`, "h1");
-            gSite._appendHtml(colPrimary.addonSummary, `${releaseDataEntries.length} releases`);
+            gUtils.appendHtml(colPrimary.addonSummary, `${addon.name} Versions`, "h1");
+            gUtils.appendHtml(colPrimary.addonSummary, `${releaseDataEntries.length} releases`);
 
             let releaseList = document.createElement("div");
             colPrimary.content.appendChild(releaseList);
 
             for (let [version, release] of releaseDataEntries) {
-                let listItem = gSite._createListItem();
+                let listItem = gUtils.createListItem();
                 listItem.icon.remove();
                 listItem.title.innerText = release.name;
                 if (release.prerelease) {
-                    gSite._appendBadge(listItem.title, "Pre-release", "prerelease");
+                    gUtils.appendBadge(listItem.title, "Pre-release", "prerelease");
                 }
                 if (release.datePublished) {
-                    let dateString = gSite._formatDate(release.datePublished);
-                    gSite._appendHtml(listItem.desc, `Released: ${dateString}`);
+                    let dateString = gUtils.formatDate(release.datePublished);
+                    gUtils.appendHtml(listItem.desc, `Released: ${dateString}`);
                 }
                 if (release.xpi.size) {
-                    gSite._appendHtml(listItem.desc, `Size: ${Math.round(release.xpi.size / 1024)} KB`);
+                    gUtils.appendHtml(listItem.desc, `Size: ${Math.round(release.xpi.size / 1024)} KB`);
                 }
                 if (release.xpiDownloadCount) {
-                    gSite._appendHtml(listItem.desc, `Downloads: ${release.xpiDownloadCount}`);
+                    gUtils.appendHtml(listItem.desc, `Downloads: ${release.xpiDownloadCount}`);
                 }
                 let releaseCompatibility = release.applications ||
                     (compatibilityData &&
                      compatibilityData[version].applications);
                 if (releaseCompatibility) {
-                    gSite._appendHtml(listItem.desc, "Works with:");
+                    gUtils.appendHtml(listItem.desc, "Works with:");
                     for (let j = 0; j < releaseCompatibility.length; j++) {
                         let compatInfo = releaseCompatibility[j];
                         let appInfo = await gAPI.getApplicationFromId(compatInfo.id);
-                        gSite._appendHtml(listItem.desc, `${appInfo.displayName} ${compatInfo.minVersion} to ${compatInfo.maxVersion}`);
+                        gUtils.appendHtml(listItem.desc, `${appInfo.displayName} ${compatInfo.minVersion} to ${compatInfo.maxVersion}`);
                     }
                 }
                 if (release.changelog) {
-                    gSite._appendHtml(listItem.desc, await gSite._parseMarkdown(release.changelog));
+                    gUtils.appendHtml(listItem.desc, await gUtils.parseMarkdown(release.changelog));
                 }
 
                 let artifactLinks = [];
                 if (release.xpi.url) {
-                    gSite._appendInstallButton(
+                    gUtils.appendInstallButton(
                         listItem.parentElement,
                         addon.name,
                         {
@@ -889,64 +907,64 @@ var gSite = {
                         url: release.zipballUrl
                     });
                 }
-                gSite._appendLinkGroup(listItem.desc, artifactLinks, "addon-artifacts");
+                gUtils.appendLinkGroup(listItem.desc, artifactLinks, "addon-artifacts");
                 releaseList.appendChild(listItem.parentElement);
             }
         } else {
-            gSite._updateTitle(addon.name);
-            gSite._appendLink(ilResources, "Version History", `${URL_APP_BASE}versions?addon=${addon.slug}`, false);
+            gSite.title = addon.name;
+            gUtils.appendLink(ilResources, "Version History", `${URL_APP_BASE}versions?addon=${addon.slug}`, false);
 
             let version = releaseData.stable || releaseData.prerelease;
             let release = releaseData.data[version];
 
-            let ownersList = await gSite._createOwners(addon.owners, true);
-            gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
-            gSite._appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
+            let ownersList = await gUtils.createOwners(addon.owners, true);
+            gUtils.appendHtml(colPrimary.addonSummary, addon.name, "h1");
+            gUtils.appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
             if (addon.description) {
-                gSite._appendHtml(colPrimary.addonSummary, addon.description);
+                gUtils.appendHtml(colPrimary.addonSummary, addon.description);
             }
 
             if (release) {
                 if (release.name) {
-                    var ilVersion = gSite._createIsland("Version");
+                    var ilVersion = gUtils.createIsland("Version");
                     colSecondary.content.appendChild(ilVersion);
-                    gSite._appendHtml(ilVersion, release.name);
+                    gUtils.appendHtml(ilVersion, release.name);
                 }
                 if (release.datePublished) {
-                    var ilLastUpdated = gSite._createIsland("Last Updated");
+                    var ilLastUpdated = gUtils.createIsland("Last Updated");
                     colSecondary.content.appendChild(ilLastUpdated);
-                    let releaseDate = gSite._formatDate(release.datePublished);
-                    gSite._appendHtml(ilLastUpdated, releaseDate);
+                    let releaseDate = gUtils.formatDate(release.datePublished);
+                    gUtils.appendHtml(ilLastUpdated, releaseDate);
                 }
                 if (release.xpi.size) {
-                    var ilSize = gSite._createIsland("Size");
+                    var ilSize = gUtils.createIsland("Size");
                     colSecondary.content.appendChild(ilSize);
-                    gSite._appendHtml(ilSize, `${Math.round(release.xpi.size / 1024)} KB`);
+                    gUtils.appendHtml(ilSize, `${Math.round(release.xpi.size / 1024)} KB`);
                 }
                 if (releaseData.totalDownloadCount) {
-                    var ilDownloads = gSite._createIsland("Total Downloads");
+                    var ilDownloads = gUtils.createIsland("Total Downloads");
                     colSecondary.content.appendChild(ilDownloads);
-                    gSite._appendHtml(ilDownloads, releaseData.totalDownloadCount);
+                    gUtils.appendHtml(ilDownloads, releaseData.totalDownloadCount);
                 }
                 let releaseCompatibility = release.applications ||
                     (compatibilityData &&
                      compatibilityData[version].applications);
                 if (releaseCompatibility) {
-                    var ilCompatibility = gSite._createIsland("Compatibility");
+                    var ilCompatibility = gUtils.createIsland("Compatibility");
                     colPrimary.content.appendChild(ilCompatibility);
                     for (let j = 0; j < releaseCompatibility.length; j++) {
                         let compatInfo = releaseCompatibility[j];
                         let appInfo = await gAPI.getApplicationFromId(compatInfo.id);
-                        gSite._appendHtml(ilCompatibility, `${appInfo.displayName} ${compatInfo.minVersion} to ${compatInfo.maxVersion}`);
+                        gUtils.appendHtml(ilCompatibility, `${appInfo.displayName} ${compatInfo.minVersion} to ${compatInfo.maxVersion}`);
                     }
                 }
                 if (release.changelog) {
-                    var ilChangelog = gSite._createIsland("Release Notes");
-                    gSite._appendHtml(ilChangelog, await gSite._parseMarkdown(release.changelog));
+                    var ilChangelog = gUtils.createIsland("Release Notes");
+                    gUtils.appendHtml(ilChangelog, await gUtils.parseMarkdown(release.changelog));
                     colPrimary.content.appendChild(ilChangelog);
                 }
                 if (release.xpi.url) {
-                    gSite._appendInstallButton(
+                    gUtils.appendInstallButton(
                         colPrimary.addonInstall,
                         addon.name,
                         {
@@ -957,22 +975,22 @@ var gSite = {
                     );
                 }
             } else {
-                var ilMessage = gSite._createIsland("Message");
-                gSite._appendHtml(ilMessage, "This add-on has no releases.");
+                var ilMessage = gUtils.createIsland("Message");
+                gUtils.appendHtml(ilMessage, "This add-on has no releases.");
                 colPrimary.content.appendChild(ilMessage);
             }
         }
 
         if (addon.supportEmail) {
-            gSite._appendLink(ilResources, "Support E-mail", addon.supportEmail, true);
+            gUtils.appendLink(ilResources, "Support E-mail", addon.supportEmail, true);
         }
         if (addon.supportUrl) {
-            gSite._appendLink(ilResources, "Support Site", addon.supportUrl, true);
+            gUtils.appendLink(ilResources, "Support Site", addon.supportUrl, true);
         }
         if (addon.repositoryUrl) {
-            gSite._appendLink(ilResources, "Source Repository", addon.repositoryUrl, true);
+            gUtils.appendLink(ilResources, "Source Repository", addon.repositoryUrl, true);
         } else if (addon.ghInfo) {
-            gSite._appendLink(ilResources, "Source Repository", gAPI.getRepositoryUrl(addon.ghInfo), true);
+            gUtils.appendLink(ilResources, "Source Repository", gAPI.getRepositoryUrl(addon.ghInfo), true);
         }
         if (addon.mirrors) {
             for (let i = 0; i < addon.mirrors.length; i++) {
@@ -997,7 +1015,7 @@ var gSite = {
                         mirrorUrl = MIRROR_AMO + addon.slug;
                         break;
                 }
-                gSite._appendLink(ilResources, mirrorName, mirrorUrl, true);
+                gUtils.appendLink(ilResources, mirrorName, mirrorUrl, true);
             }
         }
 
@@ -1008,18 +1026,18 @@ var gSite = {
     buildLicensePage: async function (aAddonSlug) {
         var addon = await gAPI.getAddon(aAddonSlug);
         if (!addon) {
-            gSite.primary.main.innerText = "Invalid add-on.";
+            gSections.primary.main.innerText = "Invalid add-on.";
             gSite.doneLoading();
             return;
         }
 
         var addonType = await gAPI.getAddonTypeFromId(addon.type);
-        gSite._setActiveNav(addonType.slug);
+        gSections.setActiveNav(addonType.slug);
 
-        gSite._updateTitle(`${addon.name} - License`);
+        gSite.title = `${addon.name} - License`;
 
         if (addon.license && addon.license != "PD") {
-            gSite.primary.main.innerText = "Redirecting to license page...";
+            gSections.primary.main.innerText = "Redirecting to license page...";
             let licenseUrl;
             if (addon.license == "custom" && addon.licenseUrl) {
                 licenseUrl = addon.licenseUrl;
@@ -1030,15 +1048,15 @@ var gSite = {
             return;
         }
 
-        var colPrimary = gSite._createAddonColumn();
-        gSite.primary.main.appendChild(colPrimary.container);
-        gSite.primary.main.classList.add("two-col");
+        var colPrimary = gUtils.createAddonColumn();
+        gSections.primary.main.appendChild(colPrimary.container);
+        gSections.primary.main.classList.add("two-col");
 
         // License data
         var licenses = await gAPI.getLicenses();
         // Show message thrown by API and return early
         if (licenses.message) {
-            gSite.primary.main.innerText = licenses.message;
+            gSections.primary.main.innerText = licenses.message;
             gSite.doneLoading();
             return;
         }
@@ -1048,44 +1066,29 @@ var gSite = {
             colPrimary.addonIcon.src = addon.iconUrl;
         }
 
-        gSite._appendHtml(colPrimary.addonSummary, addon.name, "h1");
-        var ownersList = await gSite._createOwners(addon.owners, true);
-        gSite._appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
+        gUtils.appendHtml(colPrimary.addonSummary, addon.name, "h1");
+        var ownersList = await gUtils.createOwners(addon.owners, true);
+        gUtils.appendHtml(colPrimary.addonSummary, `By ${ownersList}`);
 
-        var ilLicense = gSite._createIsland("License");
+        var ilLicense = gUtils.createIsland("License");
         var licenseText = "";
         if (addon.license == "PD") {
             licenseText = licenses.licenseText["publicDomain"];
         } else {
             licenseText = licenses.licenseText["copyrighted"];
         }
-        gSite._appendHtml(ilLicense, licenseText);
+        gUtils.appendHtml(ilLicense, licenseText);
         colPrimary.content.appendChild(ilLicense);
-    },
-
-    _clearStorage: function () {
-        console.log(`Clearing local storage`);
-        localStorage.clear();
-        localStorage.setItem("version", APP_VERSION);
-    },
-
-    _migrate: function () {
-        let version = localStorage.getItem("version");
-        if (version && version == APP_VERSION) {
-            return;
-        }
-        gSite._clearStorage();
     },
 
     onLoad: async function () {
         gAppInfo.identify();
-        gSite._migrate();
-        gSite._addLoaderSection();
-        gSite._addPrimarySection();
+        gUtils.migrate();
+        gSections.init();
 
         var urlParameters = new URLSearchParams(window.location.search);
         if (urlParameters.has("reset")) {
-            gSite._clearStorage();
+            gUtils.clearStorage();
         }
         var addonSlug = urlParameters.get("addon");
 
@@ -1105,7 +1108,7 @@ var gSite = {
             // Add-on
             case 1:
                 if (!addonSlug) {
-                    gSite.primary.main.innerText = "Missing add-on parameter.";
+                    gSections.primary.main.innerText = "Missing add-on parameter.";
                     gSite.doneLoading();
                     return;
                 }
@@ -1113,7 +1116,7 @@ var gSite = {
                 break;
             case 2:
                 if (!addonSlug) {
-                    gSite.primary.main.innerText = "Missing add-on parameter.";
+                    gSections.primary.main.innerText = "Missing add-on parameter.";
                     gSite.doneLoading();
                     return;
                 }
