@@ -454,10 +454,8 @@ var gSite = {
         section.headerInner = headerInner;
         header.appendChild(headerInner);
 
-        let headerLogo = document.createElement("img");
+        let headerLogo = document.createElement("div");
         headerLogo.id = "page-header-logo";
-        headerLogo.src = "assets/images/header_logo.svg";
-        section.headerLogo = headerLogo;
         headerInner.appendChild(headerLogo);
 
         // Navigation
