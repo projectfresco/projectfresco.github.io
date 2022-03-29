@@ -59,7 +59,11 @@ footer {
 }
 
 #page-header-logo {
-  height: 40px;
+  background-image: url("header_logo.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 160px;
+  height: 45px;
 }
 
 @media screen and (max-width: 768px) {
