@@ -100,7 +100,7 @@ var gAPI = {
         let url = `${URL_GITHUB_API}${aOptions.owner}/${aOptions.repo}/${aEndpoint}`;
         let headers = new Headers();
 
-        System.import("./assets/libs/config.js").then(() => {
+        System.import("./assets/config.js").then(() => {
             headers = new Headers({
                 "Authorization": gat(),
             });

@@ -121,7 +121,7 @@ footer {
 }
 
 .button > .button-icon {
-  background-image: url("../assets/images/download_alt.png");
+  background-image: url("download.png");
 }
 
 .button.download {
