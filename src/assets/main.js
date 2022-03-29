@@ -274,11 +274,11 @@ var gUtils = {
         let buttonIcon = document.createElement("div");
         button.append(buttonIcon);
         button.className = "button";
+        button.href = "#";
         buttonIcon.className = "button-icon";
 
         if (gAppInfo.isGRE) {
             button.append("Install Now");
-            button.href = "#";
             button.addEventListener("click", async function (aEvent) {
                 aEvent.preventDefault();
                 var parameters = {};
@@ -313,7 +313,27 @@ var gUtils = {
             });
         } else {
             button.append("Download");
-            button.href = aInstallData.URL;
+            if (aInstallData) {
+                button.href = aInstallData.URL;
+            } else {
+                button.addEventListener("click", async function (aEvent) {
+                    aEvent.preventDefault();
+                    button.classList.add("loading");
+                    let releaseData = await gUtils.getReleaseData(aAddon);
+                    let version = releaseData.stable || releaseData.prerelease;
+                    // Return and mark button as disabled if there are
+                    // no available releases
+                    if (!version) {
+                        button.classList.add("disabled");
+                        button.classList.remove("loading");
+                        button.innerText = "Unavailable";
+                        return;
+                    }
+                    let release = releaseData.data[version];
+                    window.location.href = release.xpi.url;
+                    button.classList.remove("loading");
+                });
+            }
             button.classList.add("download");
         }
 
