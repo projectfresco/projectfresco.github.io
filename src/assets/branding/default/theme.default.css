@@ -30,6 +30,15 @@ footer {
   padding: 1em 0;
 }
 
+.throbber {
+  width: 32px;
+  height: 32px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("throbber.gif");
+}
+
 /* ::::: Content: Box Layout ::::: */
 
 .box {
@@ -125,6 +134,14 @@ footer {
 
 .button > .button-icon {
   background-image: url("download.png");
+}
+
+.button.loading > .button-icon {
+  background-image: url("throbber.gif");
+}
+
+.button.disabled {
+  background-color: #D8D8D8;
 }
 
 .button.download {

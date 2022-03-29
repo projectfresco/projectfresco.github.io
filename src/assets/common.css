@@ -137,6 +137,7 @@ th {
   height: 24px;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: contain;
   margin-right: 8px;
 }
 
