@@ -1,0 +1,194 @@
+{
+    "totalDownloadCount": 0,
+    "stable": "8.32",
+    "prerelease": "",
+    "data": {
+        "8.32": {
+            "name": "8.32",
+            "changelog": "",
+            "prerelease": false,
+            "datePublished": "2020-03-15T06:29:00Z",
+            "dateCreated": "2020-03-15T06:29:00Z",
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/halloween-8.32.xpi",
+                "hash": "",
+                "size": 1809156,
+                "downloadCount": 0
+            },
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
+        },
+        "8.31": {
+            "name": "8.31",
+            "changelog": "",
+            "prerelease": false,
+            "datePublished": "2019-09-27T08:16:00Z",
+            "dateCreated": "2019-09-27T08:16:00Z",
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.31.xpi",
+                "hash": "",
+                "size": 1801729,
+                "downloadCount": 0
+            },
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
+        },
+        "8.30": {
+            "name": "8.30",
+            "changelog": "",
+            "prerelease": false,
+            "datePublished": "2019-09-27T08:16:00Z",
+            "dateCreated": "2019-09-27T08:16:00Z",
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.30.xpi",
+                "hash": "",
+                "size": 1801708,
+                "downloadCount": 0
+            },
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
+        },
+        "8.23": {
+            "name": "8.23",
+            "changelog": "",
+            "prerelease": false,
+            "datePublished": "2019-09-27T08:16:00Z",
+            "dateCreated": "2019-09-27T08:16:00Z",
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.23.xpi",
+                "hash": "",
+                "size": 1801625,
+                "downloadCount": 0
+            },
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
+        },
+        "8.22": {
+            "name": "8.22",
+            "changelog": "",
+            "prerelease": false,
+            "datePublished": "2019-09-27T08:16:00Z",
+            "dateCreated": "2019-09-27T08:16:00Z",
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.22.xpi",
+                "hash": "",
+                "size": 1738640,
+                "downloadCount": 0
+            },
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
+        },
+        "8.21": {
+            "name": "8.21",
+            "changelog": "",
+            "prerelease": false,
+            "datePublished": "2019-09-27T08:16:00Z",
+            "dateCreated": "2019-09-27T08:16:00Z",
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.21.xpi",
+                "hash": "",
+                "size": 1733231,
+                "downloadCount": 0
+            },
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
+        },
+        "8.2": {
+            "name": "8.2",
+            "changelog": "",
+            "prerelease": false,
+            "datePublished": "2019-09-27T08:16:00Z",
+            "dateCreated": "2019-09-27T08:16:00Z",
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.2.xpi",
+                "hash": "",
+                "size": 1725474,
+                "downloadCount": 0
+            },
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
+        },
+        "8.01": {
+            "name": "8.01",
+            "changelog": "",
+            "prerelease": false,
+            "datePublished": "2019-09-27T08:16:00Z",
+            "dateCreated": "2019-09-27T08:16:00Z",
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.01.xpi",
+                "hash": "",
+                "size": 1695196,
+                "downloadCount": 0
+            },
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
+        },
+        "8.0": {
+            "name": "8.0",
+            "changelog": "",
+            "prerelease": false,
+            "datePublished": "2019-09-27T08:16:00Z",
+            "dateCreated": "2019-09-27T08:16:00Z",
+            "xpi": {
+                "url": "https://archive.palemoon.org/addons/29.x/addons/halloween/Halloween-PM-8.0.xpi",
+                "hash": "",
+                "size": 1694784,
+                "downloadCount": 0
+            },
+            "owners": [4],
+            "applications": [
+                {
+                    "id": 1,
+                    "minVersion": "27.0.0b3",
+                    "maxVersion": "29.*"
+                }
+            ]
+        }
+    }
+}
