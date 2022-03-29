@@ -1219,7 +1219,7 @@ var gSite = {
             case 0:
                 var category = urlParameters.get("category");
                 var user = urlParameters.get("user");
-                var searchTerms = urlParameters.get("terms");
+                var searchTerms = urlParameters.get("q");
                 var page = parseInt(urlParameters.get("page"));
                 // Ignore page parameter if showing all add-ons
                 if (!category && page) {
