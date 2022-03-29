@@ -576,6 +576,32 @@ var gUtils = {
         }
         gUtils.clearStorage();
     },
+    
+    getReleaseData: async function (aAddon) {
+        var releaseData = null;
+
+        if (aAddon.ghInfo) {
+            releaseData = await gAPI.getReleases(aAddon.ghInfo);
+        }
+
+        if (aAddon.releasesUrl) {
+            var releasesUrl = aAddon.releasesUrl;
+            if (releasesUrl == "static") {
+                releasesUrl = `${URL_CONTENT_RELEASES}/${aAddon.slug}.json`;
+            }
+            var response = await gAPI.request(releasesUrl);
+            var responseData = response.json;
+            // Take compatibility information from static release data
+            // if there is information from the GitHub API
+            if (releaseData) {
+                releaseData.compatibility = responseData.data;
+            } else {
+                releaseData = responseData;
+            }
+        }
+
+        return releaseData;
+    },
 };
 
 var gThemes = {
@@ -877,26 +903,7 @@ var gSite = {
         gUtils.appendLink(ilLicense, licenseText, licenseUrl, true);
 
         // Add-on releases data
-        var releaseData = null;
-        if (addon.ghInfo) {
-            releaseData = await gAPI.getReleases(addon.ghInfo);
-        }
-        var compatibilityData = null;
-        if (addon.releasesUrl) {
-            var releasesUrl = addon.releasesUrl;
-            if (releasesUrl == "static") {
-                releasesUrl = `${URL_CONTENT_RELEASES}/${addon.slug}.json`;
-            }
-            var response = await gAPI.request(releasesUrl);
-            var responseData = response.json;
-            // Take compatibility information from static release data
-            // if there is information from the GitHub API
-            if (releaseData) {
-                compatibilityData = responseData.data;
-            } else {
-                releaseData = responseData;
-            }
-        }
+        var releaseData = await gUtils.getReleaseData(addon);
         if (releaseData == null) {
             gSections.primary.main.innerText = "Release data missing.";
             gSite.doneLoading();
@@ -939,8 +946,8 @@ var gSite = {
                     gUtils.appendHtml(listItem.desc, `Downloads: ${release.xpiDownloadCount}`);
                 }
                 let releaseCompatibility = release.applications ||
-                    (compatibilityData &&
-                     compatibilityData[version].applications);
+                    (releaseData.compatibility &&
+                     releaseData.compatibility[version].applications);
                 if (releaseCompatibility) {
                     gUtils.appendHtml(listItem.desc, "Works with:");
                     for (let j = 0; j < releaseCompatibility.length; j++) {
@@ -1021,8 +1028,8 @@ var gSite = {
                     gUtils.appendHtml(ilDownloads, releaseData.totalDownloadCount);
                 }
                 let releaseCompatibility = release.applications ||
-                    (compatibilityData &&
-                     compatibilityData[version].applications);
+                    (releaseData.compatibility &&
+                     releaseData.compatibility[version].applications);
                 if (releaseCompatibility) {
                     var ilCompatibility = gUtils.createIsland("Compatibility");
                     colPrimary.content.appendChild(ilCompatibility);
