@@ -1,0 +1,150 @@
+/* ::::: Primary ::::: */
+
+:root {
+  --color-primary: #0B3775;
+  --color-accent: #000000;
+  --link-color: #163665;
+  --link-hover-color: #C01314;
+  --radius: 9px;
+}
+
+html {
+  font-family: "Museo Sans 500", "Helvetica", "Segoe UI", "Roboto", sans-serif;
+  background-color: #7A98B5;
+  background-image: linear-gradient(to bottom, #7598B9 0%, #A3B5CB 70%, #AFAABD 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+footer {
+  color: #666666;
+  text-align: center;
+  line-height: 13px;
+  font-size: 10px;
+  margin-top: 3px;
+  margin-bottom: 9px;
+}
+
+/* ::::: Content: Box Layout ::::: */
+
+.box {
+  box-shadow: 2px 2px 8px #333333;
+  border-radius: var(--radius);
+  padding: 3px;
+  background-color: #F9F9F9;
+  color: black;
+}
+
+.box-inner {
+  padding: 17px 9px 9px 9px;
+}
+
+/* ::::: Header ::::: */
+
+#page-header-inner {
+  font-size: 1.5em;
+  color: var(--color-primary);
+  background: #9FB3CB;
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 1em 1em 0.5em 1em;
+}
+
+#page-header-logo {
+  background-image: url("header_logo.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 160px;
+  height: 45px;
+}
+
+/* ::::: Navigation ::::: */
+
+#page-nav {
+  background: #5272A1;
+}
+
+#page-nav ul > li a {
+  display: block;
+  padding: 7px 1em;
+  color: #ffffff;
+  font-size: 11.5pt;
+  text-decoration: none;
+}
+
+#page-nav ul > li a:focus,
+#page-nav ul > li a:hover {
+  background-color: #024B97;
+}
+
+/* ::::: Buttons ::::: */
+
+.button {
+  border: 1px solid #009900;
+  border-radius: 9px;
+  background-color: #99FF99;
+  width: 120px;
+  height: 21px;
+  padding: 14px;
+}
+
+.button > .button-icon {
+  background-image: url("download.png");
+}
+
+.button.download {
+  border: 1px solid #0099FF;
+  background-color: #99CCFF;
+}
+
+/* ::::: Lists ::::: */
+
+.list-item[href]:hover {
+  color: var(--link-color);
+}
+
+.list-item:nth-child(even) {
+  background: linear-gradient(to right, #F0F0F0 50%, transparent 100%);
+}
+
+/* ::::: Web Fonts ::::: */
+
+/*!
+ * Web Fonts from Fontspring.com
+ *
+ * All OpenType features and all extended glyphs have been removed.
+ * Fully installable fonts can be purchased at https://www.fontspring.com
+ *
+ * The fonts included in this stylesheet are subject to the End User License you purchased
+ * from Fontspring. The fonts are protected under domestic and international trademark and 
+ * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+ * distributing this font software.
+ *
+ * (c) 2010-2022 Fontspring
+ *
+ *
+ *
+ *
+ * The fonts included are copyrighted by the vendor listed below.
+ *
+ * Vendor:      exljbris Font Foundry
+ * License URL: https://www.fontspring.com/licenses/exljbris/webfont
+ *
+ *
+ */
+
+@font-face {
+    font-family: 'Museo Slab 500';
+    src: url('museoslab_500.woff2') format('woff2'),
+         url('museoslab_500.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Museo Slab 500';
+    src: url('museoslab_italic_500.woff2') format('woff2'),
+         url('museoslab_italic_500.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
