@@ -739,10 +739,8 @@ var gSections = {
         gSections.loader = section;
 
         // Throbber
-        let throbber = document.createElement("img");
-        throbber.src = "assets/images/throbber.gif";
-        throbber.width = 32;
-        throbber.height = 32;
+        let throbber = document.createElement("div");
+        throbber.className = "throbber";
 
         let throbberBox = gSections._createInnerBox("loader");
         throbberBox.appendChild(throbber);
