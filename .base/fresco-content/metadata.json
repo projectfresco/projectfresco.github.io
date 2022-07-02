@@ -1,5 +1,5 @@
 {
-    "lastUpdated": 1656776248,
+    "lastUpdated": 1656779811,
     "applications": [
         {
             "name": "toolkit",
@@ -87,6 +87,10 @@
         {
             "username": "misteuk",
             "displayName": "misteuk"
+        },
+        {
+            "username": "martok",
+            "displayName": "Sebastian Hütter"
         }
     ],
     "types": [
@@ -1736,6 +1740,18 @@
                 "owner": "JustOff",
                 "repo": "github-wc-polyfill"
             }
-        }        
+        },
+        {
+            "slug": "palefill",
+            "type": 2,
+            "name": "Pale Moon Web Technologies Polyfill Add-On",
+            "description": "Inject Polyfills for various web technologies into pages requiring them.",
+            "owners": [10],
+            "license": "MPL-2.0",
+            "ghInfo": {
+                "owner": "martok",
+                "repo": "palefill"
+            }
+        }
     ]
 }
