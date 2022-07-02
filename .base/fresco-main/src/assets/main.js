@@ -1,6 +1,6 @@
 const URL_APP_BASE = "/addons/";
 
-const CONTENT_REVISION = "?rel=1656775116";
+const CONTENT_REVISION = "?rel=1656776248";
 
 const URL_CONTENT = "/addons-content/";
 const URL_CONTENT_METADATA = URL_CONTENT + "metadata.json" + CONTENT_REVISION;
