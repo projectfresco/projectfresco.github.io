@@ -1,5 +1,5 @@
 {
-    "lastUpdated": 1656775116,
+    "lastUpdated": 1656776248,
     "applications": [
         {
             "name": "toolkit",
@@ -931,18 +931,6 @@
             "ghInfo": {
                 "owner": "FranklinDM",
                 "repo": "tagfil-dictionary"
-            }
-        },
-        {
-            "slug": "languagepack-tl",
-            "type": 8,
-            "name": "Tagalog/Filipino (PH)",
-            "description": "",
-            "owners": [6],
-            "license": "MPL-2.0",
-            "xpi": {
-                "url": "http://archive.palemoon.org/palemoon/langpacks/30.x/30.0.1/tl.xpi",
-                "hash": ""
             }
         },
         {
