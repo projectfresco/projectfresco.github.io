@@ -1,5 +1,5 @@
 {
-    "lastUpdated": 1656779811,
+    "lastUpdated": 1657676397,
     "applications": [
         {
             "name": "toolkit",
@@ -1744,9 +1744,10 @@
         {
             "slug": "palefill",
             "type": 2,
-            "name": "Pale Moon Web Technologies Polyfill Add-On",
+            "name": "Palefill",
             "description": "Inject Polyfills for various web technologies into pages requiring them.",
             "owners": [10],
+            "iconUrl": "https://raw.githubusercontent.com/martok/palefill/master/icon64.png",
             "license": "MPL-2.0",
             "ghInfo": {
                 "owner": "martok",
