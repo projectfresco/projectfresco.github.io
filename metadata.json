@@ -1,5 +1,5 @@
 {
-    "lastUpdated": 1657676397,
+    "lastUpdated": 1659090883,
     "applications": [
         {
             "name": "toolkit",
@@ -1707,8 +1707,7 @@
             "owners": [4],
             "iconUrl": "https://archive.palemoon.org/addons/29.x/addons/halloween/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=20181",
-            "releasesUrl": "static",
-            "mirrors": ["phoebus_pm"]
+            "externalUrl": "https://addons.palemoon.org/addon/halloween/"
         },
         {
             "slug": "ex-031",
