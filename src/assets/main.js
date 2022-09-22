@@ -46,6 +46,7 @@ const CONTENT_TYPE_XPI = "application/x-xpinstall";
 const MIRROR_PHOEBUS_PM = "https://addons.palemoon.org/addon/";
 const MIRROR_PHOEBUS_BK = "https://addons.basilisk-browser.org/addon/";
 const MIRROR_PHOEBUS_IN = "https://interlink-addons.binaryoutcast.com/addon/";
+const MIRROR_PHOEBUS_ES = "https://addons.epyrus.org/addon/";
 const MIRROR_AMO = "https://addons.mozilla.org/en-US/firefox/addon/";
 
 const LIST_MAX_ITEMS = 25;
@@ -1130,6 +1131,10 @@ var gSite = {
                     case "phoebus_in":
                         mirrorName += "Interlink Add-ons Site";
                         mirrorUrl = MIRROR_PHOEBUS_IN + addon.slug;
+                        break;
+                    case "phoebus_es":
+                        mirrorName += "Epyrus Add-ons Site";
+                        mirrorUrl = MIRROR_PHOEBUS_ES + addon.slug;
                         break;
                     case "amo":
                         mirrorName += "Mozilla Add-ons Site";
