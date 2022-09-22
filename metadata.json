@@ -1,5 +1,5 @@
 {
-    "lastUpdated": 1663873844,
+    "lastUpdated": 1663880836,
     "applications": [
         {
             "name": "toolkit",
@@ -19,6 +19,11 @@
         {
             "name": "interlink",
             "displayName": "Interlink Mail and News",
+            "guid": "{3550f703-e582-4d05-9a08-453d09bdfdc6}"
+        },
+        {
+            "name": "epyrus",
+            "displayName": "Epyrus",
             "guid": "{3550f703-e582-4d05-9a08-453d09bdfdc6}"
         },
         {
@@ -961,7 +966,7 @@
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/NoteStruck/master/src/icon64.png",
             "supportUrl": "https://github.com/FranklinDM/NoteStruck/issues",
             "license": "MPL-2.0",
-            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in"],
+            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in", "phoebus_es"],
             "ghInfo": {
                 "owner": "FranklinDM",
                 "repo": "NoteStruck"
@@ -976,7 +981,7 @@
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Splashed/master/src/skin/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=16042",
             "license": "GPL-3.0",
-            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in"],
+            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in", "phoebus_es"],
             "ghInfo": {
                 "owner": "FranklinDM",
                 "repo": "Splashed"
@@ -991,7 +996,7 @@
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/PTXE/master/src/icon.png",
             "supportUrl": "https://github.com/FranklinDM/PTXE/issues",
             "license": "MPL-2.0",
-            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in"],
+            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in", "phoebus_es"],
             "ghInfo": {
                 "owner": "FranklinDM",
                 "repo": "PTXE"
@@ -1037,7 +1042,7 @@
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=26620",
             "releasesUrl": "static",
             "license": "MPL-2.0",
-            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in"],
+            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in", "phoebus_es"],
             "ghInfo": {
                 "owner": "FranklinDM",
                 "repo": "ToolboxPlus"
@@ -1067,7 +1072,7 @@
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Milestone10/master/src/icon64.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=23201",
             "license": "MPL-2.0",
-            "mirrors": ["phoebus_pm", "phoebus_in"],
+            "mirrors": ["phoebus_pm", "phoebus_in", "phoebus_es"],
             "ghInfo": {
                 "owner": "FranklinDM",
                 "repo": "Milestone10"
@@ -1082,7 +1087,7 @@
             "iconUrl": "https://raw.githubusercontent.com/FranklinDM/Moonscape/master/src/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=14492",
             "license": "GPL-3.0",
-            "mirrors": ["phoebus_pm", "phoebus_in"],
+            "mirrors": ["phoebus_pm", "phoebus_in", "phoebus_es"],
             "ghInfo": {
                 "owner": "FranklinDM",
                 "repo": "Moonscape"
@@ -1156,7 +1161,7 @@
             "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/australium/master/src/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
             "license": "MPL-2.0",
-            "mirrors": ["phoebus_pm", "phoebus_in"],
+            "mirrors": ["phoebus_pm", "phoebus_in", "phoebus_es"],
             "ghInfo": {
                 "owner": "Lootyhoof",
                 "repo": "australium"
@@ -1456,7 +1461,7 @@
             "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/photonic/master/src/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
             "license": "MPL-2.0",
-            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in"],
+            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in", "phoebus_es"],
             "ghInfo": {
                 "owner": "Lootyhoof",
                 "repo": "photonic"
@@ -1561,7 +1566,7 @@
             "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/tangerinemoon/master/src/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
             "license": "MPL-2.0",
-            "mirrors": ["phoebus_pm", "phoebus_in"],
+            "mirrors": ["phoebus_pm", "phoebus_in", "phoebus_es"],
             "ghInfo": {
                 "owner": "Lootyhoof",
                 "repo": "tangerinemoon"
@@ -1576,7 +1581,7 @@
             "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/tangomoon/master/src/icon.png",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
             "license": "MPL-2.0",
-            "mirrors": ["phoebus_pm", "phoebus_in"],
+            "mirrors": ["phoebus_pm", "phoebus_in", "phoebus_es"],
             "ghInfo": {
                 "owner": "Lootyhoof",
                 "repo": "tangomoon"
@@ -1650,7 +1655,7 @@
             "iconUrl": "https://raw.githubusercontent.com/Lootyhoof/stylem/master/src/skin/32.svg",
             "supportUrl": "https://forum.palemoon.org/viewtopic.php?f=46&t=28016",
             "license": "GPL-3.0",
-            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in"],
+            "mirrors": ["phoebus_pm", "phoebus_bk", "phoebus_in", "phoebus_es"],
             "ghInfo": {
                 "owner": "Lootyhoof",
                 "repo": "stylem"
