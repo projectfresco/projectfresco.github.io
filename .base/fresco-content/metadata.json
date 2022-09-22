@@ -1,5 +1,5 @@
 {
-    "lastUpdated": 1659090883,
+    "lastUpdated": 1663873844,
     "applications": [
         {
             "name": "toolkit",
@@ -1223,7 +1223,7 @@
             }
         },
         {
-            "slug": "fox2themoon",
+            "slug": "fox-2-the-moon",
             "type": 4,
             "name": "Fox 2 The Moon",
             "description": "The default Firefox 2 theme for Pale Moon. Fork of \"Firefox 2, the theme, reloaded\" by rctgamer3 et al.",
@@ -1388,7 +1388,7 @@
             }
         },
         {
-            "slug": "noiamoon",
+            "slug": "noia-moon-theme",
             "type": 4,
             "name": "Noia Moon",
             "description": "Theme for Pale Moon based on Noia Iconpack by Carlitus (deviantART). Fork of \"Noia Fox\" by David.Vincent.",
@@ -1726,19 +1726,6 @@
             "owners": [5],
             "iconUrl": "https://archive.palemoon.org/addons/29.x/addons/ex-039/icon.png",
             "externalUrl": "https://realityripple.com/Software/Themes/In-The-Dark/Pale-Moon/Bloodmoon-Edition/"
-        },
-        {
-            "slug": "github-wc-polyfill",
-            "type": 2,
-            "name": "GitHub/GitLab Web Components Polyfill",
-            "description": "Ensures that all GitHub and GitLab scripts required for UXP and SeaMonkey are loaded correctly.",
-            "owners": [7, 8, 9],
-            "iconUrl": "https://raw.githubusercontent.com/JustOff/github-wc-polyfill/master/icon.png",
-            "license": "MPL-2.0",
-            "ghInfo": {
-                "owner": "JustOff",
-                "repo": "github-wc-polyfill"
-            }
         },
         {
             "slug": "palefill",
