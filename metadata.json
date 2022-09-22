@@ -1223,7 +1223,7 @@
             }
         },
         {
-            "slug": "fox2themoon",
+            "slug": "fox-2-the-moon",
             "type": 4,
             "name": "Fox 2 The Moon",
             "description": "The default Firefox 2 theme for Pale Moon. Fork of \"Firefox 2, the theme, reloaded\" by rctgamer3 et al.",
@@ -1388,7 +1388,7 @@
             }
         },
         {
-            "slug": "noiamoon",
+            "slug": "noia-moon-theme",
             "type": 4,
             "name": "Noia Moon",
             "description": "Theme for Pale Moon based on Noia Iconpack by Carlitus (deviantART). Fork of \"Noia Fox\" by David.Vincent.",
