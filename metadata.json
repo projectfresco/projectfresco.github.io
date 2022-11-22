@@ -1,5 +1,5 @@
 {
-    "lastUpdated": 1663880836,
+    "lastUpdated": 1669151154,
     "applications": [
         {
             "name": "toolkit",
@@ -84,6 +84,10 @@
         {
             "username": "justoff",
             "displayName": "JustOff"
+        },
+        {
+            "username": "gorhill",
+            "displayName": "Raymond Hill"
         },
         {
             "username": "seahoh",
@@ -1743,6 +1747,19 @@
             "ghInfo": {
                 "owner": "martok",
                 "repo": "palefill"
+            }
+        },
+        {
+            "slug": "ublock-origin",
+            "type": 2,
+            "name": "uBlock Origin",
+            "description": "Finally, an efficient blocker. Easy on CPU and memory.",
+            "owners": [7, 8],
+            "iconUrl": "https://raw.githubusercontent.com/gorhill/uBlock-for-firefox-legacy/master/src/img/ublock.svg",
+            "license": "GPL-3.0",
+            "ghInfo": {
+                "owner": "gorhill",
+                "repo": "uBlock-for-firefox-legacy"
             }
         }
     ]
