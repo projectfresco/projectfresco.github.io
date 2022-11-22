@@ -56,7 +56,7 @@ var gAppInfo = {
         var ua = navigator.userAgent;
         this.isGRE = /Goanna/.test(ua) && InstallTrigger;
 
-        var match = /(PaleMoon|Basilisk|Interlink|Borealis)\/([^\s]*).*$/.exec(ua);
+        var match = /(PaleMoon|Basilisk|Interlink|Borealis|Epyrus)\/([^\s]*).*$/.exec(ua);
         if (!match || match.length != 3) {
             return;
         }
