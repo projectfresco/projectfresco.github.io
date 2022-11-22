@@ -12,7 +12,7 @@ const URL_GITHUB = "https://github.com/";
 const URL_LICENSE = "https://opensource.org/licenses/";
 
 const APP_NAME = "Fresco";
-const APP_VERSION = "0.0.1a3";
+const APP_VERSION = "0.0.1a4";
 const APP_NAV = [
     {
         id: "all",
@@ -56,7 +56,7 @@ var gAppInfo = {
         var ua = navigator.userAgent;
         this.isGRE = /Goanna/.test(ua) && InstallTrigger;
 
-        var match = /(PaleMoon|Basilisk|Interlink|Borealis)\/([^\s]*).*$/.exec(ua);
+        var match = /(PaleMoon|Basilisk|Interlink|Borealis|Epyrus)\/([^\s]*).*$/.exec(ua);
         if (!match || match.length != 3) {
             return;
         }
