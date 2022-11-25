@@ -1,0 +1,6 @@
+[submodule ".base/fresco-main"]
+	path = .base/fresco-main
+	url = git@github.com:projectfresco/fresco.git
+[submodule ".base/fresco-content"]
+	path = .base/fresco-content
+	url = git@github.com:projectfresco/fresco-content.git
